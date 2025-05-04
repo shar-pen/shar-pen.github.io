@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/04/langchain-tutorial-series/09.retriever/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Langchain 入门教程 - 9.向量数据库检索器">
+<meta property="og:url" content="http://example.com/2025/05/04/langchain-tutorial-series/09.Retriever/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:43:57.513Z">
+<meta property="article:modified_time" content="2025-05-04T14:47:59.259Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Langchain">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Langchain 入门教程 - 9.向量数据库检索器 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Langchain 入门教程 - 9.向量数据库检索器</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:43:57</span>
+        <span class="mobile">2025-05-04 22:43:57</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:47:59</span>
+            <span class="mobile">2025-05-04 22:47:59</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Langchain/">Langchain</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.8k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>27 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="VectorStore-backed-Retriever"><a href="#VectorStore-backed-Retriever" class="headerlink" title="VectorStore-backed Retriever"></a>VectorStore-backed Retriever</h1><p><strong>基于VectorStore的检索器</strong> 是一种文档检索系统，它利用向量存储根据文档的向量表示来进行搜索。这种方法使得基于相似度的搜索变得高效，特别适用于处理非结构化数据。</p>
+<p>RAG系统中的文档搜索和响应生成步骤包括：</p>
+<ol>
+<li><strong>文档加载</strong>：导入原始文档。</li>
+<li><strong>文本切分</strong>：将文本切分成可管理的块。</li>
+<li><strong>向量嵌入</strong>：使用嵌入模型将文本转换为数值向量。</li>
+<li><strong>存储到向量数据库</strong>：将生成的嵌入向量存储到向量数据库中，以便高效检索。</li>
+</ol>
+<p>在查询阶段：</p>
+<ul>
+<li>流程：用户查询 → 嵌入 → 在向量存储中搜索 → 检索相关块 → LLM生成响应</li>
+<li>用户的查询被转化为一个嵌入向量，使用嵌入模型。</li>
+<li>该查询嵌入向量与向量数据库中存储的文档向量进行比较，以 <strong>检索最相关的结果</strong>。</li>
+<li>检索到的文档块被传递给大语言模型（LLM），该模型基于检索到的信息生成最终响应。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> faiss</span><br><span class="line"><span class="keyword">from</span> langchain_core.documents <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"><span class="keyword">from</span> langchain_community.docstore.in_memory <span class="keyword">import</span> InMemoryDocstore</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"></span><br><span class="line">openai_embedding = OpenAIEmbeddings(</span><br><span class="line">	model=<span class="string">"bge-m3"</span>,</span><br><span class="line">	base_url=<span class="string">'http://localhost:9997/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'cannot be empty'</span>,</span><br><span class="line">	<span class="comment"># dimensions=1024,</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">embed_dim = <span class="built_in">len</span>(openai_embedding.embed_query(<span class="string">"hello world"</span>))</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">texts = [</span><br><span class="line">    <span class="string">"AI helps doctors diagnose diseases faster, improving patient outcomes."</span>,</span><br><span class="line">    <span class="string">"AI can analyze medical images to detect conditions like cancer."</span>,</span><br><span class="line">    <span class="string">"Machine learning predicts patient outcomes based on health data."</span>,</span><br><span class="line">    <span class="string">"AI speeds up drug discovery by predicting the effectiveness of compounds."</span>,</span><br><span class="line">    <span class="string">"AI monitors patients remotely, enabling proactive care for chronic diseases."</span>,</span><br><span class="line">    <span class="string">"AI automates administrative tasks, saving time for healthcare workers."</span>,</span><br><span class="line">    <span class="string">"NLP extracts insights from electronic health records for better care."</span>,</span><br><span class="line">    <span class="string">"AI chatbots help with patient assessments and symptom checking."</span>,</span><br><span class="line">    <span class="string">"AI improves drug manufacturing, ensuring better quality and efficiency."</span>,</span><br><span class="line">    <span class="string">"AI optimizes hospital operations and reduces healthcare costs."</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">documents = [</span><br><span class="line">	Document(text, metadata={<span class="string">"source"</span>:text})</span><br><span class="line">	<span class="keyword">for</span> text <span class="keyword">in</span> texts</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">db = FAISS.from_documents(documents, openai_embedding)</span><br></pre></td></tr></table></figure></div>
+
+<p>一旦向量数据库创建完成，就可以使用检索方法，如 <strong>相似度搜索</strong> 和 <strong>最大边际相关性（MMR）</strong>，加载并查询数据库，从中搜索相关的文本。</p>
+<p><code>as_retriever</code> 方法允许你将一个向量数据库转换为一个检索器，从而实现从向量库中高效地搜索和检索文档。</p>
+<p><strong>工作原理</strong>：</p>
+<ul>
+<li><code>as_retriever()</code> 方法将一个向量库（如 FAISS）转换为一个检索器对象，使其与 LangChain 的检索工作流兼容。</li>
+<li>这个检索器可以直接用于 RAG 流水线，或与大型语言模型（LLM）结合，用于构建智能搜索系统。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">retriever = db.as_retriever()</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="高级检索器配置"><a href="#高级检索器配置" class="headerlink" title="高级检索器配置"></a><strong>高级检索器配置</strong></h2><p><code>as_retriever</code> 方法允许你配置高级检索策略，如 <strong>相似度搜索</strong>、<strong>最大边际相关性（MMR）</strong> 和 <strong>基于相似度分数阈值的过滤</strong>。</p>
+<p><strong>参数：</strong></p>
+<ul>
+<li><code>**kwargs</code>：传递给检索函数的关键字参数：<ul>
+<li><code>search_type</code>：指定搜索方法。<ul>
+<li><code>"similarity"</code>：基于余弦相似度返回最相关的文档。</li>
+<li><code>"mmr"</code>：利用最大边际相关性算法，平衡 <strong>相关性</strong> 和 <strong>多样性</strong>。</li>
+<li><code>"similarity_score_threshold"</code>：返回相似度分数超过指定阈值的文档。</li>
+</ul>
+</li>
+<li><code>search_kwargs</code>：其他用于微调结果的搜索选项：<ul>
+<li><code>k</code>：返回的文档数量（默认值：<code>4</code>）。</li>
+<li><code>score_threshold</code>：用于 <code>"similarity_score_threshold"</code> 搜索类型的最小相似度分数（例如：<code>0.8</code>）。</li>
+<li><code>fetch_k</code>：在 MMR 搜索过程中最初检索的文档数量（默认值：<code>20</code>）。</li>
+<li><code>lambda_mult</code>：控制 MMR 结果中的多样性（<code>0</code> = 最大多样性，<code>1</code> = 最大相关性，默认值：<code>0.5</code>）。</li>
+<li><code>filter</code>：用于选择性文档检索的元数据过滤。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<ul>
+<li><code>VectorStoreRetriever</code>：初始化后的检索器对象，可以直接用于文档搜索任务。</li>
+</ul>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>支持多种搜索策略（<code>similarity</code>、<code>MMR</code>、<code>similarity_score_threshold</code>）。</li>
+<li>MMR 通过减少结果中的冗余，提升结果多样性同时保持相关性。</li>
+<li>元数据过滤使得根据文档属性选择性地检索文档成为可能。</li>
+<li><code>tags</code> 参数可以用于给检索器加标签，以便更好地组织和识别。</li>
+</ul>
+<p><strong>警告：</strong></p>
+<ul>
+<li>使用 MMR 时的多样性控制：<ul>
+<li>小心调整 <code>fetch_k</code>（最初检索的文档数量）和 <code>lambda_mult</code>（多样性控制因子）以获得最佳平衡。</li>
+<li><code>lambda_mult</code>：<ul>
+<li>较低值（&lt; 0.5）→ 优先考虑多样性。</li>
+<li>较高值（&gt; 0.5）→ 优先考虑相关性。</li>
+</ul>
+</li>
+<li>为有效的多样性控制，设置 <code>fetch_k</code> 大于 <code>k</code>。</li>
+</ul>
+</li>
+<li>阈值设置：<ul>
+<li>使用较高的 <code>score_threshold</code>（例如 0.95）可能会导致没有结果。</li>
+</ul>
+</li>
+<li>元数据过滤：<ul>
+<li>在应用过滤器之前，确保元数据结构已经定义好。</li>
+</ul>
+</li>
+<li>平衡配置：<ul>
+<li>为了获得最佳的检索性能，保持 <code>search_type</code> 和 <code>search_kwargs</code> 设置之间的适当平衡。</li>
+</ul>
+</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">retriever = db.as_retriever(</span><br><span class="line">    search_type=<span class="string">"similarity_score_threshold"</span>, </span><br><span class="line">    search_kwargs={</span><br><span class="line">        <span class="string">"k"</span>: <span class="number">5</span>,  <span class="comment"># Return the top 5 most relevant documents</span></span><br><span class="line">        <span class="string">"score_threshold"</span>: <span class="number">0.5</span>  <span class="comment"># Only return documents with a similarity score of 0.4 or higher</span></span><br><span class="line">    }</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">query = <span class="string">"How does AI improve healthcare?"</span></span><br><span class="line">results = retriever.invoke(query)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display search results</span></span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> results:</span><br><span class="line">    <span class="built_in">print</span>(doc.page_content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>No relevant docs were retrieved using the relevance score threshold 0.5
+</code></pre>
+<h2 id="检索器的-invoke-方法"><a href="#检索器的-invoke-方法" class="headerlink" title="检索器的 invoke() 方法"></a>检索器的 <code>invoke()</code> 方法</h2><p><code>invoke()</code> 方法是与检索器交互的主要入口点。它用于根据给定的查询搜索并检索相关的文档。</p>
+<p><strong>工作原理：</strong></p>
+<ol>
+<li><strong>查询提交</strong>：用户提交查询字符串作为输入。</li>
+<li><strong>嵌入生成</strong>：如果需要，查询会被转换成向量表示。</li>
+<li><strong>搜索过程</strong>：检索器使用指定的搜索策略（如相似度、MMR 等）在向量数据库中进行搜索。</li>
+<li><strong>结果返回</strong>：该方法返回一组相关的文档片段。</li>
+</ol>
+<p><strong>参数：</strong></p>
+<ul>
+<li><p><code>input</code>（必需）：</p>
+<ul>
+<li>用户提供的查询字符串。</li>
+<li>查询会被转换成向量，并与存储的文档向量进行相似度比较，以进行基于相似度的检索。</li>
+</ul>
+</li>
+<li><p><code>config</code>（可选）：</p>
+<ul>
+<li>允许对检索过程进行细粒度控制。</li>
+<li>可用于指定 <strong>标签、元数据插入和搜索策略</strong>。</li>
+</ul>
+</li>
+<li><p><code>**kwargs</code>（可选）：</p>
+<ul>
+<li>允许直接传递 <code>search_kwargs</code> 进行高级配置。</li>
+<li>示例选项包括：<ul>
+<li><code>k</code>：返回的文档数量。</li>
+<li><code>score_threshold</code>：文档被包括的最低相似度分数。</li>
+<li><code>fetch_k</code>：MMR 搜索中最初检索的文档数量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>返回值：</strong></p>
+<ul>
+<li><code>List[Document]</code>：<ul>
+<li>返回包含检索到的文本和元数据的文档对象列表。</li>
+<li>每个文档对象包括：<ul>
+<li><code>page_content</code>：文档的主要内容。</li>
+<li><code>metadata</code>：与文档相关联的元数据（例如，来源、标签）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>用例 1</strong></p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docs = retriever.invoke(<span class="string">"What is an embedding?"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">    <span class="built_in">print</span>(doc.page_content)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"========================================================="</span>)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Machine learning predicts patient outcomes based on health data.
+=========================================================
+AI monitors patients remotely, enabling proactive care for chronic diseases.
+=========================================================
+AI chatbots help with patient assessments and symptom checking.
+=========================================================
+</code></pre>
+<p><strong>用例 2</strong></p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># search options: top 5 results with a similarity score ≥ 0.7</span></span><br><span class="line">docs = retriever.invoke(</span><br><span class="line">    <span class="string">"What is a vector database?"</span>,</span><br><span class="line">    search_kwargs={<span class="string">"k"</span>: <span class="number">5</span>, <span class="string">"score_threshold"</span>: <span class="number">0.7</span>}</span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">    <span class="built_in">print</span>(doc.page_content)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"========================================================="</span>)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Machine learning predicts patient outcomes based on health data.
+=========================================================
+AI monitors patients remotely, enabling proactive care for chronic diseases.
+=========================================================
+AI chatbots help with patient assessments and symptom checking.
+=========================================================
+</code></pre>
+<h2 id="最大边际相关性-MMR"><a href="#最大边际相关性-MMR" class="headerlink" title="最大边际相关性 (MMR)"></a>最大边际相关性 (MMR)</h2><p><strong>最大边际相关性 (MMR)</strong> 搜索方法是一种文档检索算法，旨在通过平衡相关性和多样性来减少冗余，从而返回结果时提高多样性。</p>
+<p><strong>MMR 的工作原理：</strong><br>与仅根据相似度分数返回最相关文档的基本相似度搜索不同，MMR 考虑了两个关键因素：</p>
+<ol>
+<li><strong>相关性</strong>：衡量文档与用户查询的匹配程度。</li>
+<li><strong>多样性</strong>：确保检索到的文档彼此不同，避免重复的结果。</li>
+</ol>
+<p><strong>关键参数：</strong></p>
+<ul>
+<li><code>search_type="mmr"</code>：启用 MMR 检索策略。</li>
+<li><code>k</code>：应用多样性过滤后返回的文档数量（默认值：<code>4</code>）。</li>
+<li><code>fetch_k</code>：应用多样性过滤前最初检索的文档数量（默认值：<code>20</code>）。</li>
+<li><code>lambda_mult</code>：多样性控制因子（<code>0 = 最大多样性</code>，<code>1 = 最大相关性</code>，默认值：<code>0.5</code>）。</li>
+</ul>
+<h2 id="相似度分数阈值搜索"><a href="#相似度分数阈值搜索" class="headerlink" title="相似度分数阈值搜索"></a>相似度分数阈值搜索</h2><p><strong>相似度分数阈值搜索</strong>是一种检索方法，只有当文档的相似度分数超过预定义的阈值时才会返回。该方法有助于筛选出低相关性的结果，确保返回的文档与查询高度相关。</p>
+<p><strong>关键特性：</strong></p>
+<ul>
+<li><strong>相关性过滤</strong>：仅返回相似度分数高于指定阈值的文档。</li>
+<li><strong>可调精度</strong>：通过 <code>score_threshold</code> 参数调整阈值。</li>
+<li><strong>启用搜索类型</strong>：通过设置 <code>search_type="similarity_score_threshold"</code> 启用此搜索方法。</li>
+</ul>
+<p>这种搜索方法非常适用于需要<strong>高度精确</strong>结果的任务，例如事实核查或回答技术性查询。</p>
+<h2 id="配置-top-k（调整返回文档的数量）"><a href="#配置-top-k（调整返回文档的数量）" class="headerlink" title="配置 top_k（调整返回文档的数量）"></a>配置 <code>top_k</code>（调整返回文档的数量）</h2><ul>
+<li><p>参数 <code>k</code> 指定在向量搜索过程中返回的文档数量。它决定了从向量数据库中检索到的 <strong>排名最高</strong>（基于相似度分数）的文档数量。</p>
+</li>
+<li><p>通过在 <code>search_kwargs</code> 中设置 <code>k</code> 值，可以调整检索到的文档数量。</p>
+</li>
+<li><p>例如，设置 <code>k=1</code> 将仅返回 <strong>最相关的 1 篇文档</strong>，该文档基于相似度排序。</p>
+</li>
+</ul>
+<h1 id="ContextualCompressionRetriever"><a href="#ContextualCompressionRetriever" class="headerlink" title="ContextualCompressionRetriever"></a>ContextualCompressionRetriever</h1><p><code>ContextualCompressionRetriever</code> 是 LangChain 中的一种强大工具，旨在通过根据上下文压缩检索到的文档来优化检索过程。这个检索器特别适用于需要对大量数据进行动态总结或过滤的场景，确保只有最相关的信息传递到后续处理步骤。</p>
+<p><code>ContextualCompressionRetriever</code> 的主要特点包括：</p>
+<ul>
+<li><strong>上下文感知压缩</strong>：文档会根据特定的上下文或查询进行压缩，确保相关性并减少冗余。</li>
+<li><strong>灵活的集成</strong>：与其他 LangChain 组件无缝工作，便于集成到现有的管道中。</li>
+<li><strong>可定制的压缩</strong>：支持使用不同的压缩技术，包括摘要模型和基于嵌入的方法，来根据需求定制检索过程。</li>
+</ul>
+<p><code>ContextualCompressionRetriever</code> 特别适用于以下应用：</p>
+<ul>
+<li>为问答系统总结大量数据。</li>
+<li>通过提供简洁且相关的回答来提升聊天机器人性能。</li>
+<li>提高文档密集型任务（如法律分析或学术研究）的效率。</li>
+</ul>
+<p>通过使用这个检索器，开发者可以显著减少计算开销，并提高提供给最终用户的信息质量。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> TextLoader</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> CharacterTextSplitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. Generate Loader to lthe text file using TextLoader</span></span><br><span class="line">loader = TextLoader(<span class="string">"./data/appendix-keywords.txt"</span>)\</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Generate text chunks using CharacterTextSplitter and split the text into chunks of 300 characters with no overlap.</span></span><br><span class="line">text_splitter = CharacterTextSplitter(chunk_size=<span class="number">400</span>, chunk_overlap=<span class="number">0</span>)</span><br><span class="line">texts = loader.load_and_split(text_splitter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Generate vector store using FAISS and convert it to retriever</span></span><br><span class="line">embedder = OpenAIEmbeddings(</span><br><span class="line">	model=<span class="string">"bge-m3"</span>,</span><br><span class="line">	base_url=<span class="string">'http://localhost:9997/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'cannot be empty'</span>,</span><br><span class="line">	<span class="comment"># dimensions=1024,</span></span><br><span class="line">)</span><br><span class="line">retriever = FAISS.from_documents(texts, embedder).as_retriever(search_kwargs={<span class="string">"k"</span>: <span class="number">10</span>})</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. Query the retriever to find relevant documents</span></span><br><span class="line">docs = retriever.invoke(<span class="string">"What is the definition of Multimodal?"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Print the relevant documents</span></span><br><span class="line"><span class="keyword">for</span> i, d <span class="keyword">in</span> <span class="built_in">enumerate</span>(docs):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"document <span class="subst">{i+<span class="number">1</span>}</span>:\n\n"</span> + d.page_content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Created a chunk of size 419, which is longer than the specified 400
+
+
+document 1:
+
+Semantic Search
+document 2:
+
+Definition: Semantic search is a search method that goes beyond simple keyword matching by understanding the meaning of the user’s query to return relevant results.
+Example: If a user searches for “planets in the solar system,” the system might return information about related planets such as “Jupiter” or “Mars.”
+Related Keywords: Natural Language Processing, Search Algorithms, Data Mining
+document 3:
+
+Definition: A token refers to a smaller unit of text obtained by splitting a larger text. It can be a word, sentence, or phrase.
+Example: The sentence “I go to school” can be split into tokens: “I”, “go”, “to”, “school”.
+Related Keywords: Tokenization, Natural Language Processing, Parsing
+
+Tokenizer
+document 4:
+
+Definition: A tokenizer is a tool that splits text data into tokens. It is commonly used in natural language processing for data preprocessing.
+Example: The sentence “I love programming.” can be tokenized into [“I”, “love”, “programming”, “.”].
+Related Keywords: Tokenization, Natural Language Processing, Parsing
+
+VectorStore
+document 5:
+
+Definition: A vector store is a system for storing data in vector form. It is used for tasks like retrieval, classification, and other data analysis.
+Example: Word embedding vectors can be stored in a database for quick access.
+Related Keywords: Embedding, Database, Vectorization
+
+SQL
+document 6:
+
+Definition: SQL (Structured Query Language) is a programming language for managing data in databases. It supports operations like querying, modifying, inserting, and deleting data.
+Example: SELECT * FROM users WHERE age &gt; 18; retrieves information about users older than 18.
+Related Keywords: Database, Query, Data Management
+
+CSV
+document 7:
+
+Definition: CSV (Comma-Separated Values) is a file format for storing data where each value is separated by a comma. It is often used for simple data storage and exchange in tabular form.
+Example: A CSV file with headers “Name, Age, Job” might contain data like “John Doe, 30, Developer”.
+Related Keywords: File Format, Data Handling, Data Exchange
+
+JSON
+document 8:
+
+Definition: JSON (JavaScript Object Notation) is a lightweight data exchange format that represents data objects in a human- and machine-readable text format.
+Example: {"name": "John Doe", "age": 30, "job": "Developer"} is an example of JSON data.
+Related Keywords: Data Exchange, Web Development, API
+
+Transformer
+document 9:
+
+Definition: A transformer is a type of deep learning model used in natural language processing for tasks like translation, summarization, and text generation. It is based on the attention mechanism.
+Example: Google Translate uses transformer models to perform translations between languages.
+Related Keywords: Deep Learning, Natural Language Processing, Attention
+
+HuggingFace
+document 10:
+
+Definition: HuggingFace is a library that provides pre-trained models and tools for natural language processing, making NLP tasks more accessible to researchers and developers.
+Example: HuggingFace’s Transformers library can be used for tasks like sentiment analysis and text generation.
+Related Keywords: Natural Language Processing, Deep Learning, Library
+
+Digital Transformation
+</code></pre>
+<p>使用 <code>LLMChainExtractor</code> 创建的 <code>DocumentCompressor</code> 正是应用于检索器的，即 <code>ContextualCompressionRetriever</code>。</p>
+<p><code>ContextualCompressionRetriever</code> 会通过去除无关信息并专注于最相关的信息来压缩文档。</p>
+<h3 id="LLMChainFilter"><a href="#LLMChainFilter" class="headerlink" title="LLMChainFilter"></a>LLMChainFilter</h3><p><code>LLMChainFilter</code> 是一个简单但强大的压缩器，它使用 LLM 链来决定从最初检索到的文档中哪些应该被过滤，哪些应该被返回。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.retrievers <span class="keyword">import</span> ContextualCompressionRetriever</span><br><span class="line"><span class="keyword">from</span> langchain.retrievers.document_compressors <span class="keyword">import</span> LLMChainExtractor</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"></span><br><span class="line"><span class="comment"># Before applying ContextualCompressionRetriever</span></span><br><span class="line">docs = retriever.invoke(<span class="string">"What is the definition of Multimodal?"</span>)</span><br><span class="line"><span class="keyword">for</span> i, d <span class="keyword">in</span> <span class="built_in">enumerate</span>(docs):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"document <span class="subst">{i+<span class="number">1</span>}</span>:\n\n"</span> + d.page_content)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">62</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">15</span> + <span class="string">"After applying LLMChainExtractor"</span> + <span class="string">"="</span>*<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># After applying ContextualCompressionRetriever</span></span><br><span class="line"><span class="comment"># 1. Generate LLM</span></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Generate compressor using LLMChainExtractor</span></span><br><span class="line">compressor = LLMChainExtractor.from_llm(llm)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Generate compression retriever using ContextualCompressionRetriever</span></span><br><span class="line">compression_retriever = ContextualCompressionRetriever(</span><br><span class="line">    base_compressor=compressor,</span><br><span class="line">    base_retriever=retriever,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. Query the compression retriever to find relevant documents</span></span><br><span class="line">compressed_docs = (</span><br><span class="line">    compression_retriever.invoke( </span><br><span class="line">        <span class="string">"What is the definition of Multimodal?"</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Print the relevant documents</span></span><br><span class="line"><span class="keyword">for</span> i, d <span class="keyword">in</span> <span class="built_in">enumerate</span>(compressed_docs):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"document <span class="subst">{i+<span class="number">1</span>}</span>:\n\n"</span> + d.page_content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>document 1:
+
+Semantic Search
+document 2:
+
+Definition: Semantic search is a search method that goes beyond simple keyword matching by understanding the meaning of the user’s query to return relevant results.
+Example: If a user searches for “planets in the solar system,” the system might return information about related planets such as “Jupiter” or “Mars.”
+Related Keywords: Natural Language Processing, Search Algorithms, Data Mining
+document 3:
+
+Definition: A token refers to a smaller unit of text obtained by splitting a larger text. It can be a word, sentence, or phrase.
+Example: The sentence “I go to school” can be split into tokens: “I”, “go”, “to”, “school”.
+Related Keywords: Tokenization, Natural Language Processing, Parsing
+
+Tokenizer
+document 4:
+
+Definition: A tokenizer is a tool that splits text data into tokens. It is commonly used in natural language processing for data preprocessing.
+Example: The sentence “I love programming.” can be tokenized into [“I”, “love”, “programming”, “.”].
+Related Keywords: Tokenization, Natural Language Processing, Parsing
+
+VectorStore
+document 5:
+
+Definition: A vector store is a system for storing data in vector form. It is used for tasks like retrieval, classification, and other data analysis.
+Example: Word embedding vectors can be stored in a database for quick access.
+Related Keywords: Embedding, Database, Vectorization
+
+SQL
+document 6:
+
+Definition: SQL (Structured Query Language) is a programming language for managing data in databases. It supports operations like querying, modifying, inserting, and deleting data.
+Example: SELECT * FROM users WHERE age &gt; 18; retrieves information about users older than 18.
+Related Keywords: Database, Query, Data Management
+
+CSV
+document 7:
+
+Definition: CSV (Comma-Separated Values) is a file format for storing data where each value is separated by a comma. It is often used for simple data storage and exchange in tabular form.
+Example: A CSV file with headers “Name, Age, Job” might contain data like “John Doe, 30, Developer”.
+Related Keywords: File Format, Data Handling, Data Exchange
+
+JSON
+document 8:
+
+Definition: JSON (JavaScript Object Notation) is a lightweight data exchange format that represents data objects in a human- and machine-readable text format.
+Example: {"name": "John Doe", "age": 30, "job": "Developer"} is an example of JSON data.
+Related Keywords: Data Exchange, Web Development, API
+
+Transformer
+document 9:
+
+Definition: A transformer is a type of deep learning model used in natural language processing for tasks like translation, summarization, and text generation. It is based on the attention mechanism.
+Example: Google Translate uses transformer models to perform translations between languages.
+Related Keywords: Deep Learning, Natural Language Processing, Attention
+
+HuggingFace
+document 10:
+
+Definition: HuggingFace is a library that provides pre-trained models and tools for natural language processing, making NLP tasks more accessible to researchers and developers.
+Example: HuggingFace’s Transformers library can be used for tasks like sentiment analysis and text generation.
+Related Keywords: Natural Language Processing, Deep Learning, Library
+
+Digital Transformation
+==============================================================
+===============After applying LLMChainExtractor===============
+</code></pre>
+<p>大模型把无关内容都过滤了, 虽然我 embedding 很拉, 没能抽到相关内容<br>以下是一个过滤效果的展示, 把定义成功保留, 示例被过滤掉</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">text = \</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Multimodal</span></span><br><span class="line"><span class="string">Definition: Multimodal refers to the technology that combines multiple types of data modes (e.g., text, images, sound) to process and extract richer and more accurate information or predictions.</span></span><br><span class="line"><span class="string">Example: A system that analyzes both images and descriptive text to perform more accurate image classification is an example of multimodal technology.</span></span><br><span class="line"><span class="string">Relate</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">docs = [Document(text)]</span><br><span class="line">query = <span class="string">"What is the definition of Multimodal?"</span></span><br><span class="line">compressed_docs = compressor.compress_documents(docs, query)</span><br><span class="line"><span class="built_in">print</span>(compressed_docs[<span class="number">0</span>].page_content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Multimodal
+Definition: Multimodal refers to the technology that combines multiple types of data modes (e.g., text, images, sound) to process and extract richer and more accurate information or predictions.
+</code></pre>
+<p>源码分析</p>
+<p>这是 <code>ContextualCompressionRetriever</code> 的检索函数 <code>_get_relevant_documents</code>的关键代码:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docs = <span class="variable language_">self</span>.base_retriever.invoke(</span><br><span class="line">	query, config={<span class="string">"callbacks"</span>: run_manager.get_child()}, **kwargs</span><br><span class="line">)</span><br><span class="line"><span class="keyword">if</span> docs:</span><br><span class="line">	compressed_docs = <span class="variable language_">self</span>.base_compressor.compress_documents(</span><br><span class="line">		docs, query, callbacks=run_manager.get_child()</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">list</span>(compressed_docs)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="keyword">return</span> []</span><br></pre></td></tr></table></figure></div>
+<p>首先还是 base_retriever 支持返回检索结果, 再接过 base_compressor 压缩</p>
+<p>这是 base_compresser 类 <code>LLMChainExtractor</code> 的 <code>compress_documents</code>函数关键部分:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">compressed_docs = []</span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> documents:</span><br><span class="line">	_<span class="built_in">input</span> = <span class="variable language_">self</span>.get_input(query, doc) <span class="comment"># 产生 {"question": query, "context": doc.page_content}</span></span><br><span class="line">	output_ = <span class="variable language_">self</span>.llm_chain.invoke(_<span class="built_in">input</span>, config={<span class="string">"callbacks"</span>: callbacks}) <span class="comment"># 调用大模型抽取内容</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">isinstance</span>(<span class="variable language_">self</span>.llm_chain, LLMChain):</span><br><span class="line">		output = output_[<span class="variable language_">self</span>.llm_chain.output_key]</span><br><span class="line">		<span class="keyword">if</span> <span class="variable language_">self</span>.llm_chain.prompt.output_parser <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">			output = <span class="variable language_">self</span>.llm_chain.prompt.output_parser.parse(output)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		output = output_</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(output) == <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">continue</span></span><br><span class="line">	compressed_docs.append(</span><br><span class="line">		Document(page_content=cast(<span class="built_in">str</span>, output), metadata=doc.metadata)</span><br><span class="line">	)</span><br><span class="line"><span class="keyword">return</span> compressed_docs</span><br></pre></td></tr></table></figure></div>
+
+<p>这是调用大模型抽取内容的 prompt 模板</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Given the following question and context, extract any part of the context *AS IS* that is relevant to answer the question. If none of the context is relevant return {no_output_str}. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Remember, *DO NOT* edit the extracted parts of the context.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt; Question: {{question}}</span></span><br><span class="line"><span class="string">&gt; Context:</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br><span class="line"><span class="string">{{context}}</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br><span class="line"><span class="string">Extracted relevant parts:</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="EmbeddingsFilter"><a href="#EmbeddingsFilter" class="headerlink" title="EmbeddingsFilter"></a>EmbeddingsFilter</h3><p>对每个检索到的文档执行额外的 LLM 调用既昂贵又缓慢。<br><code>EmbeddingsFilter</code> 提供了一个更经济且更快速的选项，通过嵌入文档和查询，只返回那些与查询的嵌入相似度足够高的文档。</p>
+<p>这种方法在保持搜索结果相关性的同时，节省了计算成本和时间。<br>该过程涉及使用 <code>EmbeddingsFilter</code> 和 <code>ContextualCompressionRetriever</code> 压缩并检索相关文档。</p>
+<ul>
+<li><code>EmbeddingsFilter</code> 用于过滤超过指定相似度阈值（0.86）的文档。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.retrievers.document_compressors <span class="keyword">import</span> EmbeddingsFilter</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. Generate embeddings using OpenAIEmbeddings</span></span><br><span class="line">embeddings = OpenAIEmbeddings(</span><br><span class="line">	model=<span class="string">"bge-m3"</span>,</span><br><span class="line">	base_url=<span class="string">'http://localhost:9997/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'cannot be empty'</span>,</span><br><span class="line">	<span class="comment"># dimensions=1024,</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Generate EmbedingsFilter object that has similarity threshold of 0.86</span></span><br><span class="line">embeddings_filter = EmbeddingsFilter(embeddings=embeddings, similarity_threshold=<span class="number">0.86</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Generate ContextualCompressionRetriever object using EmbeddingsFilter and retriever</span></span><br><span class="line">compression_retriever = ContextualCompressionRetriever(</span><br><span class="line">    base_compressor=embeddings_filter, </span><br><span class="line">    base_retriever=retriever</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. Query the compression retriever to find relevant documents</span></span><br><span class="line">compressed_docs = compression_retriever.invoke(</span><br><span class="line">    <span class="string">"What is the definition of Multimodal?"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Print the relevant documents</span></span><br><span class="line"><span class="keyword">for</span> i, d <span class="keyword">in</span> <span class="built_in">enumerate</span>(compressed_docs):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"document <span class="subst">{i+<span class="number">1</span>}</span>:\n\n"</span> + d.page_content)</span><br></pre></td></tr></table></figure></div>
+
+<p>这个方法也只是将 base_retriever 的返回结果经过 EmbeddingsFilter 的相似度阈值过滤, 可以选择更强的 embedding model 来强化相似度准确度</p>
+<h1 id="Ensemble-Retriever-多路召回"><a href="#Ensemble-Retriever-多路召回" class="headerlink" title="Ensemble Retriever 多路召回"></a>Ensemble Retriever 多路召回</h1><p><code>EnsembleRetriever</code> 集成了稀疏和密集检索算法的优点，通过使用权重和运行时配置来定制性能。</p>
+<p><strong>关键特点</strong></p>
+<ol>
+<li>集成多个检索器：接受不同类型的检索器作为输入并结合结果。</li>
+<li>结果重新排序：使用<a class="link" target="_blank" rel="noopener" href="https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf">倒排排名融合<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>算法重新排序结果。</li>
+<li>混合检索：主要使用<code>稀疏检索器</code>（例如 BM25）和<code>密集检索器</code>（例如 嵌入相似度）相结合。</li>
+</ol>
+<p><strong>优势</strong></p>
+<ul>
+<li>稀疏检索器：有效进行基于关键词的检索。</li>
+<li>密集检索器：有效进行基于语义相似度的检索。</li>
+</ul>
+<p>由于这些互补特性，<code>EnsembleRetriever</code> 可以在各种检索场景中提供更好的性能。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.retrievers <span class="keyword">import</span> BM25Retriever, EnsembleRetriever</span><br><span class="line"><span class="keyword">from</span> langchain.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"></span><br><span class="line"><span class="comment"># list sample documents</span></span><br><span class="line">doc_list = [</span><br><span class="line">    <span class="string">"I like apples"</span>,</span><br><span class="line">    <span class="string">"I like apple company"</span>,</span><br><span class="line">    <span class="string">"I like apple's iphone"</span>,</span><br><span class="line">    <span class="string">"Apple is my favorite company"</span>,</span><br><span class="line">    <span class="string">"I like apple's ipad"</span>,</span><br><span class="line">    <span class="string">"I like apple's macbook"</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the bm25 retriever and faiss retriever.</span></span><br><span class="line">bm25_retriever = BM25Retriever.from_texts(</span><br><span class="line">    doc_list,</span><br><span class="line">)</span><br><span class="line">bm25_retriever.k = <span class="number">2</span>  <span class="comment"># Set the number of search results for BM25Retriever to 1.</span></span><br><span class="line"></span><br><span class="line">embedding = OpenAIEmbeddings(</span><br><span class="line">	model=<span class="string">"bge-m3"</span>,</span><br><span class="line">	base_url=<span class="string">'http://localhost:9997/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'cannot be empty'</span>,</span><br><span class="line">	<span class="comment"># dimensions=1024,</span></span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">faiss_vectorstore = FAISS.from_texts(</span><br><span class="line">    doc_list,</span><br><span class="line">    embedding,</span><br><span class="line">)</span><br><span class="line">faiss_retriever = faiss_vectorstore.as_retriever(search_kwargs={<span class="string">"k"</span>: <span class="number">2</span>})</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the ensemble retriever.</span></span><br><span class="line">ensemble_retriever = EnsembleRetriever(</span><br><span class="line">    retrievers=[bm25_retriever, faiss_retriever],</span><br><span class="line">    weights=[<span class="number">0.7</span>, <span class="number">0.3</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Get the search results document.</span></span><br><span class="line">query = <span class="string">"my favorite fruit is apple"</span></span><br><span class="line">ensemble_result = ensemble_retriever.invoke(query)</span><br><span class="line">bm25_result = bm25_retriever.invoke(query)</span><br><span class="line">faiss_result = faiss_retriever.invoke(query)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output the fetched documents.</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[Ensemble Retriever]"</span>)</span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> ensemble_result:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Content: <span class="subst">{doc.page_content}</span>"</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[BM25 Retriever]"</span>)</span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> bm25_result:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Content: <span class="subst">{doc.page_content}</span>"</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[FAISS Retriever]"</span>)</span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> faiss_result:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Content: <span class="subst">{doc.page_content}</span>"</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>[Ensemble Retriever]
+Content: Apple is my favorite company
+
+Content: I like apple company
+
+Content: I like apples
+
+[BM25 Retriever]
+Content: Apple is my favorite company
+
+Content: I like apple company
+
+[FAISS Retriever]
+Content: Apple is my favorite company
+
+Content: I like apples
+</code></pre>
+<p>源码分析</p>
+<p><code>EnsembleRetriever</code> 的 <code>rank_fusion</code> 函数:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">retriever_docs = [</span><br><span class="line">	retriever.invoke(</span><br><span class="line">		query,</span><br><span class="line">		patch_config(</span><br><span class="line">			config, callbacks=run_manager.get_child(tag=<span class="string">f"retriever_<span class="subst">{i + <span class="number">1</span>}</span>"</span>)</span><br><span class="line">		),</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">for</span> i, retriever <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="variable language_">self</span>.retrievers)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enforce that retrieved docs are Documents for each list in retriever_docs</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(retriever_docs)):</span><br><span class="line">	retriever_docs[i] = [</span><br><span class="line">		Document(page_content=cast(<span class="built_in">str</span>, doc)) <span class="keyword">if</span> <span class="built_in">isinstance</span>(doc, <span class="built_in">str</span>) <span class="keyword">else</span> doc</span><br><span class="line">		<span class="keyword">for</span> doc <span class="keyword">in</span> retriever_docs[i]</span><br><span class="line">	]</span><br><span class="line"></span><br><span class="line"><span class="comment"># apply rank fusion</span></span><br><span class="line">fused_documents = <span class="variable language_">self</span>.weighted_reciprocal_rank(retriever_docs)</span><br></pre></td></tr></table></figure></div>
+
+<p>每个 retriever 单独调用, 返回多组 Documents, 再经过 <code>weighted_reciprocal_rank</code>:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">rrf_score: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">float</span>] = defaultdict(<span class="built_in">float</span>)</span><br><span class="line"><span class="keyword">for</span> doc_list, weight <span class="keyword">in</span> <span class="built_in">zip</span>(doc_lists, <span class="variable language_">self</span>.weights):</span><br><span class="line">	<span class="keyword">for</span> rank, doc <span class="keyword">in</span> <span class="built_in">enumerate</span>(doc_list, start=<span class="number">1</span>):</span><br><span class="line">		rrf_score[</span><br><span class="line">			(</span><br><span class="line">				doc.page_content</span><br><span class="line">				<span class="keyword">if</span> <span class="variable language_">self</span>.id_key <span class="keyword">is</span> <span class="literal">None</span></span><br><span class="line">				<span class="keyword">else</span> doc.metadata[<span class="variable language_">self</span>.id_key]</span><br><span class="line">			)</span><br><span class="line">		] += weight / (rank + <span class="variable language_">self</span>.c)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Docs are deduplicated by their contents then sorted by their scores</span></span><br><span class="line">all_docs = chain.from_iterable(doc_lists)</span><br><span class="line">sorted_docs = <span class="built_in">sorted</span>(</span><br><span class="line">	unique_by_key(</span><br><span class="line">		all_docs,</span><br><span class="line">		<span class="keyword">lambda</span> doc: (</span><br><span class="line">			doc.page_content</span><br><span class="line">			<span class="keyword">if</span> <span class="variable language_">self</span>.id_key <span class="keyword">is</span> <span class="literal">None</span></span><br><span class="line">			<span class="keyword">else</span> doc.metadata[<span class="variable language_">self</span>.id_key]</span><br><span class="line">		),</span><br><span class="line">	),</span><br><span class="line">	reverse=<span class="literal">True</span>,</span><br><span class="line">	key=<span class="keyword">lambda</span> doc: rrf_score[</span><br><span class="line">		doc.page_content <span class="keyword">if</span> <span class="variable language_">self</span>.id_key <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> doc.metadata[<span class="variable language_">self</span>.id_key]</span><br><span class="line">	],</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<p>基于 weights 对 Documents 重排序</p>
+<h1 id="Long-Context-Reorder"><a href="#Long-Context-Reorder" class="headerlink" title="Long Context Reorder"></a>Long Context Reorder</h1><p>无论模型的架构如何，当检索的文档超过 10 个时，性能都会显著下降。</p>
+<p>简单来说，当模型需要在长上下文的中间部分访问相关信息时，它往往会忽视提供的文档。</p>
+<p>更多细节，请参阅以下论文：</p>
+<ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.03172">https://arxiv.org/abs/2307.03172<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<p>为了避免这个问题，您可以在检索后重新排序文档，从而防止性能下降。</p>
+<p>可以创建一个检索器，它使用 Chroma 向量数据库存储和搜索文本数据。然后，使用检索器的 <code>invoke</code> 方法，针对给定的查询搜索出高度相关的文档。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> Chroma</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get embeddings</span></span><br><span class="line">embeddings = OpenAIEmbeddings(</span><br><span class="line">	model=<span class="string">"bge-m3"</span>,</span><br><span class="line">	base_url=<span class="string">'http://localhost:9997/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'cannot be empty'</span>,</span><br><span class="line">	<span class="comment"># dimensions=1024,</span></span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">texts = [</span><br><span class="line">    <span class="string">"This is just a random text I wrote."</span>,</span><br><span class="line">    <span class="string">"ChatGPT, an AI designed to converse with users, can answer various questions."</span>,</span><br><span class="line">    <span class="string">"iPhone, iPad, MacBook are representative products released by Apple."</span>,</span><br><span class="line">    <span class="string">"ChatGPT was developed by OpenAI and is continuously being improved."</span>,</span><br><span class="line">    <span class="string">"ChatGPT has learned from vast amounts of data to understand user questions and generate appropriate answers."</span>,</span><br><span class="line">    <span class="string">"Wearable devices like Apple Watch and AirPods are also part of Apple's popular product line."</span>,</span><br><span class="line">    <span class="string">"ChatGPT can be used to solve complex problems or suggest creative ideas."</span>,</span><br><span class="line">    <span class="string">"Bitcoin is also called digital gold and is gaining popularity as a store of value."</span>,</span><br><span class="line">    <span class="string">"ChatGPT's capabilities are continuously evolving through ongoing learning and updates."</span>,</span><br><span class="line">    <span class="string">"The FIFA World Cup is held every four years and is the biggest event in international football."</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a retriever (Set K to 10)</span></span><br><span class="line">retriever = Chroma.from_texts(texts, embedding=embeddings).as_retriever(</span><br><span class="line">    search_kwargs={<span class="string">"k"</span>: <span class="number">10</span>}</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="string">"What can you tell me about ChatGPT?"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Retrieves relevant documents sorted by relevance score.</span></span><br><span class="line">docs = retriever.invoke(query)</span><br><span class="line">docs</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[Document(metadata={}, page_content='Bitcoin is also called digital gold and is gaining popularity as a store of value.'),
+ Document(metadata={}, page_content='The FIFA World Cup is held every four years and is the biggest event in international football.'),
+ Document(metadata={}, page_content="Wearable devices like Apple Watch and AirPods are also part of Apple's popular product line."),
+ Document(metadata={}, page_content='iPhone, iPad, MacBook are representative products released by Apple.'),
+ Document(metadata={}, page_content='This is just a random text I wrote.'),
+ Document(metadata={}, page_content='ChatGPT, an AI designed to converse with users, can answer various questions.'),
+ Document(metadata={}, page_content='ChatGPT was developed by OpenAI and is continuously being improved.'),
+ Document(metadata={}, page_content='ChatGPT has learned from vast amounts of data to understand user questions and generate appropriate answers.'),
+ Document(metadata={}, page_content='ChatGPT can be used to solve complex problems or suggest creative ideas.'),
+ Document(metadata={}, page_content="ChatGPT's capabilities are continuously evolving through ongoing learning and updates.")]
+</code></pre>
+<p>创建一个 <code>LongContextReorder</code> 类的实例。</p>
+<ul>
+<li>调用 <code>reordering.transform_documents(docs)</code> 来重新排序文档列表。</li>
+<li>相关性较低的文档会被置于列表的中间，而相关性较高的文档会被放置在列表的开头和结尾。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_transformers <span class="keyword">import</span> LongContextReorder</span><br><span class="line">reordering = LongContextReorder()</span><br><span class="line">reordered_docs = reordering.transform_documents(docs)</span><br><span class="line"></span><br><span class="line">reordered_docs</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[Document(metadata={}, page_content='The FIFA World Cup is held every four years and is the biggest event in international football.'),
+ Document(metadata={}, page_content='iPhone, iPad, MacBook are representative products released by Apple.'),
+ Document(metadata={}, page_content='ChatGPT, an AI designed to converse with users, can answer various questions.'),
+ Document(metadata={}, page_content='ChatGPT has learned from vast amounts of data to understand user questions and generate appropriate answers.'),
+ Document(metadata={}, page_content="ChatGPT's capabilities are continuously evolving through ongoing learning and updates."),
+ Document(metadata={}, page_content='ChatGPT can be used to solve complex problems or suggest creative ideas.'),
+ Document(metadata={}, page_content='ChatGPT was developed by OpenAI and is continuously being improved.'),
+ Document(metadata={}, page_content='This is just a random text I wrote.'),
+ Document(metadata={}, page_content="Wearable devices like Apple Watch and AirPods are also part of Apple's popular product line."),
+ Document(metadata={}, page_content='Bitcoin is also called digital gold and is gaining popularity as a store of value.')]
+</code></pre>
+<p>源码分析</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">documents.reverse()</span><br><span class="line">reordered_result = []</span><br><span class="line"><span class="keyword">for</span> i, value <span class="keyword">in</span> <span class="built_in">enumerate</span>(documents):</span><br><span class="line">	<span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">		reordered_result.append(value)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		reordered_result.insert(<span class="number">0</span>, value)</span><br></pre></td></tr></table></figure></div>
+<p>原顺序是相似度由高到低的, 他只是在原顺序的基础上把高相似度的放散在头部和尾部, 低相关的放在中部.  </p>
+<blockquote>
+<p>当模型需要在长上下文的中间部分访问相关信息时，它往往会忽视提供的文档</p>
+</blockquote>
+<p>按这种说法, 模型会更注重头部和尾部的文档</p>
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Langchain/">#Langchain</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/04/langchain-tutorial-series/08.VectorStore/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 8.向量数据库</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/langchain-tutorial-series/04.Model/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 4.模型</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Langchain 入门教程 - 9.向量数据库检索器</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VectorStore-backed-Retriever"><span class="nav-text">VectorStore-backed Retriever</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%A3%80%E7%B4%A2%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">高级检索器配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E5%99%A8%E7%9A%84-invoke-%E6%96%B9%E6%B3%95"><span class="nav-text">检索器的 invoke() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E8%BE%B9%E9%99%85%E7%9B%B8%E5%85%B3%E6%80%A7-MMR"><span class="nav-text">最大边际相关性 (MMR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%88%86%E6%95%B0%E9%98%88%E5%80%BC%E6%90%9C%E7%B4%A2"><span class="nav-text">相似度分数阈值搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-top-k%EF%BC%88%E8%B0%83%E6%95%B4%E8%BF%94%E5%9B%9E%E6%96%87%E6%A1%A3%E7%9A%84%E6%95%B0%E9%87%8F%EF%BC%89"><span class="nav-text">配置 top_k（调整返回文档的数量）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContextualCompressionRetriever"><span class="nav-text">ContextualCompressionRetriever</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LLMChainFilter"><span class="nav-text">LLMChainFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EmbeddingsFilter"><span class="nav-text">EmbeddingsFilter</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ensemble-Retriever-%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E"><span class="nav-text">Ensemble Retriever 多路召回</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Long-Context-Reorder"><span class="nav-text">Long Context Reorder</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        27 posts in total
+                    </span>
+                    
+                        <span>
+                            91.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

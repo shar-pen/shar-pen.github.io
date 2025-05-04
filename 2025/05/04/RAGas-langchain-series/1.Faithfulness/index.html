@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/04/ragas-langchain-series/1.faithfulness/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAGas 忠实度 Faithfulness">
+<meta property="og:url" content="http://example.com/2025/05/04/RAGas-langchain-series/1.Faithfulness/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:40:00.618Z">
+<meta property="article:modified_time" content="2025-05-04T14:41:17.025Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="RAG 评估">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            RAGas 忠实度 Faithfulness | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">RAGas 忠实度 Faithfulness</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:40</span>
+        <span class="mobile">2025-05-04 22:40</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:41:17</span>
+            <span class="mobile">2025-05-04 22:41:17</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/RAGas/">RAGas</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/RAG-%E8%AF%84%E4%BC%B0/">RAG 评估</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>21 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>忠实度是指答案应基于给定的上下文。这对于避免幻觉至关重要，同时也能确保检索到的上下文可作为生成答案的依据。实际上，检索增强生成（RAG）系统常用于对生成文本与事实来源的一致性要求很高的应用场景，例如在信息不断更新的法律等领域。</p>
+<p>如果答案<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.936ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2181.6 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="TeXAtom" transform="translate(562,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g><g data-mml-node="mo" transform="translate(943.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1332.6,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(1792.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>中的主张能够从上下文<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="3.781ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 1671 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mo" transform="translate(433,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(822,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(1282,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>中推断出来，我们就认为该答案忠实于上下文<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="3.781ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 1671 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mo" transform="translate(433,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(822,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(1282,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>。为了评估忠实度，我们首先使用大语言模型（LLM）提取一组陈述<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="8.155ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3604.6 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(645,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(1034,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="TeXAtom" transform="translate(562,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1977.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(2366.6,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(2826.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(3215.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 。这一步的目的是<strong>将较长的句子分解为更简短、更聚焦的断言/陈述 statement</strong>。我们在这一步使用以下提示词：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个问题和答案，从给定答案的每个句子中创建一个或多个陈述。</span><br><span class="line">问题：[问题]</span><br><span class="line">答案：[答案]</span><br></pre></td></tr></table></figure></div>
+<p>其中，[问题]和[答案]指的是给定的问题和答案。对于集合<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="1.459ex" height="1.645ex" role="img" focusable="false" viewBox="0 -705 645 727"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g></g></g></svg></mjx-container>中的每个陈述<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.801ex" height="1.357ex" role="img" focusable="false" viewBox="0 -442 796 599.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="TeXAtom" transform="translate(502,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></g></svg></mjx-container>，大语言模型会使用验证函数<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="9.445ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 4174.6 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mo" transform="translate(485,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(874,0)"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="TeXAtom" transform="translate(502,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1670,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(2114.6,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mo" transform="translate(2547.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(2936.6,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(3396.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(3785.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>来判断<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.801ex" height="1.357ex" role="img" focusable="false" viewBox="0 -442 796 599.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="TeXAtom" transform="translate(502,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></g></svg></mjx-container>是否能从<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="3.781ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 1671 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mo" transform="translate(433,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(822,0)"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mo" transform="translate(1282,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>中推断出来。这个验证步骤使用以下提示词：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">考虑给定的上下文和以下陈述，然后判断这些陈述是否能从上下文中的信息得到支持。在得出结论（是/否）之前，对每个陈述进行简要解释。最后按照给定的格式依次给出每个陈述的最终结论。不要偏离指定的格式。</span><br><span class="line">陈述：[陈述1]</span><br><span class="line">……</span><br><span class="line">陈述：[陈述n]</span><br></pre></td></tr></table></figure></div>
+<p>最终的忠实度得分<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="1.695ex" height="1.538ex" role="img" focusable="false" viewBox="0 -680 749 680"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g></g></g></svg></mjx-container>的计算方式为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.236ex;" xmlns="http://www.w3.org/2000/svg" width="7.827ex" height="3.604ex" role="img" focusable="false" viewBox="0 -1046.4 3459.5 1592.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g><g data-mml-node="mo" transform="translate(1026.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2082.6,0)"><g data-mml-node="mrow" transform="translate(220,516.4) scale(0.707)"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mi" transform="translate(278,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mo" transform="translate(1047,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g></g><g data-mml-node="mrow" transform="translate(263.8,-370) scale(0.707)"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mi" transform="translate(278,0)"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(923,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g></g><rect width="1136.9" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container>，其中<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.564ex;" xmlns="http://www.w3.org/2000/svg" width="2.998ex" height="2.26ex" role="img" focusable="false" viewBox="0 -749.5 1325 999"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mi" transform="translate(278,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mo" transform="translate(1047,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g></g></g></svg></mjx-container>是根据大语言模型判断得到支持的陈述数量，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.564ex;" xmlns="http://www.w3.org/2000/svg" width="2.717ex" height="2.26ex" role="img" focusable="false" viewBox="0 -749.5 1201 999"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mi" transform="translate(278,0)"><path data-c="1D446" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path></g><g data-mml-node="mo" transform="translate(923,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g></g></g></svg></mjx-container>是陈述的总数。 </p>
+<p>这是测试数据</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">answer = <span class="string">"美国最高法院关于堕胎的裁决具有重要的全球影响。该裁决导致在堕胎访问受到限制的州，三分之一的生育年龄女性和女孩无法获得堕胎服务。那些州的母婴健康支持也较弱，母亲死亡率较高，儿童贫困率也较高。此外，裁决的影响超出了国界，由于美国在全球的地缘政治和文化影响力，这一裁决也产生了跨国影响。全球的组织和活动家担心这一裁决可能会激励其他国家出台反堕胎的立法和政策。裁决还妨碍了某些非洲国家的进步法律改革和堕胎指南的实施。此外，该裁决在国际政策领域造成了寒蝉效应，使得反堕胎的力量能够削弱人权保护。"</span></span><br><span class="line">docs = [</span><br><span class="line">	<span class="string">"- 2022年，美国最高法院作出裁决，推翻了50年的判例法，取消了宪法堕胎权。\n- 这一裁决产生了巨大影响：三分之一的生育年龄女性和女孩现在生活在堕胎服务几乎完全无法获得的州。\n- 这些堕胎法律最为严格的州，母婴健康支持最为薄弱，母亲死亡率较高，儿童贫困率较高。\n- 美国最高法院的裁决还通过美国在全球的地缘政治和文化影响力，超越国界产生了影响。\n- 全球的SRR组织和活动家对这一裁决可能为其他国家的反堕胎立法和政策攻击铺路表示担忧。\n- 观察者还注意到该裁决对某些非洲国家的进步法律改革产生了影响，导致堕胎指导方针的 adoption 和执行停滞不前。\n- 该裁决在国际政策领域产生了寒蝉效应，助长了反堕胎的国家和非国家行为体破坏人权保护的势头。"</span>,</span><br><span class="line">	<span class="string">"美国最高法院的堕胎裁决不仅在国内引发了激烈的辩论和讨论，也在全球范围内引发了广泛关注。许多国家将美国视为法律和社会问题的领导者，因此这一裁决可能会影响其他国家对堕胎的政策和态度。"</span>,</span><br><span class="line">	<span class="string">"这一裁决还可能对国际组织和非政府组织（NGO）产生影响，尤其是那些致力于生育权和妇女健康问题的团体。根据裁决的结果，可能会出现资金、倡导工作和与美国同行的合作发生变化，进而在全球范围内引发生育正义斗争的连锁反应。"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="实现介绍"><a href="#实现介绍" class="headerlink" title="实现介绍"></a>实现介绍</h1><p>指标原理:<br>忠实度指标用于评估生成回答是否忠于提供的上下文信息。其核心思想是：</p>
+<ol>
+<li><strong>从回答中提取陈述</strong>：将回答拆解为多个可验证的原子化陈述。</li>
+<li><strong>在上下文中验证陈述</strong>：检查这些陈述是否可以从上下文信息推导得出。</li>
+<li><strong>计算忠实度得分</strong>：忠实度得分是可验证陈述的比例。</li>
+</ol>
+<p>背景原因:<br>生成式模型可能会生成幻觉，即回答中包含超出提供上下文的信息。忠实度指标可以帮助检测这种情况，确保模型回答与上下文一致，提高模型的可靠性。</p>
+<p>实现流程:  </p>
+<ol>
+<li><strong>解析回答</strong>：使用 LLM 提取回答中的关键陈述。</li>
+<li><strong>验证陈述</strong>：使用 LLM 判断每个陈述是否可以在上下文中得到支持。</li>
+<li><strong>计算评分</strong>：统计可验证陈述的比例，作为最终得分。</li>
+</ol>
+<h2 id="解析回答-create-statements"><a href="#解析回答-create-statements" class="headerlink" title="解析回答 create statements"></a>解析回答 create statements</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"><span class="keyword">from</span> langchain_core.documents <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">输出格式形如：</span></span><br><span class="line"><span class="string">{</span></span><br><span class="line"><span class="string">	"sentence_and_statements": </span></span><br><span class="line"><span class="string">		[</span></span><br><span class="line"><span class="string">			# 这是第一个句子和它可拆分的内容陈述</span></span><br><span class="line"><span class="string">			{</span></span><br><span class="line"><span class="string">				"origin_sentence": 回答中某个句子的原始内容，为了保证连贯性让模型输出,</span></span><br><span class="line"><span class="string">				"statements":[</span></span><br><span class="line"><span class="string">					{</span></span><br><span class="line"><span class="string">						"description":这是内容陈述1的具体内容。</span></span><br><span class="line"><span class="string">					},</span></span><br><span class="line"><span class="string">					{</span></span><br><span class="line"><span class="string">						"description":这是内容陈述2的具体内容。</span></span><br><span class="line"><span class="string">					},</span></span><br><span class="line"><span class="string">					...</span></span><br><span class="line"><span class="string">				]</span></span><br><span class="line"><span class="string">			},</span></span><br><span class="line"><span class="string">			...</span></span><br><span class="line"><span class="string">		]</span></span><br><span class="line"><span class="string">}</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用以下 pydantic 类来实现上述的输出结构, 解析时可以顺便做下解析验证</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Statement</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">	description: <span class="built_in">str</span> = Field(description=<span class="string">"这是内容陈述的具体内容。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Sentence_And_Statement</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">	origin_sentence: <span class="built_in">str</span> = Field(description=<span class="string">"这是回答的某个句子。"</span>)</span><br><span class="line">	statements: <span class="type">List</span>[Statement] = Field(description=<span class="string">"这是由上述句子中提取的一组内容陈述。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Sentence_And_Statement_List</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">	sentence_and_statements: <span class="type">List</span>[Sentence_And_Statement] = Field(description=<span class="string">"这是由文本中提取的每组句子和对应的内容陈述。"</span>)</span><br><span class="line"></span><br><span class="line">statement_output_parser = PydanticOutputParser(pydantic_object=Sentence_And_Statement_List)</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.5</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">create_statement_prompt = (</span><br><span class="line">	<span class="string">"给定一个包含若干句子的文本，分析每个句子并将每个句子分解为一个或多个原子化的完全可理解的内容陈述，同时确保每个语句中不使用代词，且每个对象都需要具体，在其所在陈述中可理解。\n"</span></span><br><span class="line">	<span class="string">"输出格式：\n{output_format_instructions}\n\n"</span></span><br><span class="line">	<span class="string">"[文本-开始]：\n{context}\n[文本-结束]\n"</span></span><br><span class="line">)</span><br><span class="line">create_statement_prompt = PromptTemplate(</span><br><span class="line">	template=create_statement_prompt, </span><br><span class="line">	partial_variables={</span><br><span class="line">		<span class="string">"output_format_instructions"</span>:statement_output_parser.get_format_instructions()</span><br><span class="line">	}</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">create_statement_chain = create_statement_prompt | llm | statement_output_parser</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create_statement_prompt.pretty_print()</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>给定一个包含若干句子的文本，分析每个句子并将每个句子分解为一个或多个原子化的完全可理解的内容陈述，同时确保每个语句中不使用代词，且每个对象都需要具体，在其所在陈述中可理解。
+输出格式：
+The output should be formatted as a JSON instance that conforms to the JSON schema below.
+
+As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. The object {"properties": {"foo": ["bar", "baz"]}} is not well-formatted.
+
+Here is the output schema:
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{"$defs": {"Sentence_And_Statement": {"properties": {"origin_sentence": {"description": "这是回答的某个句子。", "title": "Origin Sentence", "type": "string"}, "statements": {"description": "这是由上述句子中提取的一组内容陈述。", "items": {"$ref": "#/$defs/Statement"}, "title": "Statements", "type": "array"}}, "required": ["origin_sentence", "statements"], "title": "Sentence_And_Statement", "type": "object"}, "Statement": {"properties": {"description": {"description": "这是内容陈述的具体内容。", "title": "Description", "type": "string"}}, "required": ["description"], "title": "Statement", "type": "object"}}, "properties": {"sentence_and_statements": {"description": "这是由文本中提取的每组句子和对应的内容陈述。", "items": {"$ref": "#/$defs/Sentence_And_Statement"}, "title": "Sentence And Statements", "type": "array"}}, "required": ["sentence_and_statements"]}</span><br></pre></td></tr></table></figure></div>
+
+[文本-开始]：
+[33;1m[1;3m{context}[0m
+[文本-结束]
+</code></pre>
+<p>​    </p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">statement_list = create_statement_chain.invoke({<span class="string">"context"</span>:answer})</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">statements = <span class="built_in">sum</span>([item.statements <span class="keyword">for</span> item <span class="keyword">in</span> statement_list.sentence_and_statements], [])</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">statements</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[Statement(description='美国最高法院关于堕胎的裁决具有重要的全球影响。'),
+ Statement(description='在堕胎访问受到限制的州，三分之一的生育年龄女性和女孩无法获得堕胎服务。'),
+ Statement(description='那些州的母婴健康支持较弱。'),
+ Statement(description='那些州的母亲死亡率较高。'),
+ Statement(description='那些州的儿童贫困率较高。'),
+ Statement(description='裁决的影响超出了国界。'),
+ Statement(description='由于美国在全球的地缘政治和文化影响力，这一裁决也产生了跨国影响。'),
+ Statement(description='全球的组织和活动家担心这一裁决可能会激励其他国家出台反堕胎的立法和政策。'),
+ Statement(description='裁决妨碍了某些非洲国家的进步法律改革和堕胎指南的实施。'),
+ Statement(description='该裁决在国际政策领域造成了寒蝉效应，使得反堕胎的力量能够削弱人权保护。')]
+</code></pre>
+<p>这是测试数据的提取结果</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Statement(description='美国最高法院关于堕胎的裁决具有重要的全球影响。'),</span><br><span class="line"> Statement(description='在堕胎访问受到限制的州，三分之一的生育年龄女性和女孩无法获得堕胎服务。'),</span><br><span class="line"> Statement(description='那些州的母婴健康支持较弱。'),</span><br><span class="line"> Statement(description='那些州的母亲死亡率较高。'),</span><br><span class="line"> Statement(description='那些州的儿童贫困率较高。'),</span><br><span class="line"> Statement(description='裁决的影响超出了国界。'),</span><br><span class="line"> Statement(description='由于美国在全球的地缘政治和文化影响力，这一裁决也产生了跨国影响。'),</span><br><span class="line"> Statement(description='全球的组织和活动家担心这一裁决可能会激励其他国家出台反堕胎的立法和政策。'),</span><br><span class="line"> Statement(description='裁决妨碍了某些非洲国家的进步法律改革和堕胎指南的实施。'),</span><br><span class="line"> Statement(description='该裁决在国际政策领域造成了寒蝉效应，使得反堕胎的力量能够削弱人权保护。')]</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="验证陈述-statement-verdict"><a href="#验证陈述-statement-verdict" class="headerlink" title="验证陈述 statement verdict"></a>验证陈述 statement verdict</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">输出格式形如：</span></span><br><span class="line"><span class="string">{</span></span><br><span class="line"><span class="string">	"statement_verdications":</span></span><br><span class="line"><span class="string">		[</span></span><br><span class="line"><span class="string">			# 这是第一个内容陈述和它的验证结果</span></span><br><span class="line"><span class="string">			{</span></span><br><span class="line"><span class="string">				"statement": 某个内容陈述，为了保证模型不会中途乱输出,</span></span><br><span class="line"><span class="string">				"verdication_reasoning":这是判断陈述是否可以由上下文推断时的思考内容</span></span><br><span class="line"><span class="string">				"verdication_result":陈述可信度，如果可以根据上下文直接推断该出陈述，则为1，否则为0。</span></span><br><span class="line"><span class="string">			},</span></span><br><span class="line"><span class="string">			...</span></span><br><span class="line"><span class="string">		]</span></span><br><span class="line"><span class="string">}</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Statement_Verdication</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">	statement: <span class="built_in">str</span> = Field(description=<span class="string">"这是内容陈述的内容，你直接复制原始内容。"</span>)</span><br><span class="line">	verdication_reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"这是判断陈述是否可以由上下文推断时的思考内容"</span>)</span><br><span class="line">	verdication_result: <span class="built_in">int</span> = Field(description=<span class="string">"陈述可信度，如果可以根据上下文直接推断该出陈述，则为1，否则为0。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Statement_Verdication_List</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">	statement_verdications: <span class="type">List</span>[Statement_Verdication] = Field(description=<span class="string">"这是一组内容陈述的是否可由上下文推断出的结果。"</span>)</span><br><span class="line"></span><br><span class="line">verdict_statement_parser = PydanticOutputParser(pydantic_object=Statement_Verdication_List)</span><br><span class="line"></span><br><span class="line">verdict_statement_prompt = (</span><br><span class="line">	<span class="string">"你的任务是根据给定的上下文判断一系列内容陈述的可信度。对于每个陈述，如果可以根据上下文直接推断该出陈述，则返回1，否则返回0。\n"</span></span><br><span class="line">	<span class="string">"输出格式：\n{output_format_instructions}\n\n"</span></span><br><span class="line">	<span class="string">"[上下文-开始]：\n{context}\n[上下文-结束]\n"</span></span><br><span class="line">	<span class="string">"[内容陈述-开始]：\n{statements}\n[内容陈述-结束]"</span></span><br><span class="line">)</span><br><span class="line">verdict_statement_prompt = PromptTemplate(</span><br><span class="line">	template=verdict_statement_prompt, </span><br><span class="line">	partial_variables={</span><br><span class="line">		<span class="string">"output_format_instructions"</span>:verdict_statement_parser.get_format_instructions()</span><br><span class="line">	}</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">verdict_statement_chain = verdict_statement_prompt | llm | verdict_statement_parser</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verdict_statement_prompt.pretty_print()</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>你的任务是根据给定的上下文判断一系列内容陈述的可信度。对于每个陈述，如果可以根据上下文直接推断该出陈述，则返回1，否则返回0。
+输出格式：
+The output should be formatted as a JSON instance that conforms to the JSON schema below.
+
+As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. The object {"properties": {"foo": ["bar", "baz"]}} is not well-formatted.
+
+Here is the output schema:
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{"$defs": {"Statement_Verdication": {"properties": {"statement": {"description": "这是内容陈述的内容，你直接复制原始内容。", "title": "Statement", "type": "string"}, "verdication_reasoning": {"description": "这是判断陈述是否可以由上下文推断时的思考内容", "title": "Verdication Reasoning", "type": "string"}, "verdication_result": {"description": "陈述可信度，如果可以根据上下文直接推断该出陈述，则为1，否则为0。", "title": "Verdication Result", "type": "integer"}}, "required": ["statement", "verdication_reasoning", "verdication_result"], "title": "Statement_Verdication", "type": "object"}}, "properties": {"statement_verdications": {"description": "这是一组内容陈述的是否可由上下文推断出的结果。", "items": {"$ref": "#/$defs/Statement_Verdication"}, "title": "Statement Verdications", "type": "array"}}, "required": ["statement_verdications"]}</span><br></pre></td></tr></table></figure></div>
+
+[上下文-开始]：
+[33;1m[1;3m{context}[0m
+[上下文-结束]
+[内容陈述-开始]：
+[33;1m[1;3m{statements}[0m
+[内容陈述-结束]
+</code></pre>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">verdict_results = verdict_statement_chain.invoke(</span><br><span class="line">    {</span><br><span class="line">        <span class="string">"context"</span>:<span class="string">'\n'</span>.join(docs),</span><br><span class="line">        <span class="string">"statements"</span>:<span class="string">'\n'</span>.join([<span class="string">f'<span class="subst">{indice+<span class="number">1</span>}</span>. <span class="subst">{item.description}</span>'</span> <span class="keyword">for</span> indice, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(statements)])</span><br><span class="line">	}</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verdict_results.statement_verdications</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[Statement_Verdication(statement='美国最高法院关于堕胎的裁决具有重要的全球影响。', verdication_reasoning='上下文明确提到这一裁决‘超越国界产生了影响’并且‘在全球范围内引发了广泛关注’。', verdication_result=1),
+ Statement_Verdication(statement='在堕胎访问受到限制的州，三分之一的生育年龄女性和女孩无法获得堕胎服务。', verdication_reasoning='上下文直接提到‘三分之一的生育年龄女性和女孩现在生活在堕胎服务几乎完全无法获得的州’。', verdication_result=1),
+ Statement_Verdication(statement='那些州的母婴健康支持较弱。', verdication_reasoning='上下文明确指出‘这些堕胎法律最为严格的州，母婴健康支持最为薄弱’。', verdication_result=1),
+ Statement_Verdication(statement='那些州的母亲死亡率较高。', verdication_reasoning='上下文提到‘母亲死亡率较高’。', verdication_result=1),
+ Statement_Verdication(statement='那些州的儿童贫困率较高。', verdication_reasoning='上下文提到‘儿童贫困率较高’。', verdication_result=1),
+ Statement_Verdication(statement='裁决的影响超出了国界。', verdication_reasoning='上下文明确提到‘这一裁决通过美国在全球的地缘政治和文化影响力，超越国界产生了影响’。', verdication_result=1),
+ Statement_Verdication(statement='由于美国在全球的地缘政治和文化影响力，这一裁决也产生了跨国影响。', verdication_reasoning='上下文提到‘这一裁决通过美国在全球的地缘政治和文化影响力，超越国界产生了影响’。', verdication_result=1),
+ Statement_Verdication(statement='全球的组织和活动家担心这一裁决可能会激励其他国家出台反堕胎的立法和政策。', verdication_reasoning='上下文提到‘全球的SRR组织和活动家对这一裁决可能为其他国家的反堕胎立法和政策攻击铺路表示担忧’。', verdication_result=1),
+ Statement_Verdication(statement='裁决妨碍了某些非洲国家的进步法律改革和堕胎指南的实施。', verdication_reasoning='上下文提到‘观察者还注意到该裁决对某些非洲国家的进步法律改革产生了影响，导致堕胎指导方针的 adoption 和执行停滞不前’。', verdication_result=1),
+ Statement_Verdication(statement='该裁决在国际政策领域造成了寒蝉效应，使得反堕胎的力量能够削弱人权保护。', verdication_reasoning='上下文提到‘该裁决在国际政策领域产生了寒蝉效应，助长了反堕胎的国家和非国家行为体破坏人权保护的势头’。', verdication_result=1)]
+</code></pre>
+<p>以下是测试数据的验证结果，主要看verdication_result字段</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Statement_Verdication(statement='美国最高法院关于堕胎的裁决具有重要的全球影响。', verdication_reasoning='上下文明确提到这一裁决‘超越国界产生了影响’并且‘在全球范围内引发了广泛关注’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='在堕胎访问受到限制的州，三分之一的生育年龄女性和女孩无法获得堕胎服务。', verdication_reasoning='上下文直接提到‘三分之一的生育年龄女性和女孩现在生活在堕胎服务几乎完全无法获得的州’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='那些州的母婴健康支持较弱。', verdication_reasoning='上下文明确指出‘这些堕胎法律最为严格的州，母婴健康支持最为薄弱’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='那些州的母亲死亡率较高。', verdication_reasoning='上下文提到‘母亲死亡率较高’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='那些州的儿童贫困率较高。', verdication_reasoning='上下文提到‘儿童贫困率较高’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='裁决的影响超出了国界。', verdication_reasoning='上下文明确提到‘这一裁决通过美国在全球的地缘政治和文化影响力，超越国界产生了影响’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='由于美国在全球的地缘政治和文化影响力，这一裁决也产生了跨国影响。', verdication_reasoning='上下文提到‘这一裁决通过美国在全球的地缘政治和文化影响力，超越国界产生了影响’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='全球的组织和活动家担心这一裁决可能会激励其他国家出台反堕胎的立法和政策。', verdication_reasoning='上下文提到‘全球的SRR组织和活动家对这一裁决可能为其他国家的反堕胎立法和政策攻击铺路表示担忧’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='裁决妨碍了某些非洲国家的进步法律改革和堕胎指南的实施。', verdication_reasoning='上下文提到‘观察者还注意到该裁决对某些非洲国家的进步法律改革产生了影响，导致堕胎指导方针的 adoption 和执行停滞不前’。', verdication_result=1),</span><br><span class="line"> Statement_Verdication(statement='该裁决在国际政策领域造成了寒蝉效应，使得反堕胎的力量能够削弱人权保护。', verdication_reasoning='上下文提到‘该裁决在国际政策领域产生了寒蝉效应，助长了反堕胎的国家和非国家行为体破坏人权保护的势头’。', verdication_result=1)]</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">verdications = verdict_results.statement_verdications</span><br><span class="line">num_faithful_statements = <span class="built_in">sum</span>([item.verdication_result <span class="keyword">for</span> item <span class="keyword">in</span> verdications])</span><br><span class="line">num_statements = <span class="built_in">len</span>(verdications)</span><br><span class="line">score = num_faithful_statements / num_statements</span><br><span class="line"><span class="built_in">print</span>(score)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>1.0
+</code></pre>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>继承 Runnable, 可像langchain实例一样invoke调用</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">## 忠实度指标（Faithfulness Metric）教程</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 指标原理</span></span><br><span class="line"><span class="string">忠实度指标用于评估生成回答是否忠于提供的上下文信息。其核心思想是：</span></span><br><span class="line"><span class="string">1. **从回答中提取陈述**：将回答拆解为多个可验证的原子化陈述。</span></span><br><span class="line"><span class="string">2. **在上下文中验证陈述**：检查这些陈述是否可以从上下文信息推导得出。</span></span><br><span class="line"><span class="string">3. **计算忠实度得分**：忠实度得分是可验证陈述的比例。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 背景原因</span></span><br><span class="line"><span class="string">生成式模型可能会生成幻觉，即回答中包含超出提供上下文的信息。忠实度指标可以帮助检测这种情况，确保模型回答与上下文一致，提高模型的可靠性。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 实现流程</span></span><br><span class="line"><span class="string">1. **解析回答**：使用 LLM 提取回答中的关键陈述。</span></span><br><span class="line"><span class="string">2. **验证陈述**：使用 LLM 判断每个陈述是否可以在上下文中得到支持。</span></span><br><span class="line"><span class="string">3. **计算评分**：统计可验证陈述的比例，作为最终得分。</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span>, <span class="type">Dict</span></span><br><span class="line"><span class="keyword">from</span> langchain.schema.runnable <span class="keyword">import</span> Runnable</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Statement</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    description: <span class="built_in">str</span> = Field(description=<span class="string">"这是内容陈述的具体内容。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Sentence_And_Statement</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    origin_sentence: <span class="built_in">str</span> = Field(description=<span class="string">"这是回答的某个句子。"</span>)</span><br><span class="line">    statements: <span class="type">List</span>[Statement] = Field(description=<span class="string">"这是由上述句子中提取的一组内容陈述。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Sentence_And_Statement_List</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    sentence_and_statements: <span class="type">List</span>[Sentence_And_Statement] = Field(description=<span class="string">"这是由文本中提取的每组句子和对应的内容陈述。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Statement_Verdication</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    statement: <span class="built_in">str</span> = Field(description=<span class="string">"这是内容陈述的内容，你直接复制原始内容。"</span>)</span><br><span class="line">    verdication_reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"这是判断陈述是否可以由上下文推断时的思考内容"</span>)</span><br><span class="line">    verdication_result: <span class="built_in">int</span> = Field(description=<span class="string">"陈述可信度，如果可以根据上下文直接推断该出陈述，则为1，否则为0。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Statement_Verdication_List</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    statement_verdications: <span class="type">List</span>[Statement_Verdication] = Field(description=<span class="string">"这是一组内容陈述的是否可由上下文推断出的结果。"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Faithfulness</span>(<span class="title class_ inherited__">Runnable</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    评估回答的忠实度，确保回答中的信息能够由提供的上下文支持。</span></span><br><span class="line"><span class="string">    该类支持同步和异步评估。</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, llm: ChatOpenAI</span>):</span><br><span class="line">        <span class="variable language_">self</span>.llm = llm</span><br><span class="line">        </span><br><span class="line">        <span class="variable language_">self</span>.statement_output_parser = PydanticOutputParser(pydantic_object=Sentence_And_Statement_List)</span><br><span class="line">        <span class="variable language_">self</span>.verdict_statement_parser = PydanticOutputParser(pydantic_object=Statement_Verdication_List)</span><br><span class="line">        </span><br><span class="line">        create_statement_prompt = (</span><br><span class="line">            <span class="string">"给定一个包含若干句子的文本，分析每个句子并将每个句子分解为一个或多个原子化的完全可理解的内容陈述，同时确保每个语句中不使用代词，且每个对象都需要具体，在其所在陈述中可理解。\n"</span></span><br><span class="line">            <span class="string">"输出格式：\n{output_format_instructions}\n\n"</span></span><br><span class="line">            <span class="string">"[文本-开始]：\n{context}\n[文本-结束]\n"</span></span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.create_statement_prompt = PromptTemplate(</span><br><span class="line">            template=create_statement_prompt, </span><br><span class="line">            partial_variables={<span class="string">"output_format_instructions"</span>: <span class="variable language_">self</span>.statement_output_parser.get_format_instructions()}</span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.create_statement_chain = <span class="variable language_">self</span>.create_statement_prompt | <span class="variable language_">self</span>.llm | <span class="variable language_">self</span>.statement_output_parser</span><br><span class="line"></span><br><span class="line">        verdict_statement_prompt = (</span><br><span class="line">            <span class="string">"你的任务是根据给定的上下文判断一系列内容陈述的可信度。对于每个陈述，如果可以根据上下文直接推断该出陈述，则返回1，否则返回0。\n"</span></span><br><span class="line">            <span class="string">"输出格式：\n{output_format_instructions}\n\n"</span></span><br><span class="line">            <span class="string">"[上下文-开始]：\n{context}\n[上下文-结束]\n"</span></span><br><span class="line">            <span class="string">"[内容陈述-开始]：\n{statements}\n[内容陈述-结束]"</span></span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.verdict_statement_prompt = PromptTemplate(</span><br><span class="line">            template=verdict_statement_prompt, </span><br><span class="line">            partial_variables={<span class="string">"output_format_instructions"</span>: <span class="variable language_">self</span>.verdict_statement_parser.get_format_instructions()}</span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.verdict_statement_chain = <span class="variable language_">self</span>.verdict_statement_prompt | <span class="variable language_">self</span>.llm | <span class="variable language_">self</span>.verdict_statement_parser</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_statements</span>(<span class="params">self, context: <span class="built_in">str</span></span>):</span><br><span class="line">        statement_list = <span class="variable language_">self</span>.create_statement_chain.invoke({<span class="string">"context"</span>: context})</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>([item.statements <span class="keyword">for</span> item <span class="keyword">in</span> statement_list.sentence_and_statements], [])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">verdict_statements</span>(<span class="params">self, context: <span class="built_in">str</span>, statements: <span class="type">List</span>[Statement]</span>):</span><br><span class="line">        verdict_result = <span class="variable language_">self</span>.verdict_statement_chain.invoke({</span><br><span class="line">            <span class="string">"context"</span>: context,</span><br><span class="line">            <span class="string">"statements"</span>: <span class="string">'\n'</span>.join([<span class="string">f'<span class="subst">{i+<span class="number">1</span>}</span>. <span class="subst">{item.description}</span>'</span> <span class="keyword">for</span> i, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(statements)])</span><br><span class="line">        })</span><br><span class="line">        <span class="keyword">return</span> verdict_result.statement_verdications</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">compute_score</span>(<span class="params">self, verdicts</span>):</span><br><span class="line">        num_faithful_statements = <span class="built_in">sum</span>([item.verdication_result <span class="keyword">for</span> item <span class="keyword">in</span> verdicts])</span><br><span class="line">        num_statements = <span class="built_in">len</span>(verdicts)</span><br><span class="line">        <span class="keyword">return</span> num_faithful_statements / num_statements <span class="keyword">if</span> num_statements <span class="keyword">else</span> np.nan</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">invoke</span>(<span class="params">self, inputs: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="type">List</span>[<span class="built_in">str</span>]]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        评估回答的忠实度。</span></span><br><span class="line"><span class="string">        :param inputs: 包含 `answer` (回答) 和 `document_list` (上下文列表) 的字典。</span></span><br><span class="line"><span class="string">        :return: 计算的忠实度得分。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        answer = inputs[<span class="string">"answer"</span>]</span><br><span class="line">        document_list = inputs[<span class="string">"document_list"</span>]</span><br><span class="line">        </span><br><span class="line">        statements = <span class="variable language_">self</span>.create_statements(answer)</span><br><span class="line">        context = <span class="string">'\n'</span>.join(document_list)</span><br><span class="line">        verdicts = <span class="variable language_">self</span>.verdict_statements(context, statements)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.compute_score(verdicts)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">ainvoke</span>(<span class="params">self, inputs: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="type">List</span>[<span class="built_in">str</span>]]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        异步评估回答的忠实度。</span></span><br><span class="line"><span class="string">        :param inputs: 包含 `answer` (回答) 和 `document_list` (上下文列表) 的字典。</span></span><br><span class="line"><span class="string">        :return: 计算的忠实度得分。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        answer = inputs[<span class="string">"answer"</span>]</span><br><span class="line">        document_list = inputs[<span class="string">"document_list"</span>]</span><br><span class="line">        </span><br><span class="line">        statements = <span class="keyword">await</span> asyncio.to_thread(<span class="variable language_">self</span>.create_statements, answer)</span><br><span class="line">        context = <span class="string">'\n'</span>.join(document_list)</span><br><span class="line">        verdicts = <span class="keyword">await</span> asyncio.to_thread(<span class="variable language_">self</span>.verdict_statements, context, statements)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.compute_score(verdicts)</span><br><span class="line">    </span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.5</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tool = Faithfulness(llm)</span><br><span class="line"></span><br><span class="line">inputs = {</span><br><span class="line">	<span class="string">"answer"</span>:answer,</span><br><span class="line">	<span class="string">"document_list"</span>:docs,</span><br><span class="line">}</span><br><span class="line">score = tool.invoke(inputs)</span><br><span class="line"><span class="built_in">print</span>(score)</span><br></pre></td></tr></table></figure></div>
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/RAG-%E8%AF%84%E4%BC%B0/">#RAG 评估</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/04/RAGas-langchain-series/2.Answer_Relevance/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">RAGas 回答相关性 Answer Relevance</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/SFT-data-selection-series/2.perplexity_based/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">白盒模型评估 SFT 数据质量</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">RAGas 忠实度 Faithfulness</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%8B%E7%BB%8D"><span class="nav-text">实现介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%9B%9E%E7%AD%94-create-statements"><span class="nav-text">解析回答 create statements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E9%99%88%E8%BF%B0-statement-verdict"><span class="nav-text">验证陈述 statement verdict</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">完整代码</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        27 posts in total
+                    </span>
+                    
+                        <span>
+                            91.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

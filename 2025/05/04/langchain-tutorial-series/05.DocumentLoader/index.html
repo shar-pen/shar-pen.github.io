@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/04/langchain-tutorial-series/05.documentloader/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Langchain 入门教程 - 5.文档加载">
+<meta property="og:url" content="http://example.com/2025/05/04/langchain-tutorial-series/05.DocumentLoader/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:43:57.510Z">
+<meta property="article:modified_time" content="2025-05-04T14:47:01.463Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Langchain">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Langchain 入门教程 - 5.文档加载 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Langchain 入门教程 - 5.文档加载</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:43:57</span>
+        <span class="mobile">2025-05-04 22:43:57</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:47:01</span>
+            <span class="mobile">2025-05-04 22:47:01</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Langchain/">Langchain</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.7k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>14 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="Document"><a href="#Document" class="headerlink" title="Document"></a><strong>Document</strong></h1><p>用于存储一段文本及其相关元数据的类。  </p>
+<ul>
+<li><strong><code>page_content</code></strong> （必需）：以字符串形式存储一段文本。  </li>
+<li><strong><code>metadata</code></strong> （可选）：以字典形式存储与 <code>page_content</code> 相关的元数据。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.documents <span class="keyword">import</span> Document</span><br><span class="line"></span><br><span class="line">document = Document(page_content=<span class="string">"Hello, welcome to LangChain Open Tutorial!"</span>)</span><br><span class="line"></span><br><span class="line">document</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>Document(metadata={}, page_content='Hello, welcome to LangChain Open Tutorial!')
+</code></pre>
+<h1 id="文档加载器（Document-Loader）"><a href="#文档加载器（Document-Loader）" class="headerlink" title="文档加载器（Document Loader）"></a><strong>文档加载器（Document Loader）</strong></h1><p><strong>文档加载器</strong>是一个用于从<strong>各种来源</strong>加载 <code>Document</code> 的类。  </p>
+<p>以下是一些常见的文档加载器示例：  </p>
+<ul>
+<li><strong><code>PyPDFLoader</code></strong> ：加载 PDF 文件  </li>
+<li><strong><code>CSVLoader</code></strong> ：加载 CSV 文件  </li>
+<li><strong><code>UnstructuredHTMLLoader</code></strong> ：加载 HTML 文件  </li>
+<li><strong><code>JSONLoader</code></strong> ：加载 JSON 文件  </li>
+<li><strong><code>TextLoader</code></strong> ：加载纯文本文件  </li>
+<li><strong><code>DirectoryLoader</code></strong> ：从目录中批量加载文档</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> PyPDFLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set up the loader</span></span><br><span class="line">FILE_PATH = <span class="string">"./data/01-document-loader-sample.pdf"</span></span><br><span class="line">loader = PyPDFLoader(FILE_PATH)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="load"><a href="#load" class="headerlink" title="load()"></a><strong>load()</strong></h3><ul>
+<li>加载文档，并以 <code>list[Document]</code> 的形式返回。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docs = loader.load()</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(docs))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'-'</span>*<span class="number">3</span>)</span><br><span class="line">docs[<span class="number">0</span>:<span class="number">2</span>]</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>48
+---
+
+
+
+
+
+[Document(metadata={'source': './data/01-document-loader-sample.pdf', 'page': 0}, page_content=' \n \n \nOctober 2016 \n \n \n \n \n \n \n \n \n \nTHE NATIONAL  \nARTIFICIAL INTELLIGENCE \nRESEARCH AND DEVELOPMENT \nSTRATEGIC PLAN  \nNational Science and Technology Council \n \nNetworking and Information Technology \nResearch and Development Subcommittee \n '),
+ Document(metadata={'source': './data/01-document-loader-sample.pdf', 'page': 1}, page_content=' ii \n \n ')]
+</code></pre>
+<h3 id="aload"><a href="#aload" class="headerlink" title="aload()"></a><strong>aload()</strong></h3><ul>
+<li><strong>异步</strong>加载文档，并以 <code>list[Document]</code> 的形式返回。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load Documents asynchronously</span></span><br><span class="line">docs = <span class="keyword">await</span> loader.aload()</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="lazy-load"><a href="#lazy-load" class="headerlink" title="lazy_load()"></a><strong>lazy_load()</strong></h3><ul>
+<li><strong>顺序</strong>加载文档，并以 <code>Iterator[Document]</code> 的形式返回。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docs = loader.lazy_load()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">    <span class="built_in">print</span>(doc.metadata)</span><br><span class="line">    <span class="keyword">break</span>  <span class="comment"># Used to limit the output length</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="alazy-load"><a href="#alazy-load" class="headerlink" title="alazy_load()"></a><strong>alazy_load()</strong></h3><ul>
+<li><strong>异步</strong>顺序加载文档，并以 <code>AsyncIterator[Document]</code> 的形式返回。</li>
+</ul>
+<p>可以观察到，这种方法作为一个 <strong><code>async_generator</code></strong> 工作。它是一种特殊类型的异步迭代器，能够<strong>按需生成</strong>值，而不需要一次性将所有值存储在内存中。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loader.alazy_load()</span><br><span class="line">docs = loader.alazy_load()</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">    <span class="built_in">print</span>(doc.metadata)</span><br><span class="line">    <span class="keyword">break</span>  <span class="comment"># Used to limit the output length</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="load-and-split"><a href="#load-and-split" class="headerlink" title="load_and_split()"></a><strong>load_and_split()</strong></h3><ul>
+<li>加载文档，并使用 <code>TextSplitter</code> <strong>自动拆分</strong>为多个文本块，最终以 <code>list[Document]</code> 的形式返回。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set up the TextSplitter</span></span><br><span class="line">text_splitter = RecursiveCharacterTextSplitter(chunk_size=<span class="number">128</span>, chunk_overlap=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Split Documents into chunks</span></span><br><span class="line">docs = loader.load_and_split(text_splitter=text_splitter)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(docs))</span><br><span class="line">docs[<span class="number">0</span>:<span class="number">3</span>]</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>1430
+
+
+
+
+
+[Document(metadata={'source': './data/01-document-loader-sample.pdf', 'page': 0}, page_content='October 2016 \n \n \n \n \n \n \n \n \n \nTHE NATIONAL  \nARTIFICIAL INTELLIGENCE \nRESEARCH AND DEVELOPMENT \nSTRATEGIC PLAN'),
+ Document(metadata={'source': './data/01-document-loader-sample.pdf', 'page': 0}, page_content='National Science and Technology Council \n \nNetworking and Information Technology \nResearch and Development Subcommittee'),
+ Document(metadata={'source': './data/01-document-loader-sample.pdf', 'page': 1}, page_content='ii')]
+</code></pre>
+<h1 id="PDF-Loader"><a href="#PDF-Loader" class="headerlink" title="PDF Loader"></a>PDF Loader</h1><p><code>PyPDF</code> 是最广泛使用的 Python 库之一，用于 PDF 处理。</p>
+<p>在这里，我们使用 <code>pypdf</code> 将 PDF 加载为文档数组，每个文档包含一个 <code>page</code> 页码，并包含页面内容和元数据。</p>
+<p>LangChain 的 <a class="link" target="_blank" rel="noopener" href="https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyPDFLoader.html">PyPDFLoader<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 集成了 PyPDF，将 PDF 文档解析为 LangChain 的 Document 对象。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> PyPDFLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the PDF loader</span></span><br><span class="line">FILE_PATH = <span class="string">"./data/01-document-loader-sample.pdf"</span></span><br><span class="line">loader = PyPDFLoader(FILE_PATH)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load data into Document objects</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the contents of the document</span></span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">10</span>].page_content[:<span class="number">300</span>])</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>NATIONAL ARTIFICIAL INTELLIGENCE RESEARCH AND DEVELOPMENT STRATEGIC PLAN 
+ 
+ 3 
+Executive Summary 
+Artificial intelligence (AI) is a transformative technology that holds promise for tremendous societal and 
+economic benefit. AI has the potential to revolutionize how we live, work, learn, discover, a
+</code></pre>
+<h2 id="PyPDF-OCR"><a href="#PyPDF-OCR" class="headerlink" title="PyPDF(OCR)"></a>PyPDF(OCR)</h2><p>有些 PDF 包含扫描文档或图片中的文本图像。你也可以使用 <code>rapidocr-onnxruntime</code> 包从图像中提取文本。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loader = PyPDFLoader(FILE_PATH, extract_images=<span class="literal">True</span>)</span><br><span class="line">docs = loader.load()</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="PyPDF-Directory"><a href="#PyPDF-Directory" class="headerlink" title="PyPDF Directory"></a>PyPDF Directory</h2><p>从目录中导入所有 PDF 文档。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> PyPDFDirectoryLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># directory path</span></span><br><span class="line">loader = PyPDFDirectoryLoader(<span class="string">"./data/"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># load documents</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># print the number of documents</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(docs))</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<pre><code>96
+</code></pre>
+<h2 id="PyMuPDF"><a href="#PyMuPDF" class="headerlink" title="PyMuPDF"></a><strong>PyMuPDF</strong></h2><p><code>PyMuPDF</code> 经过速度优化，并提供关于 PDF 及其页面的详细元数据。它<strong>每页返回一个文档</strong>。  </p>
+<p>LangChain 的 <a class="link" target="_blank" rel="noopener" href="https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyMuPDFLoader.html">PyMuPDFLoader<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 集成了 <code>PyMuPDF</code>，可将 PDF 文档解析为 LangChain 的 <code>Document</code> 对象。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> PyMuPDFLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># create an instance of the PyMuPDF loader</span></span><br><span class="line">FILE_PATH = <span class="string">"./data/01-document-loader-sample.pdf"</span></span><br><span class="line">loader = PyMuPDFLoader(FILE_PATH)</span><br><span class="line"></span><br><span class="line"><span class="comment"># load the document</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># print the contents of the document</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(docs))</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>48
+
+
+/data02/hyzhang10/miniconda3/envs/xp-nlp/lib/python3.12/site-packages/langchain_community/document_loaders/parsers/pdf.py:322: UserWarning: Warning: Empty content on page 4 of document ./data/01-document-loader-sample.pdf
+  warnings.warn(
+</code></pre>
+<h1 id="WebBaseLoader"><a href="#WebBaseLoader" class="headerlink" title="WebBaseLoader"></a>WebBaseLoader</h1><p><code>WebBaseLoader</code> 是 LangChain 中一个专门用于处理基于网页内容的文档加载器。</p>
+<p>它利用 <code>BeautifulSoup4</code> 库有效地解析网页，并通过 <code>SoupStrainer</code> 和其他 <code>bs4</code> 参数提供可自定义的解析选项。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bs4</span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> WebBaseLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load news article content using WebBaseLoader</span></span><br><span class="line">loader = WebBaseLoader(</span><br><span class="line">   web_paths=(</span><br><span class="line">	<span class="string">"https://blog.csdn.net/wait_for_taht_day5/article/details/50570827"</span>,</span><br><span class="line">	<span class="string">"https://blog.csdn.net/teethfairy/article/details/7287307"</span></span><br><span class="line">	),</span><br><span class="line">   encoding=<span class="string">'utf-8'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load and process the documents</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"Number of documents: <span class="subst">{<span class="built_in">len</span>(docs)}</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="built_in">print</span>(re.sub(<span class="string">r'\n+'</span>, <span class="string">'\n'</span>, docs[<span class="number">0</span>].page_content)[:<span class="number">100</span>])</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Number of documents: 2
+ 
+【Python】Hello World 输入输出_python你好世界输入,输出英文-CSDN博客
+【Python】Hello World 输入输出
+最新推荐文章于 2024-12-04 08:5
+</code></pre>
+<h1 id="CSV-Loader"><a href="#CSV-Loader" class="headerlink" title="CSV Loader"></a>CSV Loader</h1><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders.csv_loader <span class="keyword">import</span> CSVLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create CSVLoader instance</span></span><br><span class="line">loader = CSVLoader(file_path=<span class="string">"./data/titanic.csv"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load documents</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">0</span>])</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>page_content='PassengerId: 1
+Survived: 0
+Pclass: 3
+Name: Braund, Mr. Owen Harris
+Sex: male
+Age: 22
+SibSp: 1
+Parch: 0
+Ticket: A/5 21171
+Fare: 7.25
+Cabin: 
+Embarked: S' metadata={'source': './data/titanic.csv', 'row': 0}
+</code></pre>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docs[<span class="number">0</span>].page_content</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>'PassengerId: 1\nSurvived: 0\nPclass: 3\nName: Braund, Mr. Owen Harris\nSex: male\nAge: 22\nSibSp: 1\nParch: 0\nTicket: A/5 21171\nFare: 7.25\nCabin: \nEmbarked: S'
+</code></pre>
+<p>它会读取 header 然后把每行数据重新组织</p>
+<p>原始数据</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked </span><br><span class="line">1,0,3,"Braund, Mr. Owen Harris",male,22,1,0,A/5 21171,7.25,,S</span><br></pre></td></tr></table></figure></div>
+<hr>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PassengerId: 1\nSurvived: 0\nPclass: 3\nName: Braund, Mr. Owen Harris\nSex: male\nAge: 22\nSibSp: 1\nParch: 0\nTicket: A/5 21171\nFare: 7.25\nCabin: \nEmbarked: S</span><br></pre></td></tr></table></figure></div>
+
+
+<h2 id="自定义-CSV-解析和加载"><a href="#自定义-CSV-解析和加载" class="headerlink" title="自定义 CSV 解析和加载"></a><strong>自定义 CSV 解析和加载</strong></h2><p><code>CSVLoader</code> 接受一个 <code>csv_args</code> 关键字参数，用于定制传递给 Python 的 <code>csv.DictReader</code> 的参数。这使得你可以处理各种 CSV 格式，如自定义分隔符、引号字符或特定的换行符处理。</p>
+<p>有关支持的 <code>csv_args</code> 及如何根据你的特定需求定制解析的更多信息，请参见 Python 的 <a class="link" target="_blank" rel="noopener" href="https://docs.python.org/3/library/csv.html">csv 模块<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 文档。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">loader = CSVLoader(</span><br><span class="line">    file_path=<span class="string">"./data/titanic.csv"</span>,</span><br><span class="line">    csv_args={</span><br><span class="line">        <span class="string">"delimiter"</span>: <span class="string">","</span>,</span><br><span class="line">        <span class="string">"quotechar"</span>: <span class="string">'"'</span>,</span><br><span class="line">        <span class="string">"fieldnames"</span>: [</span><br><span class="line">            <span class="string">"Passenger ID"</span>,</span><br><span class="line">            <span class="string">"Survival (1: Survived, 0: Died)"</span>,</span><br><span class="line">            <span class="string">"Passenger Class"</span>,</span><br><span class="line">            <span class="string">"Name"</span>,</span><br><span class="line">            <span class="string">"Sex"</span>,</span><br><span class="line">            <span class="string">"Age"</span>,</span><br><span class="line">            <span class="string">"Number of Siblings/Spouses Aboard"</span>,</span><br><span class="line">            <span class="string">"Number of Parents/Children Aboard"</span>,</span><br><span class="line">            <span class="string">"Ticket Number"</span>,</span><br><span class="line">            <span class="string">"Fare"</span>,</span><br><span class="line">            <span class="string">"Cabin"</span>,</span><br><span class="line">            <span class="string">"Port of Embarkation"</span>,</span><br><span class="line">        ],</span><br><span class="line">    },</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">1</span>].page_content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Passenger ID: 1
+Survival (1: Survived, 0: Died): 0
+Passenger Class: 3
+Name: Braund, Mr. Owen Harris
+Sex: male
+Age: 22
+Number of Siblings/Spouses Aboard: 1
+Number of Parents/Children Aboard: 0
+Ticket Number: A/5 21171
+Fare: 7.25
+Cabin: 
+Port of Embarkation: S
+</code></pre>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">loader = CSVLoader(</span><br><span class="line">    file_path=<span class="string">"./data/titanic.csv"</span>,</span><br><span class="line">    csv_args={</span><br><span class="line">        <span class="string">"delimiter"</span>: <span class="string">","</span>,</span><br><span class="line">        <span class="string">"quotechar"</span>: <span class="string">'"'</span>,</span><br><span class="line">        <span class="string">"fieldnames"</span>: [</span><br><span class="line">            <span class="string">"Passenger ID"</span>,</span><br><span class="line">            <span class="string">"Survival (1: Survived, 0: Died)"</span>,</span><br><span class="line">            <span class="string">"Passenger Class"</span>,</span><br><span class="line">            <span class="string">"Name"</span>,</span><br><span class="line">            <span class="string">"Sex"</span>,</span><br><span class="line">            <span class="string">"Age"</span>,</span><br><span class="line">        ],</span><br><span class="line">    },</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">1</span>].page_content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Passenger ID: 1
+Survival (1: Survived, 0: Died): 0
+Passenger Class: 3
+Name: Braund, Mr. Owen Harris
+Sex: male
+Age: 22
+None: 1,0,A/5 21171,7.25,,S
+</code></pre>
+<p>这些参数其实没啥好解释的, fieldnames 不是用于选择列的, 而是重新命名的, 如果部分列没命名, 那会分到 None 列</p>
+<p>你应该使用 <code>source_column</code> 参数来指定每一行生成文档的来源。否则，<code>file_path</code> 将作为所有从 CSV 文件创建的文档的来源。</p>
+<p>当在一个用于基于源信息回答问题的链中使用从 CSV 文件加载的文档时，这一点尤其有用。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">loader = CSVLoader(</span><br><span class="line">    file_path=<span class="string">"./data/titanic.csv"</span>,</span><br><span class="line">    source_column=<span class="string">"PassengerId"</span>,  <span class="comment"># Specify the source column</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">docs = loader.load()  </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">1</span>])</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>page_content='PassengerId: 2
+Survived: 1
+Pclass: 1
+Name: Cumings, Mrs. John Bradley (Florence Briggs Thayer)
+Sex: female
+Age: 38
+SibSp: 1
+Parch: 0
+Ticket: PC 17599
+Fare: 71.2833
+Cabin: C85
+Embarked: C' metadata={'source': '2', 'row': 1}
+</code></pre>
+<p>注意 metadata.source 变成了对应的 PassengerId</p>
+<h1 id="DataFrameLoader"><a href="#DataFrameLoader" class="headerlink" title="DataFrameLoader"></a><strong>DataFrameLoader</strong></h1><p><code>Pandas</code> 是一个开源的数据分析和处理工具，专为 Python 编程语言设计。该库在数据科学、机器学习以及多个领域中广泛应用，用于处理各种数据。</p>
+<p>LangChain 的 <code>DataFrameLoader</code> 是一个强大的工具，旨在无缝地将 <code>Pandas</code> <code>DataFrame</code> 集成到 LangChain 工作流中。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> DataFrameLoader</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">"./data/titanic.csv"</span>)</span><br><span class="line"><span class="comment"># df = pd.read_excel("./data/titanic.xlsx")</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(df.head(n=<span class="number">5</span>))</span><br><span class="line"><span class="comment"># The Name column of the DataFrame is specified to be used as the content of each document.</span></span><br><span class="line">loader = DataFrameLoader(df, page_content_column=<span class="string">"Name"</span>)</span><br><span class="line"></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">0</span>].page_content)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<pre><code>   PassengerId  Survived  Pclass  \
+0            1         0       3   
+1            2         1       1   
+2            3         1       3   
+3            4         1       1   
+4            5         0       3   
+
+                                                Name     Sex   Age  SibSp  \
+0                            Braund, Mr. Owen Harris    male  22.0      1   
+1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1   
+2                             Heikkinen, Miss. Laina  female  26.0      0   
+3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+4                           Allen, Mr. William Henry    male  35.0      0   
+
+   Parch            Ticket     Fare Cabin Embarked  
+0      0         A/5 21171   7.2500   NaN        S  
+1      0          PC 17599  71.2833   C85        C  
+2      0  STON/O2. 3101282   7.9250   NaN        S  
+3      0            113803  53.1000  C123        S  
+4      0            373450   8.0500   NaN        S  
+Braund, Mr. Owen Harris
+</code></pre>
+<p>可通过 page_content_column 来指定哪些 dataframe 的列被读取. csv 和 excel 文件都可以用 DataFrameLoader 加载</p>
+<h1 id="Docx2txtLoader"><a href="#Docx2txtLoader" class="headerlink" title="Docx2txtLoader"></a><strong>Docx2txtLoader</strong></h1><ul>
+<li>采用轻量级的 Python 模块 <strong><code>docx2txt</code></strong> 进行文本提取。  </li>
+<li><strong>快速</strong>、<strong>简单</strong>地从 <code>.docx</code> 文件中提取文本。  </li>
+<li>适用于<strong>高效且直接</strong>的文本处理任务。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> Docx2txtLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the document loader</span></span><br><span class="line">loader = Docx2txtLoader(<span class="string">"data/sample-word-document_eng.docx"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the document</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the metadata of the document</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"Document Metadata: <span class="subst">{docs[<span class="number">0</span>].metadata}</span>\n"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: The entire docx file is converted into a single document.</span></span><br><span class="line"><span class="comment"># It needs to be split into smaller parts using a text splitter.</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'-'</span>*<span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">0</span>].page_content[:<span class="number">100</span>])</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Document Metadata: {'source': 'data/sample-word-document_eng.docx'}
+
+-----
+Semantic Search
+
+
+
+
+Definition: Semantic search is a search methodology that goes beyond simple keywo
+</code></pre>
+<p>不像 PDF Loader 会默认根据页切分文档, Docx2txtLoader 会把一个文件读取为一个 Document</p>
+<h1 id="TXT-Loader"><a href="#TXT-Loader" class="headerlink" title="TXT Loader"></a>TXT Loader</h1><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> TextLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a text loader</span></span><br><span class="line">loader = TextLoader(<span class="string">"data/appendix-keywords.txt"</span>, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the document</span></span><br><span class="line">docs = loader.load()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"Number of documents: <span class="subst">{<span class="built_in">len</span>(docs)}</span>\n"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[Metadata]\n"</span>)</span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">0</span>].metadata)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n========= [Preview - First 500 Characters] =========\n"</span>)</span><br><span class="line"><span class="built_in">print</span>(docs[<span class="number">0</span>].page_content[:<span class="number">500</span>])</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Number of documents: 1
+
+[Metadata]
+
+{'source': 'data/appendix-keywords.txt'}
+
+========= [Preview - First 500 Characters] =========
+
+Semantic Search
+
+Definition: Semantic search is a search method that goes beyond simple keyword matching by understanding the meaning of the user’s query to return relevant results.
+Example: If a user searches for “planets in the solar system,” the system might return information about related planets such as “Jupiter” or “Mars.”
+Related Keywords: Natural Language Processing, Search Algorithms, Data Mining
+
+Embedding
+
+Definition: Embedding is the process of converting textual data, such as words
+</code></pre>
+<h1 id="JSONLoader"><a href="#JSONLoader" class="headerlink" title="JSONLoader"></a>JSONLoader</h1><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> JSONLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create JSONLoader</span></span><br><span class="line">loader = JSONLoader(</span><br><span class="line">    file_path=<span class="string">"data/people.json"</span>,</span><br><span class="line">    jq_schema=<span class="string">".people[]"</span>,  <span class="comment"># Access each item in the people array</span></span><br><span class="line">    text_content=<span class="literal">False</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: extract only contact_details</span></span><br><span class="line"><span class="comment"># loader = JSONLoader(</span></span><br><span class="line"><span class="comment">#     file_path="data/people.json",</span></span><br><span class="line"><span class="comment">#     jq_schema=".people[].contact_details",</span></span><br><span class="line"><span class="comment">#     text_content=False,</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Or extract only hobbies from personal_preferences</span></span><br><span class="line"><span class="comment"># loader = JSONLoader(</span></span><br><span class="line"><span class="comment">#     file_path="data/people.json",</span></span><br><span class="line"><span class="comment">#     jq_schema=".people[].personal_preferences.hobbies",</span></span><br><span class="line"><span class="comment">#     text_content=False,</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Load documents</span></span><br><span class="line">docs = loader.load()</span><br><span class="line">docs</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[Document(metadata={'source': '/data02/hyzhang10/pengxia2/LangChain-tutorial/data/people.json', 'seq_num': 1}, page_content='{"name": {"first": "Alice", "last": "Johnson"}, "age": 28, "contact": {"email": "alice.johnson@example.com", "phone": "+1-555-0123", "social_media": {"twitter": "@alice_j", "linkedin": "linkedin.com/in/alicejohnson"}}, "address": {"street": "123 Maple St", "city": "Springfield", "state": "IL", "zip": "62704", "country": "USA"}, "personal_preferences": {"hobbies": ["Reading", "Hiking", "Cooking"], "favorite_food": "Italian", "music_genre": "Jazz", "travel_destinations": ["Japan", "Italy", "Canada"]}, "interesting_fact": "Alice has traveled to over 15 countries and speaks 3 languages."}'),
+ Document(metadata={'source': '/data02/hyzhang10/pengxia2/LangChain-tutorial/data/people.json', 'seq_num': 2}, page_content='{"name": {"first": "Bob", "last": "Smith"}, "age": 34, "contact": {"email": "bob.smith@example.com", "phone": "+1-555-0456", "social_media": {"twitter": "@bobsmith34", "linkedin": "linkedin.com/in/bobsmith"}}, "address": {"street": "456 Oak Ave", "city": "Metropolis", "state": "NY", "zip": "10001", "country": "USA"}, "personal_preferences": {"hobbies": ["Photography", "Cycling", "Video Games"], "favorite_food": "Mexican", "music_genre": "Rock", "travel_destinations": ["Brazil", "Australia", "Germany"]}, "interesting_fact": "Bob is an avid gamer and has competed in several national tournaments."}'),
+ Document(metadata={'source': '/data02/hyzhang10/pengxia2/LangChain-tutorial/data/people.json', 'seq_num': 3}, page_content='{"name": {"first": "Charlie", "last": "Davis"}, "age": 45, "contact": {"email": "charlie.davis@example.com", "phone": "+1-555-0789", "social_media": {"twitter": "@charliedavis45", "linkedin": "linkedin.com/in/charliedavis"}}, "address": {"street": "789 Pine Rd", "city": "Gotham", "state": "NJ", "zip": "07001", "country": "USA"}, "personal_preferences": {"hobbies": ["Gardening", "Fishing", "Woodworking"], "favorite_food": "Barbecue", "music_genre": "Country", "travel_destinations": ["Canada", "New Zealand", "Norway"]}, "interesting_fact": "Charlie has a small farm where he raises chickens and grows organic vegetables."}'),
+ Document(metadata={'source': '/data02/hyzhang10/pengxia2/LangChain-tutorial/data/people.json', 'seq_num': 4}, page_content='{"name": {"first": "Dana", "last": "Lee"}, "age": 22, "contact": {"email": "dana.lee@example.com", "phone": "+1-555-0111", "social_media": {"twitter": "@danalee22", "linkedin": "linkedin.com/in/danalee"}}, "address": {"street": "234 Birch Blvd", "city": "Star City", "state": "CA", "zip": "90001", "country": "USA"}, "personal_preferences": {"hobbies": ["Dancing", "Sketching", "Traveling"], "favorite_food": "Thai", "music_genre": "Pop", "travel_destinations": ["Thailand", "France", "Spain"]}, "interesting_fact": "Dana is a dance instructor and has won several local competitions."}'),
+ Document(metadata={'source': '/data02/hyzhang10/pengxia2/LangChain-tutorial/data/people.json', 'seq_num': 5}, page_content='{"name": {"first": "Ethan", "last": "Garcia"}, "age": 31, "contact": {"email": "ethan.garcia@example.com", "phone": "+1-555-0999", "social_media": {"twitter": "@ethangarcia31", "linkedin": "linkedin.com/in/ethangarcia"}}, "address": {"street": "345 Cedar St", "city": "Central City", "state": "TX", "zip": "75001", "country": "USA"}, "personal_preferences": {"hobbies": ["Running", "Travel Blogging", "Cooking"], "favorite_food": "Indian", "music_genre": "Hip-Hop", "travel_destinations": ["India", "Italy", "Mexico"]}, "interesting_fact": "Ethan runs a popular travel blog where he shares his adventures and culinary experiences."}')]
+</code></pre>
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Langchain/">#Langchain</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/04/langchain-tutorial-series/04.Model/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 4.模型</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/langchain-tutorial-series/06.TextSplitter/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 6.文档切分</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Langchain 入门教程 - 5.文档加载</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Document"><span class="nav-text">Document</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%88Document-Loader%EF%BC%89"><span class="nav-text">文档加载器（Document Loader）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#load"><span class="nav-text">load()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aload"><span class="nav-text">aload()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lazy-load"><span class="nav-text">lazy_load()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alazy-load"><span class="nav-text">alazy_load()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-and-split"><span class="nav-text">load_and_split()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PDF-Loader"><span class="nav-text">PDF Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PyPDF-OCR"><span class="nav-text">PyPDF(OCR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyPDF-Directory"><span class="nav-text">PyPDF Directory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyMuPDF"><span class="nav-text">PyMuPDF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebBaseLoader"><span class="nav-text">WebBaseLoader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSV-Loader"><span class="nav-text">CSV Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-CSV-%E8%A7%A3%E6%9E%90%E5%92%8C%E5%8A%A0%E8%BD%BD"><span class="nav-text">自定义 CSV 解析和加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DataFrameLoader"><span class="nav-text">DataFrameLoader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docx2txtLoader"><span class="nav-text">Docx2txtLoader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TXT-Loader"><span class="nav-text">TXT Loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSONLoader"><span class="nav-text">JSONLoader</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        27 posts in total
+                    </span>
+                    
+                        <span>
+                            91.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/04/rag-context-compression-series/1.basic/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG 上下文压缩 - 基础概念">
+<meta property="og:url" content="http://example.com/2025/05/04/RAG-context-compression-series/1.basic/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:42:26.301Z">
+<meta property="article:modified_time" content="2025-05-04T14:44:32.872Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            RAG 上下文压缩 - 基础概念 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">RAG 上下文压缩 - 基础概念</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:42:26</span>
+        <span class="mobile">2025-05-04 22:42:26</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:44:32</span>
+            <span class="mobile">2025-05-04 22:44:32</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/RAG-%E4%B8%8A%E4%B8%8B%E6%96%87%E5%8E%8B%E7%BC%A9/">RAG 上下文压缩</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>25 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前遇到一个问题，公司大模型的长度不长，而且业务需要RAG返回不少的相关内容。通常RAG都是取top-10/15，文档由于长度限制不能太多，加上embedding效果不佳，返回的文档不多也不能保证都相关。</p>
+<p>我们考虑到返回的文档中真正能被用于求解的文本可能只占总文本的一部分，其他无关部分只会影响大模型，而且会占用上下文长度。</p>
+<p>因此我们对RAG文档进行<strong>问题相关的总计/query-focused summarization</strong>，一方面可以过滤无关内容，另一方面让文本更助于大模型回答问题。此外，同样的top-k设置下，过滤压缩后上下文长度变短了，可以倍数增长top-k，即使总结会有些信息损失，更多的文档可以弥补这方面。</p>
+<p>这个文章只介绍基础的总结技术，代码基于langchain实现。</p>
+<h2 id="文档摘要的核心原则"><a href="#文档摘要的核心原则" class="headerlink" title="文档摘要的核心原则"></a>文档摘要的核心原则</h2><p>在构建摘要生成器时，一个核心问题是：<strong>如何将文档呈现给 LLM 的上下文窗口？</strong>  </p>
+<p>主要方法包括：  </p>
+<ol>
+<li><p><strong><code>Stuff</code>（完整输入）</strong>：<br>直接将整个文档一次性放入上下文窗口。方法简单，但在处理长文档时受限。  </p>
+</li>
+<li><p><strong><code>Map-Reduce</code>（分块合并）</strong>：<br>将文档拆分为多个小块，分别对每个部分进行摘要，然后合并各部分摘要得到最终结果。适用于处理大规模数据集。  </p>
+</li>
+<li><p><strong><code>Refine</code>（逐步优化）</strong>：<br>按顺序处理文档，并在摘要过程中不断融合先前的摘要和新内容，从而逐步优化总结结果。适用于需要更精细摘要的场景。</p>
+</li>
+</ol>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> langchain_core.documents <span class="keyword">import</span> Document</span><br><span class="line"></span><br><span class="line">data = []</span><br><span class="line">file_path = <span class="string">'./data/data_100.json'</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file_path) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        a_record = json.loads(line)</span><br><span class="line">        data.append(a_record)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(data))</span><br><span class="line"></span><br><span class="line">data_indice = <span class="number">0</span></span><br><span class="line">a_query = data[data_indice][<span class="string">'query'</span>]</span><br><span class="line">a_docs = data[data_indice][<span class="string">'pos'</span>]</span><br><span class="line">a_docs = [Document(item) <span class="keyword">for</span> item <span class="keyword">in</span> a_docs]</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>100
+</code></pre>
+<h2 id="Stuff"><a href="#Stuff" class="headerlink" title="Stuff"></a>Stuff</h2><p>它将一组文档直接插入提示（prompt），然后将该提示发送给 LLM。<br>该方法适用于文档较小、且每次调用仅需处理少量文档的应用场景。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate, ChatPromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> StrOutputParser</span><br><span class="line"></span><br><span class="line">prompt = PromptTemplate(</span><br><span class="line">    input_variables=[<span class="string">"context"</span>, <span class="string">"query"</span>],</span><br><span class="line">    template=(</span><br><span class="line">		<span class="string">"请清晰简明地总结以下文本以回答问题。\n\n"</span>  </span><br><span class="line">		<span class="string">"在总结时，请注意以下几点：\n"</span>  </span><br><span class="line">		<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">		<span class="string">"- 省略不必要的细节。\n\n"</span>  </span><br><span class="line">        <span class="string">"[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">		<span class="string">"[需要总结的文本-开始]：\n{context}\n[需要总结的文本-结束]\n"</span>  </span><br><span class="line">		<span class="string">"摘要："</span></span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">output_parser = StrOutputParser()</span><br><span class="line"></span><br><span class="line">map_chain = prompt | llm | output_parser</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">result = map_chain.invoke(</span><br><span class="line">    {</span><br><span class="line">        <span class="string">"query"</span>:a_query,</span><br><span class="line">        <span class="string">"context"</span>:<span class="string">'\n'</span>.join([item.page_content <span class="keyword">for</span> item <span class="keyword">in</span> a_docs])</span><br><span class="line">	}</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a_query)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">20</span>*<span class="string">'='</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>澳大利亚新任外长黄英贤近日访问了哪个国家，他的目的是什么？
+====================
+澳大利亚新任外长黄英贤访问了所罗门群岛，目的是加强澳大利亚与太平洋国家的安全合作，并强调澳大利亚在该地区的存在感。黄英贤与所罗门群岛总理索加瓦雷进行了会谈，强调了澳大利亚警方在该国骚乱后的援助，并表示澳大利亚不会在所罗门群岛建立军事基地。黄英贤的访问正值中国与所罗门群岛签署安全协议引发地区关切之际，澳大利亚、新西兰和美国等国也在该地区采取行动，试图抗衡中国在太平洋地区的影响力。
+</code></pre>
+<p>事实上既然直接 stuff 的话, 不一点需要先总结再回答, 可以直接回答问题。<br>在我看来, stuff 可以算作一个 CoT 环节, 先显示找出相关内容, 再求解问题</p>
+<h2 id="Map-Reduce"><a href="#Map-Reduce" class="headerlink" title="Map-Reduce"></a>Map-Reduce</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/1.basic/1oTxuYZnlyVE-SlP5ydrX_g.png" alt="map-reduce"></p>
+<p>Map-Reduce 摘要是一种有效的长文档压缩技术，主要包含两个阶段：  </p>
+<ol>
+<li><strong>Map 阶段</strong>：将文档拆分为多个小块，并对每个部分独立生成摘要。  </li>
+<li><strong>Reduce 阶段</strong>：将各个部分的摘要合并，形成连贯的最终摘要。</li>
+</ol>
+<p>该方法在处理超长文档时尤为有用，因为它允许在 Map 阶段对各个块并行处理，从而提高效率。此外，它还能有效规避语言模型的 token 限制，确保每个文本块都能适应模型的上下文窗口。</p>
+<h3 id="Map-阶段"><a href="#Map-阶段" class="headerlink" title="Map 阶段"></a>Map 阶段</h3><p>在 Map 阶段，通常对每个文本块进行摘要生成。  </p>
+<p>标准方法是对每个块的内容进行总结，但另一种替代方式是提取关键信息。<br>由于 Reduce 阶段最终会将所有输出合并为最终摘要，因此这两种方法通常都能有效完成任务，并且对最终结果的影响较小。  </p>
+<p>在 Map 阶段选择摘要生成还是关键信息提取，可以根据具体任务的目标和需求进行调整。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate, ChatPromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输出格式</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MapSummary</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"关于问题、文本内容、两者之间关联性的思考"</span>)</span><br><span class="line">    summary: <span class="built_in">str</span> = Field(description=<span class="string">"对文本中与问题相关片段的内容总结"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建解析器</span></span><br><span class="line">map_parser = PydanticOutputParser(pydantic_object=MapSummary)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建模板</span></span><br><span class="line">map_prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        <span class="comment"># role, message</span></span><br><span class="line">        (<span class="string">"system"</span>, <span class="string">"你是一名专业的内容提取和总结专家。"</span>),</span><br><span class="line">        (<span class="string">"human"</span>, (</span><br><span class="line">					<span class="string">"请清晰简明地总结以下文本以回答问题。\n\n"</span>  </span><br><span class="line">					<span class="string">"在总结时，请注意以下几点：\n"</span> </span><br><span class="line">                    <span class="string">"- 你的任务是总结问题相关的文本，而不是回答问题。"</span> </span><br><span class="line">					<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">					<span class="string">"- 省略不必要的细节。\n\n"</span>  </span><br><span class="line">					<span class="string">"按以下格式要求输出：\n{format_instructions}\n\n"</span></span><br><span class="line">					<span class="string">"[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">					<span class="string">"[需要总结的文本-开始]：\n{context}\n[需要总结的文本-结束]\n"</span>  </span><br><span class="line">				)</span><br><span class="line">         ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 固定输出格式指令</span></span><br><span class="line">map_prompt = map_prompt.partial(format_instructions=map_parser.get_format_instructions())</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">map_chain = map_prompt | llm | map_parser</span><br><span class="line"></span><br><span class="line">map_prompt.pretty_print()</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>================================[1m System Message [0m================================
+
+你是一名专业的内容提取和总结专家。
+
+================================[1m Human Message [0m=================================
+
+请清晰简明地总结以下文本以回答问题。
+
+在总结时，请注意以下几点：
+- 你的任务是总结问题相关的文本，而不是回答问题。- 包含关键事件、重要事实和核心信息。
+- 省略不必要的细节。
+
+按以下格式要求输出：
+[33;1m[1;3m{format_instructions}[0m
+
+[问题-开始]：
+[33;1m[1;3m{query}[0m
+[问题-结束]
+
+[需要总结的文本-开始]：
+[33;1m[1;3m{context}[0m
+[需要总结的文本-结束]
+摘要：
+</code></pre>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 并行运行所有任务</span></span><br><span class="line">tasks = [</span><br><span class="line">	map_chain.ainvoke(</span><br><span class="line">		{</span><br><span class="line">            <span class="string">"query"</span>:a_query,</span><br><span class="line">        	<span class="string">"context"</span>:doc.page_content,</span><br><span class="line">		}</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">for</span> doc <span class="keyword">in</span> a_docs</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">map_results = <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line">map_results</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[MapSummary(think='文本主要讨论了澳大利亚外长黄英贤访问所罗门群岛的背景和目的，以及美国与马绍尔群岛的经济援助谈判，但未直接回答黄英贤访问的具体国家和目的。', summary='澳大利亚外长黄英贤访问了所罗门群岛，强调了澳大利亚对所罗门群岛的援助，并与总理讨论了安全问题。美国与马绍尔群岛就经济援助进行谈判，以应对中国在太平洋地区的影响力增强。'),
+ MapSummary(think='文本主要描述了澳大利亚新任外长黄英贤访问萨摩亚和汤加的目的，以及美日等国在南太平洋的动作，意图抗衡中国的影响力。', summary='澳大利亚新任外长黄英贤访问萨摩亚和汤加，旨在加强与太平洋国家的安全合作。此前，美日等国也在南太平洋频繁活动，意图抗衡中国在该地区的影响力。'),
+ MapSummary(think='文本主要报道了澳大利亚外长黄英贤访问中国的背景、目的以及外界对此的评价。', summary='澳大利亚外长黄英贤于12月20日至21日对中国进行访问，这是澳中建交50周年之际，黄英贤四年多来首次访华。多家外媒认为此访标志着中澳关系迈出重要一步，有助于推进共同利益和管控分歧。'),
+ MapSummary(think='文本主要讲述了澳大利亚新任外长黄英贤访问中国的目的和背景，以及专家对此的解读。', summary='澳大利亚外长黄英贤访问中国，旨在推动贸易限制措施的取消，并寻求与中国的稳定平等伙伴关系。澳专家认为，这是澳大利亚抓住与中国关系解冻的机会，但中澳关系回暖仍面临美国的影响。')]
+</code></pre>
+<h3 id="Reduce-阶段"><a href="#Reduce-阶段" class="headerlink" title="Reduce 阶段"></a>Reduce 阶段</h3><p>在 <strong>Reduce Chain</strong> 中，对 <strong>Map</strong> 阶段生成的结果进行进一步处理，以合并和优化内容，最终生成连贯的摘要。  </p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ReduceSummary</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"关于问题与局部内容总结的思考"</span>)</span><br><span class="line">    summary: <span class="built_in">str</span> = Field(description=<span class="string">"整合局部内容总结的全局总结"</span>)</span><br><span class="line"></span><br><span class="line">reduce_parser = PydanticOutputParser(pydantic_object=ReduceSummary)</span><br><span class="line"></span><br><span class="line">reduce_prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        <span class="comment"># role, message</span></span><br><span class="line">        (<span class="string">"system"</span>, <span class="string">"你是一名专业的摘要专家。你将收到一组文档摘要，并需要将其整合为一个完整的摘要。"</span>),</span><br><span class="line">        (<span class="string">"human"</span>, (</span><br><span class="line">					<span class="string">"请将以下局部的总结内容整合，形成一个完整的内容摘要，以作为参考材料回答问题。\n\n"</span>  </span><br><span class="line">					<span class="string">"在总结时，请注意以下几点：\n"</span> </span><br><span class="line">                    <span class="string">"- 你的任务是总结问题相关的文本，而不是回答问题。"</span> </span><br><span class="line">					<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">					<span class="string">"- 省略不必要的细节。\n"</span>  </span><br><span class="line">					<span class="string">"- 去除重复冗余内容，使语言更加简洁和凝练。\n\n"</span></span><br><span class="line">					<span class="string">"按以下格式要求输出：\n{format_instructions}\n\n"</span></span><br><span class="line">					<span class="comment"># "[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">					<span class="string">"[局部内容总结-开始]：\n{map_summary}\n[局部内容总结-结束]\n"</span>  </span><br><span class="line">				)</span><br><span class="line">         ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">reduce_prompt = reduce_prompt.partial(format_instructions=reduce_parser.get_format_instructions())</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">reduce_chain = reduce_prompt | llm | reduce_parser</span><br><span class="line">reduce_prompt.pretty_print()</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">reduce_result = reduce_chain.invoke(</span><br><span class="line">    {</span><br><span class="line">        <span class="string">"query"</span>:a_query,</span><br><span class="line">        <span class="string">"map_summary"</span>: <span class="string">'\n'</span>.join([<span class="string">f'- <span class="subst">{item.summary}</span>'</span> <span class="keyword">for</span> item <span class="keyword">in</span> map_results])</span><br><span class="line">	}</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(reduce_result.summary)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>澳大利亚外长黄英贤频繁访问太平洋国家，强调安全合作并应对中国影响力。同时，黄英贤访问中国，推动贸易限制措施取消，寻求稳定平等的伙伴关系，但美国的影响仍存。
+</code></pre>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(reduce_prompt.invoke(</span><br><span class="line">    {</span><br><span class="line">        <span class="string">"query"</span>:a_query,</span><br><span class="line">        <span class="string">"map_summary"</span>: <span class="string">'\n'</span>.join([<span class="string">f'- <span class="subst">{item.summary}</span>'</span> <span class="keyword">for</span> item <span class="keyword">in</span> map_results])</span><br><span class="line">	}</span><br><span class="line">).to_messages()[-<span class="number">1</span>].content)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>请将以下局部的总结内容整合，形成一个完整的内容摘要，以作为参考材料回答问题。
+
+在总结时，请注意以下几点：
+- 你的任务是总结问题相关的文本，而不是回答问题。- 包含关键事件、重要事实和核心信息。
+- 省略不必要的细节。
+- 去除重复冗余内容，使语言更加简洁和凝练。
+
+按以下格式要求输出：
+The output should be formatted as a JSON instance that conforms to the JSON schema below.
+
+As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. The object {"properties": {"foo": ["bar", "baz"]}} is not well-formatted.
+
+Here is the output schema:
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{"properties": {"think": {"description": "关于问题与局部内容总结的思考", "title": "Think", "type": "string"}, "summary": {"description": "整合局部内容总结的全局总结", "title": "Summary", "type": "string"}}, "required": ["think", "summary"]}</span><br></pre></td></tr></table></figure></div>
+
+[局部内容总结-开始]：
+- 澳大利亚外长黄英贤访问了所罗门群岛，强调了澳大利亚对所罗门群岛的援助，并与总理讨论了安全问题。美国与马绍尔群岛就经济援助进行谈判，以应对中国在太平洋地区的影响力增强。
+- 澳大利亚新任外长黄英贤访问萨摩亚和汤加，旨在加强与太平洋国家的安全合作。此前，美日等国也在南太平洋频繁活动，意图抗衡中国在该地区的影响力。
+- 澳大利亚外长黄英贤于12月20日至21日对中国进行访问，这是澳中建交50周年之际，黄英贤四年多来首次访华。多家外媒认为此访标志着中澳关系迈出重要一步，有助于推进共同利益和管控分歧。
+- 澳大利亚外长黄英贤访问中国，旨在推动贸易限制措施的取消，并寻求与中国的稳定平等伙伴关系。澳专家认为，这是澳大利亚抓住与中国关系解冻的机会，但中澳关系回暖仍面临美国的影响。
+[局部内容总结-结束]
+摘要：
+</code></pre>
+<h3 id="关于是否在reduce阶段附加query的思考"><a href="#关于是否在reduce阶段附加query的思考" class="headerlink" title="关于是否在reduce阶段附加query的思考"></a><strong>关于是否在reduce阶段附加query的思考</strong></h3><hr>
+<p>在这个阶段里, prompt里可以不附加query, 因为map阶段已经过滤内容了, 此阶段只需要整合。<br><strong>但最好附上query, 不然可能会出现把需要的内容给整合漏了的情况。</strong><br>以下是一个例子，map阶段内容还很具体，但reduce过于简洁，以致于如果换了具体的问题，就可能无法求解了。</p>
+<p><strong>query</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">澳大利亚新任外长黄英贤近日访问了哪个国家，他的目的是什么？</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>map结果</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 澳大利亚外长黄英贤访问了所罗门群岛，强调了澳大利亚对所罗门群岛的援助，并与总理讨论了安全问题。美国与马绍尔群岛就经济援助进行谈判，以应对中国在太平洋地区的影响力增强。</span><br><span class="line">- 澳大利亚新任外长黄英贤访问萨摩亚和汤加，旨在加强与太平洋国家的安全合作。此前，美日等国也在南太平洋频繁活动，意图抗衡中国在该地区的影响力。</span><br><span class="line">- 澳大利亚外长黄英贤于12月20日至21日对中国进行访问，这是澳中建交50周年之际，黄英贤四年多来首次访华。多家外媒认为此访标志着中澳关系迈出重要一步，有助于推进共同利益和管控分歧。</span><br><span class="line">- 澳大利亚外长黄英贤访问中国，旨在推动贸易限制措施的取消，并寻求与中国的稳定平等伙伴关系。澳专家认为，这是澳大利亚抓住与中国关系解冻的机会，但中澳关系回暖仍面临美国的影响。</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>reduce结果</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">澳大利亚外长黄英贤频繁访问太平洋国家，强调安全合作并应对中国影响力。同时，黄英贤访问中国，推动贸易限制措施取消，寻求稳定平等的伙伴关系，但美国的影响仍存。</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Map-Reduce-Chain-的完整流程"><a href="#Map-Reduce-Chain-的完整流程" class="headerlink" title="Map-Reduce Chain 的完整流程"></a>Map-Reduce Chain 的完整流程</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate, ChatPromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== map =====</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MapSummary</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"关于问题、文本内容、两者之间关联性的思考"</span>)</span><br><span class="line">    summary: <span class="built_in">str</span> = Field(description=<span class="string">"对文本中与问题相关片段的内容总结"</span>)</span><br><span class="line"></span><br><span class="line">map_parser = PydanticOutputParser(pydantic_object=MapSummary)</span><br><span class="line"></span><br><span class="line">map_prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        <span class="comment"># role, message</span></span><br><span class="line">        (<span class="string">"system"</span>, <span class="string">"你是一名专业的内容提取和总结专家。"</span>),</span><br><span class="line">        (<span class="string">"human"</span>, (</span><br><span class="line">					<span class="string">"请清晰简明地总结以下文本以回答问题。\n\n"</span>  </span><br><span class="line">					<span class="string">"在总结时，请注意以下几点：\n"</span> </span><br><span class="line">                    <span class="string">"- 你的任务是总结问题相关的文本，而不是回答问题。"</span> </span><br><span class="line">					<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">					<span class="string">"- 省略不必要的细节。\n\n"</span>  </span><br><span class="line">					<span class="string">"按以下格式要求输出：\n{format_instructions}\n\n"</span></span><br><span class="line">					<span class="string">"[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">					<span class="string">"[需要总结的文本-开始]：\n{context}\n[需要总结的文本-结束]\n"</span> </span><br><span class="line">				)</span><br><span class="line">         ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">map_prompt = map_prompt.partial(format_instructions=map_parser.get_format_instructions())</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">map_chain = map_prompt | llm | map_parser</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== reduce =====</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ReduceSummary</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"关于问题与局部内容总结的思考"</span>)</span><br><span class="line">    summary: <span class="built_in">str</span> = Field(description=<span class="string">"整合局部内容总结的全局总结"</span>)</span><br><span class="line"></span><br><span class="line">reduce_parser = PydanticOutputParser(pydantic_object=ReduceSummary)</span><br><span class="line"></span><br><span class="line">reduce_prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        <span class="comment"># role, message</span></span><br><span class="line">        (<span class="string">"system"</span>, <span class="string">"你是一名专业的摘要专家。你将收到一组文档摘要，并需要将其整合为一个完整的摘要。"</span>),</span><br><span class="line">        (<span class="string">"human"</span>, (</span><br><span class="line">					<span class="string">"请将以下局部的总结内容整合，形成一个完整的内容摘要，以作为参考材料回答问题。\n\n"</span>  </span><br><span class="line">					<span class="string">"在总结时，请注意以下几点：\n"</span> </span><br><span class="line">                    <span class="string">"- 你的任务是总结问题相关的文本，而不是回答问题。"</span> </span><br><span class="line">					<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">					<span class="string">"- 省略不必要的细节。\n"</span>  </span><br><span class="line">					<span class="string">"- 去除重复冗余内容，使语言更加简洁和凝练。\n\n"</span></span><br><span class="line">					<span class="string">"按以下格式要求输出：\n{format_instructions}\n\n"</span></span><br><span class="line">					<span class="comment"># "[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">					<span class="string">"[局部内容总结-开始]：\n{map_summary}\n[局部内容总结-结束]\n"</span> </span><br><span class="line">				)</span><br><span class="line">         ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">reduce_prompt = reduce_prompt.partial(format_instructions=reduce_parser.get_format_instructions())</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">reduce_chain = reduce_prompt | llm | reduce_parser</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">map_reduce_chain</span>(<span class="params">query, docs</span>):</span><br><span class="line"></span><br><span class="line">	tasks = [</span><br><span class="line">		map_chain.ainvoke(</span><br><span class="line">			{</span><br><span class="line">				<span class="string">"query"</span>:a_query,</span><br><span class="line">				<span class="string">"context"</span>:doc.page_content,</span><br><span class="line">			}</span><br><span class="line">		)</span><br><span class="line">		<span class="keyword">for</span> doc <span class="keyword">in</span> a_docs</span><br><span class="line">	]</span><br><span class="line">    </span><br><span class="line">	map_results = <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line">	reduce_result = reduce_chain.invoke(</span><br><span class="line">		{</span><br><span class="line">			<span class="string">"query"</span>:a_query,</span><br><span class="line">			<span class="string">"map_summary"</span>: <span class="string">'\n'</span>.join([<span class="string">f'- <span class="subst">{item.summary}</span>'</span> <span class="keyword">for</span> item <span class="keyword">in</span> map_results])</span><br><span class="line">		}</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">return</span> reduce_result</span><br><span class="line"></span><br><span class="line">result = <span class="keyword">await</span> map_reduce_chain(a_query, a_docs)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(result.summary)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>澳大利亚外长黄英贤访问所罗门群岛、萨摩亚、汤加及中国，旨在加强教育、医疗援助、安全合作，并推动贸易限制措施的取消，重建与中国的友好关系。此访问具有重大象征意义，标志着澳中关系改善的积极信号，但美国可能成为关系改善的障碍。
+</code></pre>
+<h2 id="Map-Refine"><a href="#Map-Refine" class="headerlink" title="Map-Refine"></a>Map-Refine</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/1.basic/1r8LdphrKtuaVwuY1QmllRg.png" alt="map-refine"></p>
+<p>Map-Refine 方法是一种文档摘要处理方式，类似于 Map-Reduce，但在摘要的处理和合并方式上有所不同。  </p>
+<ol>
+<li>Map 阶段</li>
+</ol>
+<ul>
+<li>将文档拆分为多个小块。  </li>
+<li>独立对每个块进行摘要。</li>
+</ul>
+<ol start="2">
+<li>Refine 阶段</li>
+</ol>
+<ul>
+<li>生成的摘要按顺序进行处理。  </li>
+<li>每次迭代时，将上一次的摘要与下一个文本块的信息结合，对摘要进行更新和优化。</li>
+</ul>
+<ol start="3">
+<li>迭代过程</li>
+</ol>
+<ul>
+<li>Refine 阶段会持续迭代，直到所有文本块都处理完毕。  </li>
+<li>每次迭代都会在保留已有信息的基础上，进一步完善摘要。</li>
+</ul>
+<ol start="4">
+<li>最终摘要</li>
+</ol>
+<ul>
+<li>所有文本块处理完成后，最终摘要将在最后一次优化步骤后生成。</li>
+</ul>
+<hr>
+<p>主要优势: </p>
+<ul>
+<li>保持文档顺序：适用于需要保持原始内容顺序的情况，如叙述性或结构化文档。  </li>
+<li>上下文优化：摘要在每个步骤都会逐步完善，适用于需要递进式构建背景信息的内容。</li>
+</ul>
+<p>局限性:</p>
+<ul>
+<li>顺序处理：Refine 阶段需要按顺序执行，难以并行化。  </li>
+<li>时间成本较高：相比 Map-Reduce，由于无法并行处理，大规模数据处理可能较慢。</li>
+</ul>
+<h3 id="Map-阶段-1"><a href="#Map-阶段-1" class="headerlink" title="Map 阶段"></a>Map 阶段</h3><p>和 Map-Reduce 同样</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate, ChatPromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输出格式</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MapSummary</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"关于问题、文本内容、两者之间关联性的思考"</span>)</span><br><span class="line">    summary: <span class="built_in">str</span> = Field(description=<span class="string">"对文本中与问题相关片段的内容总结"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建解析器</span></span><br><span class="line">map_parser = PydanticOutputParser(pydantic_object=MapSummary)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建模板</span></span><br><span class="line">map_prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        <span class="comment"># role, message</span></span><br><span class="line">        (<span class="string">"system"</span>, <span class="string">"你是一名专业的内容提取和总结专家。"</span>),</span><br><span class="line">        (<span class="string">"human"</span>, (</span><br><span class="line">					<span class="string">"请清晰简明地总结以下文本以回答问题。\n\n"</span>  </span><br><span class="line">					<span class="string">"在总结时，请注意以下几点：\n"</span> </span><br><span class="line">                    <span class="string">"- 你的任务是总结问题相关的文本，而不是回答问题。"</span> </span><br><span class="line">					<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">					<span class="string">"- 省略不必要的细节。\n\n"</span>  </span><br><span class="line">					<span class="string">"按以下格式要求输出：\n{format_instructions}\n\n"</span></span><br><span class="line">					<span class="string">"[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">					<span class="string">"[需要总结的文本-开始]：\n{context}\n[需要总结的文本-结束]\n"</span>  </span><br><span class="line">				)</span><br><span class="line">         ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 固定输出格式指令</span></span><br><span class="line">map_prompt = map_prompt.partial(format_instructions=map_parser.get_format_instructions())</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">map_chain = map_prompt | llm | map_parser</span><br><span class="line"></span><br><span class="line">map_prompt.pretty_print()</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>================================[1m System Message [0m================================
+
+你是一名专业的内容提取和总结专家。
+
+================================[1m Human Message [0m=================================
+
+请清晰简明地总结以下文本以回答问题。
+
+在总结时，请注意以下几点：
+- 你的任务是总结问题相关的文本，而不是回答问题。- 包含关键事件、重要事实和核心信息。
+- 省略不必要的细节。
+
+按以下格式要求输出：
+[33;1m[1;3m{format_instructions}[0m
+
+[问题-开始]：
+[33;1m[1;3m{query}[0m
+[问题-结束]
+
+[需要总结的文本-开始]：
+[33;1m[1;3m{context}[0m
+[需要总结的文本-结束]
+</code></pre>
+<p>​    </p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 并行运行所有任务</span></span><br><span class="line">tasks = [</span><br><span class="line">	map_chain.ainvoke(</span><br><span class="line">		{</span><br><span class="line">            <span class="string">"query"</span>:a_query,</span><br><span class="line">        	<span class="string">"context"</span>:doc.page_content,</span><br><span class="line">		}</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">for</span> doc <span class="keyword">in</span> a_docs</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">map_results = <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line">map_results</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>[MapSummary(reasoning='文本主要描述了澳大利亚外长黄英贤访问所罗门群岛的情况，以及访问的目的和背景。虽然文本中提到了澳大利亚对所罗门群岛的援助，但未明确提及黄英贤访问的具体目的。', summary='澳大利亚外长黄英贤访问了所罗门群岛，强调了澳大利亚对所罗门群岛的教育、医疗援助以及当地骚乱后的恢复工作。访问期间，黄英贤与所罗门群岛总理索加瓦雷进行了会谈，讨论了安全问题。'),
+ MapSummary(reasoning='文本主要描述了澳大利亚新任外长黄英贤访问萨摩亚和汤加的目的，以及澳大利亚与其他国家在南太平洋地区的活动，旨在抗衡中国在该地区的影响力。', summary='澳大利亚新任外长黄英贤访问萨摩亚和汤加，目的是加强澳大利亚与太平洋国家的安全合作，抗衡中国在南太平洋的影响力。'),
+ MapSummary(reasoning='文本主要报道了澳大利亚外长黄英贤访问中国的事件，包括访问的目的和背景，以及多家媒体对此的报道和评论。', summary='澳大利亚外长黄英贤于12月20日至21日对中国进行访问，这是澳中建交50周年之际，四年多来首次访华。多家媒体认为此访标志着中澳关系迈出重要一步，有助于推进共同利益和管控分歧。'),
+ MapSummary(reasoning='文本主要介绍了澳大利亚外长黄英贤访华的目的和背景，以及此次访问的意义。文章提到了澳中关系的现状和未来可能的发展方向。', summary='澳大利亚外长黄英贤访问中国，旨在推动贸易限制措施的取消，并寻求与中国的稳定平等伙伴关系。此次访问被视为中澳关系解冻的重要时刻，但双方仍面临一些棘手问题，未来关系回暖仍面临美国的影响。')]
+</code></pre>
+<h3 id="Refine-阶段"><a href="#Refine-阶段" class="headerlink" title="Refine 阶段"></a>Refine 阶段</h3><p>在 <strong>Refine 阶段</strong>，Map 阶段生成的文本块会按顺序依次处理，每次迭代都会逐步优化最终摘要。<br>摘要的更新方式是将上一轮的摘要与下一个文本块的信息结合，从而确保最终摘要更加全面且符合上下文逻辑。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RefineSummary</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    reasoning: <span class="built_in">str</span> = Field(description=<span class="string">"关于问题与局部内容总结的思考"</span>)</span><br><span class="line">    summary: <span class="built_in">str</span> = Field(description=<span class="string">"整合局部内容总结的全局总结"</span>)</span><br><span class="line"></span><br><span class="line">refine_parser = PydanticOutputParser(pydantic_object=RefineSummary)</span><br><span class="line"></span><br><span class="line">refine_prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        <span class="comment"># role, message</span></span><br><span class="line">        (<span class="string">"system"</span>, <span class="string">"你是一名专业的摘要专家。你的任务是生成一个最终的内容总结。"</span>),</span><br><span class="line">        (<span class="string">"human"</span>, (</span><br><span class="line">                    <span class="string">"我提供你一份当前的总结，和一份新文本，你需要结合两者，精炼出一份新的总结，以作为参考材料回答问题。\n\n"</span></span><br><span class="line">					<span class="string">"在总结时，请注意以下几点：\n"</span> </span><br><span class="line">                    <span class="string">"- 你的任务是总结问题相关的文本，而不是回答问题。"</span> </span><br><span class="line">					<span class="string">"- 包含关键事件、重要事实和核心信息。\n"</span>  </span><br><span class="line">					<span class="string">"- 省略不必要的细节。\n"</span>  </span><br><span class="line">					<span class="string">"- 去除重复冗余内容，使语言更加简洁和凝练。\n\n"</span></span><br><span class="line">					<span class="string">"按以下格式要求输出：\n{format_instructions}\n\n"</span></span><br><span class="line">					<span class="string">"[问题-开始]：\n{query}\n[问题-结束]\n\n"</span></span><br><span class="line">                    <span class="string">"[当前内容总结-开始]：\n{previous_summary}\n[当前内容总结-结束]\n\n"</span></span><br><span class="line">					<span class="string">"[新文本-开始]：\n{current_summary}\n[新文本-结束]\n"</span>  </span><br><span class="line">				)</span><br><span class="line">         ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">refine_prompt = refine_prompt.partial(format_instructions=refine_parser.get_format_instructions())</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">refine_chain = refine_prompt | llm | refine_parser</span><br><span class="line">refine_prompt.pretty_print()</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>================================[1m System Message [0m================================
+
+你是一名专业的摘要专家。你的任务是生成一个最终的内容总结。
+
+================================[1m Human Message [0m=================================
+
+我提供你一份当前的总结，和一份新文本，你需要结合两者，精炼出一份新的总结，以作为参考材料回答问题。
+
+在总结时，请注意以下几点：
+- 你的任务是总结问题相关的文本，而不是回答问题。- 包含关键事件、重要事实和核心信息。
+- 省略不必要的细节。
+- 去除重复冗余内容，使语言更加简洁和凝练。
+
+按以下格式要求输出：
+[33;1m[1;3m{format_instructions}[0m
+
+[问题-开始]：
+[33;1m[1;3m{query}[0m
+[问题-结束]
+
+[当前内容总结-开始]：
+[33;1m[1;3m{previous_summary}[0m
+[当前内容总结-结束]
+
+[新文本-开始]：
+[33;1m[1;3m{current_summary}[0m
+[新文本-结束]
+</code></pre>
+<p>​    </p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">previous_summary = map_results[<span class="number">0</span>].summary</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> map_results[<span class="number">1</span>:]:</span><br><span class="line">    refine_result = refine_chain.invoke(</span><br><span class="line">        {</span><br><span class="line">            <span class="string">"query"</span>:a_query,</span><br><span class="line">            <span class="string">"previous_summary"</span>:previous_summary,</span><br><span class="line">            <span class="string">"current_summary"</span>:item.summary,</span><br><span class="line">		}</span><br><span class="line">	)</span><br><span class="line">    previous_summary = refine_result.summary</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'='</span>*<span class="number">20</span>)</span><br><span class="line">    <span class="built_in">print</span>(previous_summary)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>====================
+澳大利亚新任外长黄英贤访问萨摩亚和汤加，旨在加强与太平洋国家的安全合作，抗衡中国在南太平洋的影响力。访问期间，黄英贤还与所罗门群岛总理讨论了安全问题并提供了援助。
+====================
+澳大利亚新任外长黄英贤分别访问了萨摩亚、汤加和中国。他对萨摩亚和汤加的访问旨在加强与太平洋国家的安全合作，抗衡中国在南太平洋的影响力。同时，黄英贤对中国进行访问，这是澳中建交50周年之际，四年多来首次访华，标志着中澳关系迈出重要一步。
+====================
+澳大利亚新任外长黄英贤访问了萨摩亚、汤加和中国。他对萨摩亚和汤加的访问旨在加强与太平洋国家的安全合作，抗衡中国在南太平洋的影响力。对中国访问则旨在推动贸易限制措施的取消，并寻求与中国的稳定平等伙伴关系。此次访问被视为中澳关系解冻的重要时刻，但未来关系回暖仍面临美国的影响。
+</code></pre>
+<p>具体 refine 的粒度还需要自己通过 prompt 调整, 但大多数下大模型都会简化内容, 因为”总结”就是简化。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/04/langchain-tutorial-series/01.Basic/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 1.基础应用</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/RAG-context-compression-series/2.map_refine-early_stop/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">RAG 上下文压缩 - 带早停机制的 map-refine</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">RAG 上下文压缩 - 基础概念</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%88%99"><span class="nav-text">文档摘要的核心原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stuff"><span class="nav-text">Stuff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-Reduce"><span class="nav-text">Map-Reduce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E9%98%B6%E6%AE%B5"><span class="nav-text">Map 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce-%E9%98%B6%E6%AE%B5"><span class="nav-text">Reduce 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%98%AF%E5%90%A6%E5%9C%A8reduce%E9%98%B6%E6%AE%B5%E9%99%84%E5%8A%A0query%E7%9A%84%E6%80%9D%E8%80%83"><span class="nav-text">关于是否在reduce阶段附加query的思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-Reduce-Chain-%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-text">Map-Reduce Chain 的完整流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-Refine"><span class="nav-text">Map-Refine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E9%98%B6%E6%AE%B5-1"><span class="nav-text">Map 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Refine-%E9%98%B6%E6%AE%B5"><span class="nav-text">Refine 阶段</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        27 posts in total
+                    </span>
+                    
+                        <span>
+                            91.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

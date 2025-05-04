@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/404.html"/>
+    <link rel="canonical" href="http://example.com/2025/05/04/langchain-tutorial-series/11.rag/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -22,14 +22,17 @@
     
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Page Not Found">
-<meta property="og:url" content="http://example.com/404.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Langchain 入门教程 - 11.检索增强生成 RAG">
+<meta property="og:url" content="http://example.com/2025/05/04/langchain-tutorial-series/11.RAG/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:43:57.515Z">
+<meta property="article:modified_time" content="2025-05-04T14:48:27.018Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Langchain">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
     
@@ -43,7 +46,7 @@
     
     <title>
         
-            Page Not Found | Sharpen&#39;s Blogs
+            Langchain 入门教程 - 11.检索增强生成 RAG | Sharpen&#39;s Blogs
         
     </title>
 
@@ -104,7 +107,119 @@
     
     
     
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 
@@ -435,28 +550,246 @@
 			
 
 			<div class="main-content">
-				<div class="page-template-container">
-	
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-	
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Langchain 入门教程 - 11.检索增强生成 RAG</h1>
+			</div>
+			
+		</div>
 
-	<div class="page-template-content markdown-body">
 		
-		<h1>Page Not Found</h1>
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:43:57</span>
+        <span class="mobile">2025-05-04 22:43:57</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:48:27</span>
+            <span class="mobile">2025-05-04 22:48:27</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Langchain/">Langchain</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>518 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
 		
 
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="Reranker"><a href="#Reranker" class="headerlink" title="Reranker"></a>Reranker</h1><p>目的:  </p>
+<ul>
+<li>对检索到的文档进行重排序，优化其排名，优先展示与查询最相关的结果。</li>
+</ul>
+<p>结构:  </p>
+<ul>
+<li>接受<strong>查询</strong>和<strong>文档</strong>作为单一输入对，进行联合处理。</li>
+</ul>
+<p>机制:  </p>
+<ul>
+<li><strong>单一输入对</strong>：<br>将<strong>查询</strong>和<strong>文档</strong>作为组合输入，直接输出相关性评分。</li>
+<li><strong>自注意力机制</strong>：<br>使用自注意力机制联合分析<strong>查询</strong>和<strong>文档</strong>，有效捕捉它们之间的语义关系。</li>
+</ul>
+<p>优势:  </p>
+<ul>
+<li><strong>更高的准确性</strong>：<br>提供更精确的相似度评分。</li>
+<li><strong>深度语境分析</strong>：<br>探索<strong>查询</strong>和<strong>文档</strong>之间的语义细微差别。</li>
+</ul>
+<p>局限性:  </p>
+<ul>
+<li><strong>高计算成本</strong>：<br>处理可能会消耗较多时间。</li>
+<li><strong>扩展性问题</strong>：<br>未经过优化时，不适用于大规模文档集合。</li>
+</ul>
+<p>实际应用:  </p>
+<ul>
+<li><strong>双编码器（Bi-Encoder）<strong>通过计算轻量级的相似度分数快速检索候选</strong>文档</strong>。</li>
+<li><strong>交叉编码器（Cross Encoder）<strong>通过深入分析</strong>查询</strong>与检索到的<strong>文档</strong>之间的语义关系，进一步优化这些结果。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> TextLoader</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load documents</span></span><br><span class="line">documents = TextLoader(<span class="string">"./data/appendix-keywords.txt"</span>).load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure text splitter</span></span><br><span class="line">text_splitter = RecursiveCharacterTextSplitter(chunk_size=<span class="number">500</span>, chunk_overlap=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Split documents into chunks</span></span><br><span class="line">texts = text_splitter.split_documents(documents)</span><br><span class="line"></span><br><span class="line"><span class="comment"># # Set up the embedding model</span></span><br><span class="line">embeddings_model = OpenAIEmbeddings(</span><br><span class="line">	model=<span class="string">"bge-m3"</span>,</span><br><span class="line">	base_url=<span class="string">'http://localhost:9997/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'cannot be empty'</span>,</span><br><span class="line">	<span class="comment"># dimensions=1024,</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create FAISS index from documents and set up retriever</span></span><br><span class="line">retriever = FAISS.from_documents(texts, embeddings_model).as_retriever(</span><br><span class="line">    search_kwargs={<span class="string">"k"</span>: <span class="number">30</span>}</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the query</span></span><br><span class="line">query = <span class="string">"Can you tell me about Word2Vec?"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute the query and retrieve results</span></span><br><span class="line">docs = retriever.invoke(query)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display the retrieved documents</span></span><br><span class="line"><span class="keyword">for</span> i, d <span class="keyword">in</span> <span class="built_in">enumerate</span>(docs):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"document <span class="subst">{i+<span class="number">1</span>}</span>:\n\n"</span> + d.page_content)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">'-'</span> * <span class="number">100</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>使用 <code>ContextualCompressionRetriever</code> 来包装 <code>base_retriever</code>。<code>CrossEncoderReranker</code> 利用 <code>HuggingFaceCrossEncoder</code> 对检索到的结果进行重新排序。</p>
+<p>之前 <code>ContextualCompressionRetriever</code> 只是对文档压缩, 现在起到过滤作用</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.retrievers <span class="keyword">import</span> ContextualCompressionRetriever</span><br><span class="line"><span class="keyword">from</span> langchain.retrievers.document_compressors <span class="keyword">import</span> CrossEncoderReranker</span><br><span class="line"><span class="keyword">from</span> langchain_community.cross_encoders <span class="keyword">import</span> HuggingFaceCrossEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the model</span></span><br><span class="line">model = HuggingFaceCrossEncoder(</span><br><span class="line">	model_name=<span class="string">"../DataCollection/officials/bge-reranker-v2-m3"</span>,</span><br><span class="line">	model_kwargs = {<span class="string">'device'</span>: <span class="string">'cuda:6'</span>}</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Select the top 3 documents</span></span><br><span class="line">compressor = CrossEncoderReranker(model=model, top_n=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the contextual compression retriever</span></span><br><span class="line">compression_retriever = ContextualCompressionRetriever(</span><br><span class="line">    base_compressor=compressor, base_retriever=retriever</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Retrieve compressed documents</span></span><br><span class="line">compressed_docs = compression_retriever.invoke(<span class="string">"Can you tell me about Word2Vec?"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display the documents</span></span><br><span class="line"><span class="keyword">for</span> i, d <span class="keyword">in</span> <span class="built_in">enumerate</span>(docs):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"document <span class="subst">{i+<span class="number">1</span>}</span>:\n\n"</span> + d.page_content)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">'-'</span> * <span class="number">100</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>我没有在 langchain 上找到基于 api 的 reranker 类</p>
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Langchain/">#Langchain</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/04/langchain-tutorial-series/10.Reranker/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 10.重排</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/langchain-tutorial-series/12.Agent/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Langchain 入门教程 - 12.智能体 agent</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
 		
 	</div>
 
-	<div class="page-template-comments">
-		
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Langchain 入门教程 - 11.检索增强生成 RAG</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reranker"><span class="nav-text">Reranker</span></a></li></ol>
+
 	</div>
 </div>
-
-<div class="paginator">
+	</div>
 	
 </div>
-  
 			</div>
 
 			
@@ -515,6 +848,26 @@
 		</div>
 	</div>
 
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
 	
 
 	<div class="right-side-tools-container">
@@ -597,6 +950,7 @@
         containers: ["#swup"],
     });
 </script>
+
 
 
 

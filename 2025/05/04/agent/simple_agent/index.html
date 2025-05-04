@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/04/agent/simple_agent/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单轮对话-&gt;多轮对话-&gt;简单agent示例">
+<meta property="og:url" content="http://example.com/2025/05/04/agent/simple_agent/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:54:06.619Z">
+<meta property="article:modified_time" content="2025-05-04T14:59:29.438Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            单轮对话-&gt;多轮对话-&gt;简单agent示例 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">单轮对话-&gt;多轮对话-&gt;简单agent示例</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:54:06</span>
+        <span class="mobile">2025-05-04 22:54:06</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:59:29</span>
+            <span class="mobile">2025-05-04 22:59:29</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/agent/">agent</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="单轮对话"><a href="#单轮对话" class="headerlink" title="单轮对话"></a>单轮对话</h2><p>以下是一个很基础的调用大模型的方式，除了 <code>model</code>, <code>temperature</code> 等参数外，最重要的就是 <code>messages</code>，即对话记录。大模型将基于传入的对话记录生成一个新的 message 。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI</span><br><span class="line"></span><br><span class="line">default_client = OpenAI(</span><br><span class="line">    api_key=<span class="string">"xxx"</span>, </span><br><span class="line">    base_url=<span class="string">"https://dashscope.aliyuncs.com/compatible-mode/v1"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">	completion = default_client.chat.completions.create(</span><br><span class="line">		model=<span class="string">"qwen-turbo"</span>,</span><br><span class="line">		messages=[</span><br><span class="line">			{<span class="string">'role'</span>: <span class="string">'system'</span>, <span class="string">'content'</span>: <span class="string">'You are a helpful assistant.'</span>},</span><br><span class="line">			{<span class="string">'role'</span>: <span class="string">'user'</span>, <span class="string">'content'</span>: <span class="string">'你是谁？'</span>}],	</span><br><span class="line">		temperature=<span class="number">0.8</span>,</span><br><span class="line">		max_tokens=<span class="number">120</span>,</span><br><span class="line">		top_p=<span class="number">0.9</span>,</span><br><span class="line">		frequency_penalty=<span class="number">0.5</span>,</span><br><span class="line">		presence_penalty=<span class="number">0.0</span>,</span><br><span class="line">		)</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># print(completion.choices[0].message.content)</span></span><br><span class="line">	<span class="built_in">print</span>(completion.model_dump_json(indent=<span class="number">2</span>))</span><br><span class="line">	</span><br></pre></td></tr></table></figure></div>
+
+<p>以下是结果</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  "id": "chatcmpl-cf215b2e-e870-9acd-90cb-e5e6a6a531b0",</span><br><span class="line">  "choices": [</span><br><span class="line">    {</span><br><span class="line">      "finish_reason": "stop",</span><br><span class="line">      "index": 0,</span><br><span class="line">      "logprobs": null,</span><br><span class="line">      "message": {</span><br><span class="line">        "content": "我是通义千问，阿里巴巴集团旗下的超大规模语言模型。我能够帮助你回答问题、创作文字，如写故事、公文、技术文档等，还能表达观点，玩游戏等。如果你有任何问题或需要帮助，随时可以告诉我！",</span><br><span class="line">        "refusal": null,</span><br><span class="line">        "role": "assistant",</span><br><span class="line">        "audio": null,</span><br><span class="line">        "function_call": null,</span><br><span class="line">        "tool_calls": null</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  ],</span><br><span class="line">  "created": 1745847448,</span><br><span class="line">  "model": "qwen-turbo",</span><br><span class="line">  "object": "chat.completion",</span><br><span class="line">  "service_tier": null,</span><br><span class="line">  "system_fingerprint": null,</span><br><span class="line">  "usage": {</span><br><span class="line">    "completion_tokens": 53,</span><br><span class="line">    "prompt_tokens": 22,</span><br><span class="line">    "total_tokens": 75,</span><br><span class="line">    "completion_tokens_details": null,</span><br><span class="line">    "prompt_tokens_details": {</span><br><span class="line">      "audio_tokens": null,</span><br><span class="line">      "cached_tokens": 0</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>最主要的参数是 <code>choices[0].message.content</code>，这是大模型返回结果的头条结果 (这并不代表这个结果是概率最大的结果，如果是采样的话，那结果就是随机采集的，当然会排除小概率的序列)</p>
+<h2 id="多轮对话"><a href="#多轮对话" class="headerlink" title="多轮对话"></a>多轮对话</h2><p>单轮对话仅适用于简单的或者一次性的任务，现在如果你对大模型的输出不满意，你不需要从头开始要求大模型，而是直接在以上对话的基础上 (你最初的问题/任务，大模型首次答案)，追加你的反馈信息，然后以这些 <code>message</code> 作为历史信息，使大模型生成新的答案。</p>
+<p>多轮对话实际上就是不断的把大模型输出结果和新的用户输入加入对话历史，然后再将所有对话历史输入大模型，产生新的回答。因此只要维护一个对话历史，以及新 message 的加入，就可实现多轮对话。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> openai_client <span class="keyword">import</span> default_client</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">default_chat_config = {</span><br><span class="line">	<span class="string">"model"</span>: <span class="string">"qwen-turbo"</span>,</span><br><span class="line">	<span class="string">"temperature"</span>: <span class="number">0.8</span>,</span><br><span class="line">	<span class="string">"max_tokens"</span>: <span class="number">120</span>,</span><br><span class="line">	<span class="string">"top_p"</span>: <span class="number">0.9</span>,</span><br><span class="line">	<span class="string">"frequency_penalty"</span>: <span class="number">0.5</span>,</span><br><span class="line">	<span class="string">"presence_penalty"</span>: <span class="number">0.0</span>,</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChatBot</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化函数，指定调用大模型的超参，和最基础的 system prompt</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, </span></span><br><span class="line"><span class="params">				openai_client:OpenAI=default_client,</span></span><br><span class="line"><span class="params">				system_prompt:<span class="built_in">str</span>=<span class="string">"You are a helpful assistant."</span>,</span></span><br><span class="line"><span class="params">				chat_config:<span class="built_in">dict</span>=default_chat_config</span></span><br><span class="line"><span class="params">				</span>):</span><br><span class="line">		</span><br><span class="line">		<span class="variable language_">self</span>.openai_client = openai_client</span><br><span class="line">		<span class="variable language_">self</span>.system_prompt = system_prompt</span><br><span class="line">		<span class="variable language_">self</span>.chat_config = chat_config</span><br><span class="line">		</span><br><span class="line">		<span class="variable language_">self</span>.messages = []</span><br><span class="line">		<span class="keyword">if</span> <span class="variable language_">self</span>.system_prompt != <span class="string">""</span>:</span><br><span class="line">			<span class="variable language_">self</span>.messages.append({<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: system_prompt})</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 执行大模型生成，仅是将维护的对话传入大模型</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">execute</span>(<span class="params">self</span>):</span><br><span class="line">		completion = <span class="variable language_">self</span>.openai_client.chat.completions.create(</span><br><span class="line">			messages=<span class="variable language_">self</span>.messages,</span><br><span class="line">			**<span class="variable language_">self</span>.chat_config</span><br><span class="line">		)</span><br><span class="line">		<span class="keyword">return</span> completion.choices[<span class="number">0</span>].message.content</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 实际调用多轮对话的函数，每次将用户输入作为新的 user message 加入 messages，然后调用执行函数获得大模型的回答，将这个回答加入 messages</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, message</span>):</span><br><span class="line">		<span class="variable language_">self</span>.messages.append({<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: message})</span><br><span class="line">		result = <span class="variable language_">self</span>.execute()</span><br><span class="line">		<span class="variable language_">self</span>.messages.append({<span class="string">"role"</span>: <span class="string">"assistant"</span>, <span class="string">"content"</span>: result})</span><br><span class="line">		<span class="keyword">return</span> result</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 清空 messages</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">clear_chat_history</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="variable language_">self</span>.messages = []</span><br><span class="line">		<span class="keyword">if</span> <span class="variable language_">self</span>.system_prompt != <span class="string">""</span>:</span><br><span class="line">			<span class="variable language_">self</span>.messages.append({<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: <span class="variable language_">self</span>.system_prompt})</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">	chatbot = ChatBot()</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"[System Prompt]:\n<span class="subst">{chatbot.system_prompt}</span>"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">		user_input = <span class="built_in">input</span>(<span class="string">"[User]:\n"</span>)</span><br><span class="line">		<span class="keyword">if</span> user_input.lower() == <span class="string">"exit"</span>:</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		</span><br><span class="line">		response = chatbot(user_input)</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">f"[AI]:\n<span class="subst">{response}</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>接下来简单用下多轮对话，主要验证大模型是否能记得对话历史，这里以我提前声明我的名字再提问大模型的方式验证。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[System Prompt]:</span><br><span class="line">You are a helpful assistant.</span><br><span class="line">[User]:</span><br><span class="line">I am john, what's your name?</span><br><span class="line">[AI]:</span><br><span class="line">Hello John! My name is Qwen. Nice to meet you! How can I assist you today?</span><br><span class="line">[User]:</span><br><span class="line">What's my name?</span><br><span class="line">[AI]:</span><br><span class="line">I'm sorry, but I don't have access to any personal information about you, including your name. You mentioned that you are John, but I don't have any way of verifying that. Is there anything else you'd like to share or ask? 😊</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="简单agent"><a href="#简单agent" class="headerlink" title="简单agent"></a>简单agent</h2><p>agent 的流程是在多轮对话的基础上，加上大模型执行工具的能力，这个是由我们控制，大模型只是产生调用工具的超参。</p>
+<p>agent 的流程参考了 ReAct 思路，需要在动作之前思考，然后执行动作 (在我的 prompt 里动作分为了正常的 action 和 answer)。如果不用 ReAct，那 agent 会不断执行 action 最后 answer。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">问题 --&gt; 调用工具 --&gt; 是否可以回答(非必要显式判断) --&gt; 回答</span><br><span class="line">			A             |</span><br><span class="line">			|-------------|</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>代码如下:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> chat_bot <span class="keyword">import</span> ChatBot</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span>, <span class="type">Dict</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculator</span>(<span class="params">expression: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">str</span>(<span class="built_in">eval</span>(expression))</span><br><span class="line">	<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">		<span class="keyword">return</span> <span class="string">f"Calculator Error: <span class="subst">{<span class="built_in">str</span>(e)}</span>"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reverse_text</span>(<span class="params">text: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">	<span class="keyword">return</span> text[::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Agent</span>:</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">		self,</span></span><br><span class="line"><span class="params">		chatbot: ChatBot,</span></span><br><span class="line"><span class="params">		tools: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="type">Callable</span>] = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params">	</span>):</span><br><span class="line">		<span class="variable language_">self</span>.chatbot = chatbot</span><br><span class="line">		<span class="variable language_">self</span>.tools = tools <span class="keyword">or</span> {</span><br><span class="line">			<span class="string">"calculator"</span>: calculator,</span><br><span class="line">			<span class="string">"reverse_text"</span>: reverse_text,</span><br><span class="line">		}</span><br><span class="line">		<span class="variable language_">self</span>.chatbot.clear_chat_history()</span><br><span class="line">		<span class="variable language_">self</span>.chatbot.messages.append({</span><br><span class="line">			<span class="string">"role"</span>: <span class="string">"system"</span>,</span><br><span class="line">			<span class="string">"content"</span>: <span class="variable language_">self</span>._build_agent_prompt()</span><br><span class="line">		})</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># 生成system prompt (包含工具的说明、每次输出的说明、agent 执行流程)</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">_build_agent_prompt</span>(<span class="params">self</span>):</span><br><span class="line">		tool_descriptions = <span class="string">"\n"</span>.join([</span><br><span class="line">			<span class="string">"- calculator: evaluates math expressions. Params: {'expression': str}"</span>,</span><br><span class="line">			<span class="string">"- reverse_text: reverses a string. Params: {'text': str}"</span>,</span><br><span class="line">		])</span><br><span class="line">		<span class="keyword">return</span> <span class="string">f"""You are a structured reasoning agent. You can use the following tools:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"><span class="subst">{tool_descriptions}</span></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">You run in a loop of Reasoning, Action, and Execution. If you have enough information to answer the question, you should do so. Otherwise, you will carefully oberve, reason, and use one of the tools to get the information you need. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1. Reason and Action: In this step, you will reason about the question and decide which tool to use and call one of the tools with the required parameters. You must reply using this format:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;thought&gt;</span></span><br><span class="line"><span class="string">your current reasoning</span></span><br><span class="line"><span class="string">&lt;/thought&gt;</span></span><br><span class="line"><span class="string">&lt;action&gt;</span></span><br><span class="line"><span class="string">{{"function_name": "tool_name", "function_params": {{"param1": "...", "param2": "..."}}}}</span></span><br><span class="line"><span class="string">&lt;/action&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">After you call a tool, you will receive an observation. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">2. Observation: It is a passive step where the output of the tool will be returned in the role of User. The observation will be in the format:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;observation&gt;</span></span><br><span class="line"><span class="string">tool execution output here</span></span><br><span class="line"><span class="string">&lt;/observation&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Only use one tool at a time. Always use valid JSON for &lt;action&gt;. After you receive the observation, you will reason again and decide. If you can answer the question based on existing information or you sense it is a insolvable question, then go to step 3. Otherwise, if you cannot answer the question based on existing information and you still think it is a olvable question, you will go to step 1. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3. Reason and Answer: After you receive the observation, you will reason again and decide if you can answer the question. If you can, reply with:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;thought&gt;</span></span><br><span class="line"><span class="string">your current reasoning</span></span><br><span class="line"><span class="string">&lt;/thought&gt;</span></span><br><span class="line"><span class="string">&lt;answer&gt;</span></span><br><span class="line"><span class="string">your final answer</span></span><br><span class="line"><span class="string">&lt;/answer&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, user_input: <span class="built_in">str</span></span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 用户输入</span></span><br><span class="line">		<span class="variable language_">self</span>.chatbot.messages.append({<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">f"User Input: <span class="subst">{user_input}</span>"</span>})</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 死循环，当大模型输出真正答案时 break</span></span><br><span class="line">		<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 大模型返回</span></span><br><span class="line">			response = <span class="variable language_">self</span>.chatbot.execute()</span><br><span class="line">			<span class="comment"># print(response)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 解析返回结果</span></span><br><span class="line">            <span class="comment"># 我用类 html 格式包裹住相关内容</span></span><br><span class="line">			<span class="comment"># Check if it's the final answer</span></span><br><span class="line">			final_match = re.search(<span class="string">r"&lt;answer&gt;(.*?)&lt;/answer&gt;"</span>, response, re.DOTALL)</span><br><span class="line">			<span class="keyword">if</span> final_match:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f'---\n[AI final response]:\n<span class="subst">{response}</span>\n---'</span>)</span><br><span class="line">				<span class="variable language_">self</span>.chatbot.messages.append({<span class="string">"role"</span>: <span class="string">"assistant"</span>, <span class="string">"content"</span>: response})</span><br><span class="line">				<span class="keyword">return</span> final_match.group(<span class="number">1</span>).strip()</span><br><span class="line"></span><br><span class="line">			<span class="comment"># Extract tool call</span></span><br><span class="line">			action_match = re.search(<span class="string">r"&lt;action&gt;\n\s*(\{.*?\})\s*\n&lt;/action&gt;"</span>, response, re.DOTALL)</span><br><span class="line">			<span class="keyword">if</span> <span class="keyword">not</span> action_match:</span><br><span class="line">				<span class="keyword">return</span> <span class="string">"Invalid format: &lt;action&gt; block not found."</span></span><br><span class="line"></span><br><span class="line">			<span class="keyword">try</span>:</span><br><span class="line">				action_dict = json.loads(action_match.group(<span class="number">1</span>))</span><br><span class="line">				func_name = action_dict[<span class="string">"function_name"</span>]</span><br><span class="line">				params = action_dict[<span class="string">"function_params"</span>]</span><br><span class="line">				<span class="keyword">assert</span> <span class="built_in">isinstance</span>(params, <span class="built_in">dict</span>)</span><br><span class="line">			<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">				<span class="keyword">return</span> <span class="string">f"Error parsing &lt;action&gt;: <span class="subst">{e}</span>"</span></span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> func_name <span class="keyword">not</span> <span class="keyword">in</span> <span class="variable language_">self</span>.tools:</span><br><span class="line">				observation = <span class="string">f"Unknown tool: <span class="subst">{func_name}</span>"</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="keyword">try</span>:</span><br><span class="line">					observation = <span class="variable language_">self</span>.tools[func_name](**params)</span><br><span class="line">					observation = <span class="string">f"tool execution results: \n<span class="subst">{observation}</span>"</span></span><br><span class="line">				<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">					observation = <span class="string">f"Error during tool execution: <span class="subst">{e}</span>"</span></span><br><span class="line"></span><br><span class="line">			<span class="comment"># 把大模型输出和工具调用结果加入对话历史</span></span><br><span class="line">			<span class="comment"># Append response and observation</span></span><br><span class="line">			appending_new_ai_message = {</span><br><span class="line">				<span class="string">"role"</span>: <span class="string">"assistant"</span>,</span><br><span class="line">				<span class="string">"content"</span>: response</span><br><span class="line">			}</span><br><span class="line">			appending_new_tool_message = {</span><br><span class="line">				<span class="string">"role"</span>: <span class="string">"user"</span>,</span><br><span class="line">				<span class="string">"content"</span>: <span class="string">f"&lt;observation&gt;\n<span class="subst">{observation}</span>\n&lt;/observation&gt;"</span></span><br><span class="line">			}</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 输出中间结果方便检查</span></span><br><span class="line">			<span class="built_in">print</span>(<span class="string">f'---\n[AI intermediate response]:\n<span class="subst">{appending_new_ai_message[<span class="string">"content"</span>]}</span>\n---'</span>)</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">f'---\n[tool intermediate response]:\n<span class="subst">{appending_new_tool_message[<span class="string">"content"</span>]}</span>\n---'</span>)</span><br><span class="line">			<span class="variable language_">self</span>.chatbot.messages.append(appending_new_ai_message)</span><br><span class="line">			<span class="variable language_">self</span>.chatbot.messages.append(appending_new_tool_message)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">	agent = Agent(ChatBot())</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(agent(<span class="string">"What is the result of 12 * 7 + 3?"</span>))</span><br><span class="line"><span class="comment"># print(agent("Reverse the phrase 'Hello Agent'"))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>以下是对话记录，注意 <code>[...]</code> 是我方便区分对话角色的修饰，下面的才是真正内容。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">[AI intermediate response]:</span><br><span class="line">&lt;thought&gt;</span><br><span class="line">To solve this problem, I need to use the calculator tool to evaluate the expression.</span><br><span class="line">&lt;/thought&gt;</span><br><span class="line">&lt;action&gt;</span><br><span class="line">{"function_name": "calculator", "function_params": {"expression": "12 * 7 + 3"}}</span><br><span class="line">&lt;/action&gt;</span><br><span class="line">---</span><br><span class="line">---</span><br><span class="line">[tool intermediate response]:</span><br><span class="line">&lt;observation&gt;</span><br><span class="line">tool execution results: </span><br><span class="line">87</span><br><span class="line">&lt;/observation&gt;</span><br><span class="line">---</span><br><span class="line">---</span><br><span class="line">[AI final response]:</span><br><span class="line">&lt;thought&gt;</span><br><span class="line">The calculator tool returned the result of the expression 12 * 7 + 3 as 87.</span><br><span class="line">&lt;/thought&gt;</span><br><span class="line">&lt;answer&gt;</span><br><span class="line">The result of 12 * 7 + 3 is 87.</span><br><span class="line">&lt;/answer&gt;</span><br><span class="line">---</span><br><span class="line">The result of 12 * 7 + 3 is 87.</span><br></pre></td></tr></table></figure></div>
+
+<p>在用户输出的基础上，大模型输出格式化的结构，以非 ReAct 的思路来讲，每次检查大模型输出是 action 还是 answer。</p>
+<ul>
+<li>如果是 action，那解析为函数名和函数超参，接下来执行这个函数，并将其结果作为 observation 返回给大模型 (这里是以 user 身份告知大模型)。这一步 (生成工具参数 + 返回工具调用结果) 可能会执行多次，知道大模型觉得可以回答问题了。</li>
+<li>如果是 answer，那将回答返回给用户，这就是 agent 流程的最后一步。</li>
+</ul>
+<p>注意 ReAct 思路只是为了在 action 之前显式的输出中间思考过程。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/uncategorized/json_repair/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">利用 json_repair 修复大模型的 json 生成错误</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">单轮对话-&gt;多轮对话-&gt;简单agent示例</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%BD%AE%E5%AF%B9%E8%AF%9D"><span class="nav-text">单轮对话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%BD%AE%E5%AF%B9%E8%AF%9D"><span class="nav-text">多轮对话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95agent"><span class="nav-text">简单agent</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        27 posts in total
+                    </span>
+                    
+                        <span>
+                            91.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

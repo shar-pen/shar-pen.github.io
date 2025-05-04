@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/04/torch-distributed-mnist-series/3.mnist_ddp/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MNIST 手写数字分类 Distributed Data Parallel (DDP)">
+<meta property="og:url" content="http://example.com/2025/05/04/torch-distributed-MNIST-series/3.MNIST_DDP/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-04T14:09:07.829Z">
+<meta property="article:modified_time" content="2025-05-04T14:32:49.390Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="MNIST">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            MNIST 手写数字分类 Distributed Data Parallel (DDP) | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">MNIST 手写数字分类 Distributed Data Parallel (DDP)</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-04 22:09:07</span>
+        <span class="mobile">2025-05-04 22:09:07</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-04 22:32:49</span>
+            <span class="mobile">2025-05-04 22:32:49</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/MNIST%E5%88%86%E5%B8%83%E5%BC%8F/">MNIST分布式</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/MNIST/">MNIST</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>28 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<blockquote>
+<p>The difference between DistributedDataParallel and DataParallel is: DistributedDataParallel uses multiprocessing where a process is created for each GPU, while DataParallel uses multithreading.<br>By using multiprocessing, each GPU has its dedicated process, this avoids the performance overhead caused by GIL of Python interpreter.</p>
+</blockquote>
+<ol>
+<li><strong>DDP vs DP 的并发模式</strong></li>
+</ol>
+<ul>
+<li><p>DDP使用的是多进程multiprocessing</p>
+<ul>
+<li>每个 GPU 对应一个独立的 Python 进程。</li>
+<li>各 GPU/进程之间<strong>通过通信（比如 NCCL）同步梯度</strong>。</li>
+<li>进程之间可以并行,每个进程独占一个 GPU，自由度高、效率高。</li>
+</ul>
+</li>
+<li><p>DP 使用的是多线程（multithreading）</p>
+<ul>
+<li>一个 Python 主进程控制多个线程，每个线程对应一个 GPU 上的模型副本。</li>
+<li>所有线程共享同一个 Python 解释器（主进程中的 GIL 环境）。</li>
+<li>在多线程环境下，同一时刻只能有一个线程执行 Python 字节码</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong>GIL 的性能问题</strong></li>
+</ol>
+<p>Python 有个限制叫 <strong>GIL（Global Interpreter Lock）</strong>：</p>
+<ul>
+<li>在 Python 中，进程之间可以并行，线程之间只能并发。</li>
+<li><strong>在多线程环境下，同一时刻只能有一个线程执行 Python 字节码</strong>。</li>
+<li>这意味着虽然多个线程运行在不同 GPU 上，<strong>但只要你涉及到 Python 层的逻辑（如 forward 调度、数据调度），就会被 GIL 限制</strong>，造成瓶颈。</li>
+</ul>
+<p>DDP 的多进程模式就<strong>天然绕开了 GIL</strong>，每个进程有独立的 Python 解释器和 GIL，不会互相争抢锁。所以执行速度更快、效率更高、<strong>更适合大模型和多 GPU 并行</strong>。</p>
+<blockquote>
+<p>To use DistributedDataParallel on a host with N GPUs, you should spawn up N processes, ensuring that each process exclusively works on a single GPU from 0 to N-1.</p>
+</blockquote>
+<p>总结下，DDP 用多进程给每个 GPU 配一个独立的进程，这样就不用多个线程去抢 Python 的 GIL，避免了 DataParallel 由于多线程带来的性能开销。</p>
+<p>分布式数据并行时，模型（model parameters）/优化器（optimizer states）每张卡都会拷贝一份（replicas），<strong>在整个训练过程中 DDP 始终在卡间维持着模型参数和优化器状态的同步一致性</strong>；</p>
+<p>DDP 将 batch input，通过 <strong>DistributedSampler</strong> split &amp; 分发到不同的 gpus 上，此时虽然模型/optimizer 相同，但因为数据输入不同，导致 loss 不同，反向传播时计算到的梯度也会不同，如何保证卡间，model/optimizer 的同步一致性，之前 DP 用的 parameter server，而它的问题就在于通信压力都在 server，所以 DDP 对这方面的改进是 <strong>ring all-reduce algorithm</strong>，将 Server 上的通讯压力均衡转到各个 Worker 上</p>
+<p>注意有两个核心概念:</p>
+<ul>
+<li>All to one：reduce </li>
+<li>one to All：broadcast</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>通信结构</th>
+<th>通信路径</th>
+<th>数据流向</th>
+<th>聚合策略</th>
+<th>通信瓶颈位置</th>
+<th>通信效率</th>
+<th>适合场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Parameter Server</strong></td>
+<td>中心化（星型）</td>
+<td>所有 Worker ⇄ PS</td>
+<td>上传全部梯度 → 聚合 → 下发参数</td>
+<td>PS 聚合</td>
+<td>PS 带宽和计算压力</td>
+<td>❌ 低（集中式瓶颈）</td>
+<td>小规模训练，原型实验</td>
+</tr>
+<tr>
+<td><strong>Tree All-Reduce</strong></td>
+<td>层次化（树型）</td>
+<td>节点间按树结构上传/下传</td>
+<td>层层上传聚合 → 再层层广播</td>
+<td>层次加和 &amp; 广播</td>
+<td>上层节点（树根）</td>
+<td>✅ 中（<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.466ex;" xmlns="http://www.w3.org/2000/svg" width="5.278ex" height="2.036ex" role="img" focusable="false" viewBox="0 -694 2332.7 900"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(278,0)"></path><path data-c="67" d="M329 409Q373 453 429 453Q459 453 472 434T485 396Q485 382 476 371T449 360Q416 360 412 390Q410 404 415 411Q415 412 416 414V415Q388 412 363 393Q355 388 355 386Q355 385 359 381T368 369T379 351T388 325T392 292Q392 230 343 187T222 143Q172 143 123 171Q112 153 112 133Q112 98 138 81Q147 75 155 75T227 73Q311 72 335 67Q396 58 431 26Q470 -13 470 -72Q470 -139 392 -175Q332 -206 250 -206Q167 -206 107 -175Q29 -140 29 -75Q29 -39 50 -15T92 18L103 24Q67 55 67 108Q67 155 96 193Q52 237 52 292Q52 355 102 398T223 442Q274 442 318 416L329 409ZM299 343Q294 371 273 387T221 404Q192 404 171 388T145 343Q142 326 142 292Q142 248 149 227T179 192Q196 182 222 182Q244 182 260 189T283 207T294 227T299 242Q302 258 302 292T299 343ZM403 -75Q403 -50 389 -34T348 -11T299 -2T245 0H218Q151 0 138 -6Q118 -15 107 -34T95 -74Q95 -84 101 -97T122 -127T170 -155T250 -167Q319 -167 361 -139T403 -75Z" transform="translate(778,0)"></path></g><g data-mml-node="mo" transform="translate(1278,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mi" transform="translate(1444.7,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g></g></g></svg></mjx-container> 轮次）</td>
+<td>多机多卡，合理拓扑连接</td>
+</tr>
+<tr>
+<td><strong>Broadcast + Reduce</strong></td>
+<td>两阶段（集中）</td>
+<td>所有 → 主节点（reduce） → 所有</td>
+<td>所有上传 → 中心聚合 → 广播下发</td>
+<td>单节点聚合</td>
+<td>主节点</td>
+<td>❌ 低</td>
+<td>小规模单机多卡</td>
+</tr>
+<tr>
+<td><strong>Ring All-Reduce</strong></td>
+<td>环形（对称）</td>
+<td>相邻节点之间点对点传输</td>
+<td>均匀传递/聚合，每轮处理一块数据</td>
+<td>分块加和 &amp; 拼接</td>
+<td>无集中瓶颈</td>
+<td>✅✅ 高（带宽最优）</td>
+<td>大规模 GPU 并行，主流方案</td>
+</tr>
+</tbody></table>
+<p>Parameter Server（PS）和 Broadcast + Reduce 在通信机制上本质相似，区别只在于:</p>
+<ul>
+<li>PS 是显式设计了专门的“参数服务器”角色；</li>
+<li>Broadcast + Reduce 是“隐式指定”某个节点承担聚合与广播任务。</li>
+</ul>
+<p>ring all-reduce:</p>
+<ul>
+<li>Reduce-scatter:首先将 gradient 分为 n 块，在第 i 轮 (0&lt;= i &lt; n-1)，每个 gpu j 把 第 (i+j) % n 块的数据传给下一个 gpu (j+1 % n)，即每个 gpu 都把自己一个块给下一个做加法，在 n 轮结束后，每个 gpu 上都有一个块是完整的聚合了所有不同 gpu 的 gradient。</li>
+<li>All-gather: 将每个 gpu 上的完整聚合后的 gradient 依次传给下一个 gpu，再传递 n-1 次就使所有 gpu 的每块 gradient 都是完整聚合的数据。</li>
+</ul>
+<p>虽然传递的数据量还是和 PS 一样，但传输压力平均到每个 gpu 上，不需要单个 worker 承担明显大的压力。</p>
+<table>
+<thead>
+<tr>
+<th>概念/参数名</th>
+<th>中文含义</th>
+<th>含义解释</th>
+<th>示例（2节点 × 每节点4GPU）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>world</code></td>
+<td>全局进程空间</td>
+<td>指<strong>整个分布式系统中参与训练的所有进程总和</strong></td>
+<td>2 节点 × 4 GPU = 8 个进程</td>
+</tr>
+<tr>
+<td><code>world_size</code></td>
+<td>全局进程数</td>
+<td><code>world</code> 中的进程总数，参与通信、同步、梯度聚合的总 worker 数</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>rank</code></td>
+<td>全局进程编号</td>
+<td>当前进程在 <code>world</code> 中的唯一编号，范围是 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="35.294ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 15600 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="'_' allowed only in math mode" title="'_' allowed only in math mode"><rect data-background="true" width="15600" height="950" y="-200"></rect><title>'_' allowed only in math mode</title><g data-mml-node="mtext" style="font-family: serif;"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px">[0, \text{world_size} - 1]</text></g></g></g></g></svg></mjx-container></td>
+<td>第1节点是 0<del>3，第2节点是 4</del>7</td>
+</tr>
+<tr>
+<td><code>node</code></td>
+<td>物理节点/机器</td>
+<td>实际的服务器或物理机，每个节点运行多个进程，通常对应一台机器</td>
+<td>2台服务器（假设每台4 GPU）</td>
+</tr>
+<tr>
+<td><code>node_rank</code></td>
+<td>节点编号</td>
+<td>当前节点在所有节点中的编号，通常用于标识不同机器</td>
+<td>第1台是 0，第2台是 1</td>
+</tr>
+<tr>
+<td><code>local_rank</code></td>
+<td>本地GPU编号</td>
+<td>当前进程在所在节点上的 GPU 编号，绑定 <code>cuda(local_rank)</code></td>
+<td>每台机器上分别为 0~3</td>
+</tr>
+</tbody></table>
+<p>简洁点，world 代表所有服务器上的 gpu，rank 代表 world 视角下的 gpu 编号；node 代表某个具体的服务器，node_rank 代表 world 视角下的 node 编号，local_rank 代表 node 视角下的 gpu 编号。</p>
+<h2 id="引入-DDP-相关库"><a href="#引入-DDP-相关库" class="headerlink" title="引入 DDP 相关库"></a>引入 DDP 相关库</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下是分布式相关的</span></span><br><span class="line"><span class="keyword">import</span> torch.multiprocessing <span class="keyword">as</span> mp</span><br><span class="line"><span class="keyword">from</span> torch.utils.data.distributed <span class="keyword">import</span> DistributedSampler <span class="comment"># 分发数据集</span></span><br><span class="line"><span class="keyword">from</span> torch.nn.parallel <span class="keyword">import</span> DistributedDataParallel <span class="keyword">as</span> DDP <span class="comment"># 用 DDP 封装 module 以支持分布式训练</span></span><br><span class="line"><span class="keyword">from</span> torch.distributed <span class="keyword">import</span> init_process_group, destroy_process_group <span class="comment"># 初始化和销毁进程组，一个 process 代表一个 gpu 进程</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="ddp-对原始代码的修改"><a href="#ddp-对原始代码的修改" class="headerlink" title="ddp 对原始代码的修改"></a>ddp 对原始代码的修改</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>MASTER_ADDR</code></td>
+<td>指定 <strong>主节点（rank=0 所在节点）的 IP 地址或主机名</strong>，作为所有进程连接的“服务器”</td>
+</tr>
+<tr>
+<td><code>MASTER_PORT</code></td>
+<td>指定主节点上用于<strong>通信监听的端口号</strong>，所有进程都通过这个端口进行连接与协调</td>
+</tr>
+</tbody></table>
+<p>为什么只需要指定主节点的地址和端口？所有进程必须“集合”在一起组成一个通信组（process group）；这个过程需要一个 协调者，就像组织会议需要一个人发出会议链接一样；PyTorch DDP 把这个协调角色交给 rank == 0 的进程（主节点）；其它进程只需要“知道去哪找这个协调者”就能完成初始化。</p>
+<p>主节点负责协调组网，在 DDP 初始化时，所有节点主动连接主节点，每个节点都会告知主节点自己的地址和端口，主节点收集所有其他进程的网络信息，构建全局通信拓扑，将通信配置信息广播回每个进程，包括每个 rank 要连接哪些 peer，这样每个进程就可以进行后续的双向传输，而不再依赖主节点作为中转。</p>
+<table>
+<thead>
+<tr>
+<th>主节点（rank 0）</th>
+<th>工作节点（rank 1,2,…）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在 <code>MASTER_PORT</code> 启动一个监听服务（如 TCP server）</td>
+<td>主动连接 <code>MASTER_ADDR:MASTER_PORT</code></td>
+</tr>
+<tr>
+<td>监听并接受连接，记录加入者信息</td>
+<td>与主节点握手，注册自己的 <code>rank</code>、地址等</td>
+</tr>
+<tr>
+<td>构建通信拓扑，如 Ring 或 NCCL 分组等</td>
+<td>一旦接入，就获得组网配置，与其他 worker 点对点通信</td>
+</tr>
+</tbody></table>
+<h3 id="ddp-初始化和销毁进程"><a href="#ddp-初始化和销毁进程" class="headerlink" title="ddp 初始化和销毁进程"></a>ddp 初始化和销毁进程</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">ddp_setup</span>(<span class="params">rank, world_size</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        rank: Unique identifier of each process</span></span><br><span class="line"><span class="string">        world_size: Total number of processes</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># rank 0 process</span></span><br><span class="line">    os.environ[<span class="string">"MASTER_ADDR"</span>] = <span class="string">"localhost"</span></span><br><span class="line">    os.environ[<span class="string">"MASTER_PORT"</span>] = <span class="string">"12355"</span></span><br><span class="line">    <span class="comment"># nccl：NVIDIA Collective Communication Library </span></span><br><span class="line">    <span class="comment"># 分布式情况下的，gpus 间通信</span></span><br><span class="line">    torch.cuda.set_device(rank)</span><br><span class="line">    init_process_group(backend=<span class="string">"nccl"</span>, rank=rank, world_size=world_size)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>DDP 会在每个 GPU 上运行一个进程，每个进程中都有一套完全相同的 Trainer 副本（包括 model 和 optimizer），各个进程之间通过一个进程池进行通信。</p>
+<h3 id="ddp-包装-model"><a href="#ddp-包装-model" class="headerlink" title="ddp 包装 model"></a>ddp 包装 model</h3><p>训练函数不需要多大的修改，使用 DistributedDataParallel 包装模型，这样模型才能在各个进程间同步参数。包装后 model 变成了一个 DDP 对象，要访问其参数得这样写 self.model.module.state_dict()</p>
+<p>运行过程中单独控制某个进程进行某些操作，比如要想保存 ckpt，由于每张卡里都有完整的模型参数，所以只需要控制一个进程保存即可。需要注意的是：使用 DDP 改写的代码会在每个 GPU 上各自运行，因此需要在程序中获取当前 GPU 的 rank（gpu_id），这样才能对针对性地控制各个 GPU 的行为。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Trainer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        model: torch.nn.Module,</span></span><br><span class="line"><span class="params">        train_data: DataLoader,</span></span><br><span class="line"><span class="params">        optimizer: torch.optim.Optimizer,</span></span><br><span class="line"><span class="params">        gpu_id: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">        save_every: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="variable language_">self</span>.gpu_id = gpu_id</span><br><span class="line">        <span class="variable language_">self</span>.model = model.to(gpu_id)</span><br><span class="line">        <span class="variable language_">self</span>.train_data = train_data </span><br><span class="line">        <span class="variable language_">self</span>.optimizer = optimizer</span><br><span class="line">        <span class="variable language_">self</span>.save_every = save_every</span><br><span class="line">        <span class="variable language_">self</span>.model = DDP(model, device_ids=[gpu_id])    <span class="comment"># model 要用 DDP 包装一下</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run_batch</span>(<span class="params">self, source, targets</span>):</span><br><span class="line">        <span class="variable language_">self</span>.optimizer.zero_grad()</span><br><span class="line">        output = <span class="variable language_">self</span>.model(source)</span><br><span class="line">        loss = F.cross_entropy(output, targets)</span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="variable language_">self</span>.optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run_epoch</span>(<span class="params">self, epoch</span>):</span><br><span class="line">        b_sz = <span class="built_in">len</span>(<span class="built_in">next</span>(<span class="built_in">iter</span>(<span class="variable language_">self</span>.train_data))[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"[GPU<span class="subst">{self.gpu_id}</span>] Epoch <span class="subst">{epoch}</span> | Batchsize: <span class="subst">{b_sz}</span> | Steps: <span class="subst">{<span class="built_in">len</span>(self.train_data)}</span>"</span>)</span><br><span class="line">        <span class="variable language_">self</span>.train_dataloader.sampler.set_epoch(epoch) <span class="comment"># 注意需要在各 epoch 入口调用该 sampler 对象的 set_epoch() 方法，否则每个 epoch 加载的样本顺序都不变</span></span><br><span class="line">        <span class="keyword">for</span> source, targets <span class="keyword">in</span> <span class="variable language_">self</span>.train_data:</span><br><span class="line">            source = source.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">            targets = targets.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">            <span class="variable language_">self</span>._run_batch(source, targets)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_save_checkpoint</span>(<span class="params">self, epoch</span>):</span><br><span class="line">        ckp = <span class="variable language_">self</span>.model.state_dict()</span><br><span class="line">        PATH = <span class="string">"checkpoint.pt"</span></span><br><span class="line">        torch.save(ckp, PATH)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"Epoch <span class="subst">{epoch}</span> | Training checkpoint saved at <span class="subst">{PATH}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, max_epochs: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(max_epochs):</span><br><span class="line">            <span class="variable language_">self</span>._run_epoch(epoch)</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.gpu_id == <span class="number">0</span> <span class="keyword">and</span> epoch % <span class="variable language_">self</span>.save_every == <span class="number">0</span>:</span><br><span class="line">                <span class="variable language_">self</span>._save_checkpoint(epoch)</span><br></pre></td></tr></table></figure></div>
+
+<p>在程序入口初始化进程池；在程序出口销毁进程池</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">rank: <span class="built_in">int</span>, world_size: <span class="built_in">int</span>, save_every: <span class="built_in">int</span>, total_epochs: <span class="built_in">int</span>, batch_size: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="comment"># 初始化进程池</span></span><br><span class="line">    ddp_setup(rank, world_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 进行训练</span></span><br><span class="line">    dataset, model, optimizer = load_train_objs()</span><br><span class="line">    train_data = prepare_dataloader(dataset, batch_size)</span><br><span class="line">    trainer = Trainer(model, train_data, optimizer, rank, save_every)</span><br><span class="line">    trainer.train(total_epochs)</span><br><span class="line">   </span><br><span class="line">    <span class="comment"># 销毁进程池</span></span><br><span class="line">    destroy_process_group()</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="DistributedSampler"><a href="#DistributedSampler" class="headerlink" title="DistributedSampler"></a>DistributedSampler</h3><p>构造 Dataloader 时使用 DistributedSampler 作为 sampler，这个采样器可以自动将数量为 batch_size 的数据分发到各个GPU上，并保证数据不重叠。理解是可以是这样的，但实际是根据 rank 让每个 gpu 能索引到的数据不一样，每个 gpu 上也是有重复的 Dataloader 的，但每个gpu 上 rank 设置不同，Dataloader sample 先根据 shuffle 打乱顺序，再控制不同 rank 能索引到的数据，以实现类似分发的效果。</p>
+<p>Rank 0 sees: [4, 7, 3, 0, 6] Rank 1 sees: [1, 5, 9, 8, 2]</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">prepare_dataloader</span>(<span class="params">dataset: Dataset, batch_size: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="keyword">return</span> DataLoader(</span><br><span class="line">        dataset,</span><br><span class="line">        batch_size=batch_size,</span><br><span class="line">        pin_memory=<span class="literal">True</span>,</span><br><span class="line">        shuffle=<span class="literal">False</span>,                      <span class="comment"># 设置了新的 sampler，参数 shuffle 要设置为 False </span></span><br><span class="line">        sampler=DistributedSampler(dataset) <span class="comment"># 这个 sampler 自动将数据分块后送个各个 GPU，它能避免数据重叠</span></span><br><span class="line">    )</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>set_epoch(epoch) 用于设置当前训练 epoch，以确保在分布式训练中 每个进程对数据的打乱顺序一致，从而保证每个 rank 分到的数据是互不重叠且可复现的。</p>
+<p>当 DistributedSampler 的 shuffle=True 时，它在每个 epoch 会用 torch.Generator().manual_seed(seed) 生成新的随机索引顺序。<br>但：</p>
+<ul>
+<li>如果不调用 set_epoch()，每个进程将使用相同的默认种子；</li>
+<li>会导致每个 epoch 每个进程打乱后的样本索引相同 → 重复取样，每个 epoch 的训练数据都一样 → 训练不正确！</li>
+</ul>
+<p>你确实可以不手动设置 rank 和 world_size，因为 DistributedSampler 会自动从环境变量中获取它们。<br>如果你不传入 rank 和 num_replicas，PyTorch 会调用：</p>
+<ul>
+<li>torch.distributed.get_world_size()  # 获取 world_size</li>
+<li>torch.distributed.get_rank()        # 获取当前进程 rank</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader, DistributedSampler</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义一个简单的数据集：返回 [0, 1, ..., n-1]</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RangeDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n</span>):</span><br><span class="line">        <span class="variable language_">self</span>.data = <span class="built_in">list</span>(<span class="built_in">range</span>(n))</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.data)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.data[idx]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟两张卡（进程）下的样本访问情况，并支持 set_epoch</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">simulate_distributed_sampler</span>(<span class="params">n=<span class="number">10</span>, world_size=<span class="number">2</span>, num_epochs=<span class="number">2</span></span>):</span><br><span class="line">    dataset = RangeDataset(n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"\nEpoch <span class="subst">{epoch}</span>"</span>)</span><br><span class="line">        <span class="keyword">for</span> rank <span class="keyword">in</span> <span class="built_in">range</span>(world_size):</span><br><span class="line">            <span class="comment"># 设置 shuffle=True 并调用 set_epoch</span></span><br><span class="line">            sampler = DistributedSampler(</span><br><span class="line">                dataset,</span><br><span class="line">                num_replicas=world_size,</span><br><span class="line">                rank=rank,</span><br><span class="line">                shuffle=<span class="literal">True</span>,</span><br><span class="line">            )</span><br><span class="line">            sampler.set_epoch(epoch)  <span class="comment"># 关键：确保每轮不同但在所有 rank 一致</span></span><br><span class="line"></span><br><span class="line">            dataloader = DataLoader(dataset, batch_size=<span class="number">1</span>, sampler=sampler)</span><br><span class="line">            data_seen = [batch[<span class="number">0</span>].item() <span class="keyword">for</span> batch <span class="keyword">in</span> dataloader]</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"Rank <span class="subst">{rank}</span> sees: <span class="subst">{data_seen}</span>"</span>)</span><br><span class="line"></span><br><span class="line">simulate_distributed_sampler(n=<span class="number">10</span>, world_size=<span class="number">2</span>, num_epochs=<span class="number">2</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Epoch 0</span><br><span class="line">Rank 0 sees: [4, 7, 3, 0, 6]</span><br><span class="line">Rank 1 sees: [1, 5, 9, 8, 2]</span><br><span class="line"></span><br><span class="line">Epoch 1</span><br><span class="line">Rank 0 sees: [5, 1, 0, 9, 7]</span><br><span class="line">Rank 1 sees: [6, 2, 8, 3, 4]</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="multiprocessing-spawn-创建多卡进程"><a href="#multiprocessing-spawn-创建多卡进程" class="headerlink" title="multiprocessing.spawn 创建多卡进程"></a>multiprocessing.spawn 创建多卡进程</h3><p>使用 torch.multiprocessing.spawn 方法将代码分发到各个 GPU 的进程中执行。在当前机器上启动 nprocs=world_size 个子进程，每个进程执行一次 main() 函数，并由 mp.spawn 自动赋值第一个参数（目的是执行 nprocs 个进程，第一个参数为 0 ~ nprocs-1）。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">start_process</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="comment"># Each process is assigned a file to write tracebacks to.  We</span></span><br><span class="line">    <span class="comment"># use the file being non-empty to indicate an exception</span></span><br><span class="line">    <span class="comment"># occurred (vs an expected shutdown).  Note: this previously</span></span><br><span class="line">    <span class="comment"># used a multiprocessing.Queue but that can be prone to</span></span><br><span class="line">    <span class="comment"># deadlocks, so we went with a simpler solution for a one-shot</span></span><br><span class="line">    <span class="comment"># message between processes.</span></span><br><span class="line">    tf = tempfile.NamedTemporaryFile(</span><br><span class="line">        prefix=<span class="string">"pytorch-errorfile-"</span>, suffix=<span class="string">".pickle"</span>, delete=<span class="literal">False</span></span><br><span class="line">    )</span><br><span class="line">    tf.close()</span><br><span class="line">    os.unlink(tf.name)</span><br><span class="line">    process = mp.Process(</span><br><span class="line">        target=_wrap,</span><br><span class="line">        args=(fn, i, args, tf.name),</span><br><span class="line">        daemon=daemon,</span><br><span class="line">    )</span><br><span class="line">    process.start()</span><br><span class="line">    <span class="keyword">return</span> i, process, tf.name</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> start_parallel:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nprocs):</span><br><span class="line">        idx, process, tf_name = start_process(i)</span><br><span class="line">        error_files[idx] = tf_name</span><br><span class="line">        processes[idx] = process</span><br></pre></td></tr></table></figure></div>
+
+<p>可以执行执行以下代码，它展现了 mp 创建进程的效果</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.multiprocessing <span class="keyword">as</span> mp</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">rank, message</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"[Rank <span class="subst">{rank}</span>] Received message: <span class="subst">{message}</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    world_size = <span class="number">4</span>  <span class="comment"># 启动 4 个进程（模拟 4 个GPU）</span></span><br><span class="line"></span><br><span class="line">    mp.spawn(</span><br><span class="line">        fn=run,</span><br><span class="line">        args=(<span class="string">"hello world"</span>,),   <span class="comment"># 注意是 tuple 格式</span></span><br><span class="line">        nprocs=world_size,</span><br><span class="line">        join=<span class="literal">True</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure></div>
+
+<p>效果为:</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Rank 0] Received message: hello world</span><br><span class="line">[Rank 3] Received message: hello world</span><br><span class="line">[Rank 2] Received message: hello world</span><br><span class="line">[Rank 1] Received message: hello world</span><br><span class="line"><span class="section"># 利用 mp.spawn，在整个 distribution group 的 nprocs 个 GPU 上生成进程来执行 fn 方法，并能设置要传入 fn 的参数 args</span></span><br><span class="line"><span class="section"># 注意不需要传入 fn 的 rank 参数，它由 mp.spawn 自动分配</span></span><br><span class="line">import multiprocessing as mp</span><br><span class="line">world<span class="emphasis">_size = torch.cuda.device_</span>count()</span><br><span class="line">mp.spawn(</span><br><span class="line"><span class="code">    fn=main, </span></span><br><span class="line"><span class="code">    args=(world_size, args.save_every, args.total_epochs, args.batch_size), </span></span><br><span class="line"><span class="code">    nprocs=world_size</span></span><br><span class="line"><span class="code">)</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">!CUDA<span class="emphasis">_VISIBLE_</span>DEIVES=0,1 python mnist<span class="emphasis">_ddp.py</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="torchrun"><a href="#torchrun" class="headerlink" title="torchrun"></a>torchrun</h2><p>torchrun 是 PyTorch 官方推荐的分布式训练启动工具，它用来 自动管理多进程启动、环境变量传递和通信初始化，替代早期的 torch.distributed.launch 工具。</p>
+<ul>
+<li>它帮你在每个 GPU 上自动启动一个训练进程；</li>
+<li>它设置好 DDP 所需的环境变量（如 RANK, WORLD_SIZE, LOCAL_RANK, MASTER_ADDR 等）；</li>
+<li>它会自动将这些参数传递给你的脚本中的 torch.distributed.init_process_group()。</li>
+</ul>
+<p>torchrun == python -m torch.distributed.launch –use-env</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--nproc_per_node</code></td>
+<td><code>int</code></td>
+<td>每台机器上启动的进程数（默认值为 1）</td>
+</tr>
+<tr>
+<td><code>--nnodes</code></td>
+<td><code>int</code></td>
+<td>总节点（机器）数</td>
+</tr>
+<tr>
+<td><code>--node_rank</code></td>
+<td><code>int</code></td>
+<td>当前节点编号（范围：<code>0 ~ nnodes-1</code>）</td>
+</tr>
+<tr>
+<td><code>--rdzv_backend</code></td>
+<td><code>str</code></td>
+<td>rendezvous 后端（默认 <code>c10d</code>，一般不改）</td>
+</tr>
+<tr>
+<td><code>--rdzv_endpoint</code></td>
+<td><code>str</code></td>
+<td>rendezvous 主地址和端口，格式如 <code>"localhost:29500"</code></td>
+</tr>
+<tr>
+<td><code>--rdzv_id</code></td>
+<td><code>str</code></td>
+<td>作业唯一标识，默认 <code>"default"</code></td>
+</tr>
+<tr>
+<td><code>--rdzv_conf</code></td>
+<td><code>str</code></td>
+<td>可选的 kv 参数，用逗号分隔，如 <code>"key1=val1,key2=val2"</code></td>
+</tr>
+<tr>
+<td><code>--max_restarts</code></td>
+<td><code>int</code></td>
+<td>失败时最多重启次数（默认 3）</td>
+</tr>
+<tr>
+<td><code>--monitor_interval</code></td>
+<td><code>float</code></td>
+<td>monitor 进程检查的间隔（秒）</td>
+</tr>
+<tr>
+<td><code>--run_path</code></td>
+<td><code>str</code></td>
+<td>若脚本是模块路径形式，比如 <code>my_module.train</code>，则用此代替 script</td>
+</tr>
+<tr>
+<td><code>--tee</code></td>
+<td><code>str</code></td>
+<td>控制日志输出，可选值为 <code>"stdout"</code> 或 <code>"stderr"</code></td>
+</tr>
+<tr>
+<td><code>--log_dir</code></td>
+<td><code>str</code></td>
+<td>日志输出目录（默认当前目录）</td>
+</tr>
+<tr>
+<td><code>--redirects</code></td>
+<td><code>str</code></td>
+<td>重定向日志，可选：<code>all</code>, <code>none</code>, <code>rank</code>，如 <code>all:stdout</code></td>
+</tr>
+<tr>
+<td><code>--no_python</code></td>
+<td><code>flag</code></td>
+<td>若已是 Python 脚本（不用再次 <code>python</code> 调用），可加这个 flag</td>
+</tr>
+</tbody></table>
+<p>以上的 rendezvous 是每个进程通过 rendezvous 找到主节点，然后加入。之后的通信阶段用 backend, 即 NCCL，在 init_process_group 设置。</p>
+<p>最常见的几个参数的用法是</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">torchrun \</span><br><span class="line">  --nproc_per_node=4 \</span><br><span class="line">  --nnodes=1 \</span><br><span class="line">  --node_rank=0 \</span><br><span class="line">  --rdzv_endpoint=localhost:29500 \</span><br><span class="line">  your_script.py</span><br></pre></td></tr></table></figure></div>
+
+<p>对比下是否使用 torchrun 时的行为差别</p>
+<p>两种 DDP 启动模式的关键区别</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>不使用 <code>torchrun</code>（手动）</th>
+<th>使用 <code>torchrun</code>（推荐方式）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动方式</td>
+<td>使用 <code>mp.spawn(fn, ...)</code></td>
+<td>使用 <code>torchrun --nproc_per_node=N</code></td>
+</tr>
+<tr>
+<td><code>rank</code>, <code>world_size</code> 设置方式</td>
+<td>手动传入（通过 <code>spawn</code> 的参数）</td>
+<td>自动由 <code>torchrun</code> 设置环境变量</td>
+</tr>
+<tr>
+<td>主节点地址 / 端口</td>
+<td>你必须手动设置 <code>MASTER_ADDR/PORT</code></td>
+<td><code>torchrun</code> 会自动设置这些环境变量</td>
+</tr>
+<tr>
+<td>是否需控制进程数量</td>
+<td>手动使用 <code>spawn</code> 创建</td>
+<td>自动由 <code>torchrun</code> 创建</td>
+</tr>
+<tr>
+<td>是否读取环境变量</td>
+<td>❌ 默认不会</td>
+<td>✅ 自动从环境变量中读取（如 <code>RANK</code>, <code>LOCAL_RANK</code>）</td>
+</tr>
+<tr>
+<td>脚本能否直接运行（<code>python train.py</code>）</td>
+<td>❌ 通常不行，需要多进程协调</td>
+<td>✅ 支持直接 <code>torchrun train.py</code> 运行</td>
+</tr>
+<tr>
+<td>是否适用于多机</td>
+<td>❌ 手动处理跨节点逻辑</td>
+<td>✅ 内建 <code>--nnodes</code>, <code>--node_rank</code>, 可跨机运行</td>
+</tr>
+</tbody></table>
+<hr>
+<p><code>init_process_group()</code> 的行为</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>手动传 <code>rank</code> 和 <code>world_size</code></td>
+<td>常用于 <code>mp.spawn</code> 场景（你在代码里传了参数）</td>
+</tr>
+<tr>
+<td>不传，内部读取环境变量</td>
+<td>如果你用的是 <code>torchrun</code>，环境变量如 <code>RANK</code>、<code>WORLD_SIZE</code> 自动设置了</td>
+</tr>
+<tr>
+<td>不传又没用 <code>torchrun</code></td>
+<td>❌ 报错：因为 <code>init_process_group</code> 找不到必要的通信信息</td>
+</tr>
+</tbody></table>
+<hr>
+<p>当你运行：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torchrun --nproc_per_node=4 --rdzv_endpoint=localhost:29500 train.py</span><br></pre></td></tr></table></figure></div>
+
+<p>它在后台自动设置了以下环境变量（对每个进程）：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RANK=0         <span class="comment"># 每个进程唯一编号</span></span><br><span class="line">WORLD_SIZE=4   <span class="comment"># 总进程数</span></span><br><span class="line">LOCAL_RANK=0   <span class="comment"># 当前进程在本节点内的编号</span></span><br><span class="line">MASTER_ADDR=localhost</span><br><span class="line">MASTER_PORT=29500</span><br></pre></td></tr></table></figure></div>
+
+<p>而 <code>init_process_group(backend="nccl")</code> 会自动从这些环境变量中解析配置，无需你显式传入。</p>
+<h2 id="非-torchrun-完整代码"><a href="#非-torchrun-完整代码" class="headerlink" title="非 torchrun 完整代码"></a>非 torchrun 完整代码</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, transforms</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对 python 多进程的一个 pytorch 包装</span></span><br><span class="line"><span class="keyword">import</span> torch.multiprocessing <span class="keyword">as</span> mp</span><br><span class="line"><span class="comment"># 用于收集一些用于汇总的数据</span></span><br><span class="line"><span class="keyword">import</span> torch.distributed <span class="keyword">as</span> dist</span><br><span class="line"><span class="comment"># 这个 sampler 可以把采样的数据分散到各个 CPU 上                                      </span></span><br><span class="line"><span class="keyword">from</span> torch.utils.data.distributed <span class="keyword">import</span> DistributedSampler     </span><br><span class="line"></span><br><span class="line"><span class="comment"># 实现分布式数据并行的核心类        </span></span><br><span class="line"><span class="keyword">from</span> torch.nn.parallel <span class="keyword">import</span> DistributedDataParallel <span class="keyword">as</span> DDP         </span><br><span class="line"></span><br><span class="line"><span class="comment"># DDP 在每个 GPU 上运行一个进程，其中都有一套完全相同的 Trainer 副本（包括model和optimizer）</span></span><br><span class="line"><span class="comment"># 各个进程之间通过一个进程池进行通信，这两个方法来初始化和销毁进程池</span></span><br><span class="line"><span class="keyword">from</span> torch.distributed <span class="keyword">import</span> init_process_group, destroy_process_group </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ddp_setup</span>(<span class="params">rank, world_size</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    setup the distribution process group</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        rank: Unique identifier of each process</span></span><br><span class="line"><span class="string">        world_size: Total number of processes</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># MASTER Node（运行 rank0 进程，多机多卡时的主机）用来协调各个 Node 的所有进程之间的通信</span></span><br><span class="line">    os.environ[<span class="string">"MASTER_ADDR"</span>] = <span class="string">"localhost"</span> <span class="comment"># 由于这里是单机实验所以直接写 localhost</span></span><br><span class="line">    os.environ[<span class="string">"MASTER_PORT"</span>] = <span class="string">"12355"</span>     <span class="comment"># 任意空闲端口</span></span><br><span class="line">    init_process_group(</span><br><span class="line">        backend=<span class="string">"nccl"</span>,                     <span class="comment"># Nvidia CUDA CPU 用这个 "nccl"</span></span><br><span class="line">        rank=rank,                          </span><br><span class="line">        world_size=world_size</span><br><span class="line">    )</span><br><span class="line">    torch.cuda.set_device(rank)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConvNet</span>(nn.Module):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(ConvNet, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.features = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">1</span>, <span class="number">32</span>, <span class="number">3</span>, <span class="number">1</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">3</span>, <span class="number">1</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.25</span>)</span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">9216</span>, <span class="number">128</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Dropout(<span class="number">0.5</span>),</span><br><span class="line">            nn.Linear(<span class="number">128</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = <span class="variable language_">self</span>.features(x)</span><br><span class="line">        x = torch.flatten(x, <span class="number">1</span>)</span><br><span class="line">        x = <span class="variable language_">self</span>.classifier(x)</span><br><span class="line">        output = F.log_softmax(x, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义Dataset</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="variable language_">self</span>.data = data</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        image, label = <span class="variable language_">self</span>.data[idx]</span><br><span class="line">        <span class="keyword">return</span> image, label</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Trainer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        model: torch.nn.Module,</span></span><br><span class="line"><span class="params">        train_data: DataLoader,</span></span><br><span class="line"><span class="params">        optimizer: torch.optim.Optimizer,</span></span><br><span class="line"><span class="params">        gpu_id: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">        save_every: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="variable language_">self</span>.gpu_id = gpu_id</span><br><span class="line">        <span class="variable language_">self</span>.model = model.to(gpu_id)</span><br><span class="line">        <span class="variable language_">self</span>.train_data = train_data</span><br><span class="line">        <span class="variable language_">self</span>.optimizer = optimizer</span><br><span class="line">        <span class="variable language_">self</span>.save_every = save_every                    <span class="comment"># 指定保存 ckpt 的周期</span></span><br><span class="line">        <span class="variable language_">self</span>.model = DDP(model, device_ids=[gpu_id])    <span class="comment"># model 要用 DDP 包装一下</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run_batch</span>(<span class="params">self, source, targets</span>):</span><br><span class="line">        <span class="variable language_">self</span>.optimizer.zero_grad()</span><br><span class="line">        output = <span class="variable language_">self</span>.model(source)</span><br><span class="line">        loss = F.cross_entropy(output, targets)</span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="variable language_">self</span>.optimizer.step()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 分布式同步 loss</span></span><br><span class="line">        reduced_loss = loss.detach()</span><br><span class="line">        dist.all_reduce(reduced_loss, op=dist.ReduceOp.SUM)</span><br><span class="line">        reduced_loss /= dist.get_world_size()</span><br><span class="line">        <span class="keyword">return</span> reduced_loss.item()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run_epoch</span>(<span class="params">self, epoch</span>):</span><br><span class="line">        b_sz = <span class="built_in">len</span>(<span class="built_in">next</span>(<span class="built_in">iter</span>(<span class="variable language_">self</span>.train_data))[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"[GPU<span class="subst">{self.gpu_id}</span>] Epoch <span class="subst">{epoch}</span> | Batchsize: <span class="subst">{b_sz}</span> | Steps: <span class="subst">{<span class="built_in">len</span>(self.train_data)}</span>"</span>)</span><br><span class="line">        <span class="variable language_">self</span>.train_data.sampler.set_epoch(epoch)        <span class="comment"># 在各个 epoch 入口调用 DistributedSampler 的 set_epoch 方法是很重要的，这样才能打乱每个 epoch 的样本顺序</span></span><br><span class="line">        total_loss = <span class="number">0.0</span></span><br><span class="line">        num_batches = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> source, targets <span class="keyword">in</span> <span class="variable language_">self</span>.train_data: </span><br><span class="line">            source = source.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">            targets = targets.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">            loss = <span class="variable language_">self</span>._run_batch(source, targets)</span><br><span class="line">            total_loss += loss</span><br><span class="line">            num_batches += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        avg_loss = total_loss / num_batches</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.gpu_id == <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"[GPU<span class="subst">{self.gpu_id}</span>] Epoch <span class="subst">{epoch}</span> | Avg Loss: <span class="subst">{avg_loss:<span class="number">.4</span>f}</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_save_checkpoint</span>(<span class="params">self, epoch</span>):</span><br><span class="line">        ckp = <span class="variable language_">self</span>.model.module.state_dict()            <span class="comment"># 由于多了一层 DDP 包装，通过 .module 获取原始参数 </span></span><br><span class="line">        PATH = <span class="string">"checkpoint.pt"</span></span><br><span class="line">        torch.save(ckp, PATH)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"Epoch <span class="subst">{epoch}</span> | Training checkpoint saved at <span class="subst">{PATH}</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, max_epochs: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(max_epochs):</span><br><span class="line">            <span class="variable language_">self</span>._run_epoch(epoch)</span><br><span class="line">            <span class="comment"># 各个 GPU 上都在跑一样的训练进程，这里指定 rank0 进程保存 ckpt 以免重复保存</span></span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.gpu_id == <span class="number">0</span> <span class="keyword">and</span> epoch % <span class="variable language_">self</span>.save_every == <span class="number">0</span>:</span><br><span class="line">                <span class="variable language_">self</span>._save_checkpoint(epoch)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">prepare_dataset</span>():</span><br><span class="line">    transform = transforms.Compose([</span><br><span class="line">        transforms.ToTensor(),</span><br><span class="line">        transforms.Normalize((<span class="number">0.1307</span>,), (<span class="number">0.3081</span>,))</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    train_data = datasets.MNIST(</span><br><span class="line">        root = <span class="string">'./mnist'</span>,</span><br><span class="line">        train=<span class="literal">True</span>,       <span class="comment"># 设置True为训练数据，False为测试数据</span></span><br><span class="line">        transform = transform,</span><br><span class="line">        <span class="comment"># download=True  # 设置True后就自动下载，下载完成后改为False即可</span></span><br><span class="line">    )</span><br><span class="line">      </span><br><span class="line">    train_set = MyDataset(train_data)</span><br><span class="line">    </span><br><span class="line">    test_data = datasets.MNIST(</span><br><span class="line">        root = <span class="string">'./mnist'</span>,</span><br><span class="line">        train=<span class="literal">False</span>,       <span class="comment"># 设置True为训练数据，False为测试数据</span></span><br><span class="line">        transform = transform,</span><br><span class="line">    )</span><br><span class="line">      </span><br><span class="line">    test_set = MyDataset(test_data)</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">return</span> train_set, test_set</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_train_objs</span>():</span><br><span class="line">    train_set, test_set = prepare_dataset()  <span class="comment"># load your dataset</span></span><br><span class="line">    model = ConvNet()  <span class="comment"># load your model</span></span><br><span class="line">    </span><br><span class="line">    optimizer = optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line">    <span class="keyword">return</span> train_set, test_set, model, optimizer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">prepare_dataloader</span>(<span class="params">dataset: Dataset, batch_size: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="keyword">return</span> DataLoader(</span><br><span class="line">        dataset,</span><br><span class="line">        batch_size=batch_size,</span><br><span class="line">        pin_memory=<span class="literal">True</span>,</span><br><span class="line">        shuffle=<span class="literal">False</span>,                      <span class="comment"># 设置了新的 sampler，参数 shuffle 要设置为 False </span></span><br><span class="line">        sampler=DistributedSampler(dataset) <span class="comment"># 这个 sampler 自动将数据分块后送个各个 GPU，它能避免数据重叠</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">rank: <span class="built_in">int</span>, world_size: <span class="built_in">int</span>, save_every: <span class="built_in">int</span>, total_epochs: <span class="built_in">int</span>, batch_size: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="comment"># 初始化进程池, 仅是单个进程 gpu rank 的初始化</span></span><br><span class="line">    ddp_setup(rank, world_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 进行训练</span></span><br><span class="line">    train_set, test_set, model, optimizer = load_train_objs()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Train dataset size: <span class="subst">{<span class="built_in">len</span>(train_set)}</span>"</span>)</span><br><span class="line">    train_data = prepare_dataloader(train_set, batch_size)</span><br><span class="line">    trainer = Trainer(model, train_data, optimizer, rank, save_every)</span><br><span class="line">    trainer.train(total_epochs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 销毁进程池</span></span><br><span class="line">    destroy_process_group()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">arg_parser</span>():</span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">'MNIST distributed training job'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"--epochs"</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">5</span>, <span class="built_in">help</span>=<span class="string">"Number of training epochs"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"--batch_size"</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">512</span>, <span class="built_in">help</span>=<span class="string">"Batch size for training"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--save_every'</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>, <span class="built_in">help</span>=<span class="string">'How often to save a snapshot'</span>)</span><br><span class="line">    <span class="keyword">return</span> parser.parse_args()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">r"""</span></span><br><span class="line"><span class="string">README</span></span><br><span class="line"><span class="string">执行命令: CUDA_VISIBLE_DEVICES=0,1 python mnist_ddp.py # 用 2 卡训练</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">注意训练数据是60K条, 训练时输出:</span></span><br><span class="line"><span class="string">[GPU0] Epoch 0 | Batchsize: 512 | Steps: 59</span></span><br><span class="line"><span class="string">[GPU1] Epoch 0 | Batchsize: 512 | Steps: 59</span></span><br><span class="line"><span class="string">512 * 59 = 30208 ~= 30K</span></span><br><span class="line"><span class="string">排除掉有些 batch_size 不足的情况, 59个 batch 就是 30K, 两个 gpu 平分了数据</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    args = arg_parser()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Training arguments: <span class="subst">{args}</span>"</span>)</span><br><span class="line">    </span><br><span class="line">    world_size = torch.cuda.device_count()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Using <span class="subst">{world_size}</span> GPUs for training"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 利用 mp.spawn，在整个 distribution group 的 nprocs 个 GPU 上生成进程来执行 fn 方法，并能设置要传入 fn 的参数 args</span></span><br><span class="line">    <span class="comment"># 注意不需要 fn 的 rank 参数，它由 mp.spawn 自动分配</span></span><br><span class="line">    mp.spawn(</span><br><span class="line">        fn=main, </span><br><span class="line">        args=(world_size, args.save_every, args.epochs, args.batch_size), </span><br><span class="line">        nprocs=world_size</span><br><span class="line">    )</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>启动代码</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0,1 python mnist_ddp.py</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="torchrun-完整代码"><a href="#torchrun-完整代码" class="headerlink" title="torchrun 完整代码"></a>torchrun 完整代码</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, transforms</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对 python 多进程的一个 pytorch 包装</span></span><br><span class="line"><span class="keyword">import</span> torch.multiprocessing <span class="keyword">as</span> mp</span><br><span class="line"><span class="comment"># 用于收集一些用于汇总的数据</span></span><br><span class="line"><span class="keyword">import</span> torch.distributed <span class="keyword">as</span> dist</span><br><span class="line"><span class="comment"># 这个 sampler 可以把采样的数据分散到各个 CPU 上                                      </span></span><br><span class="line"><span class="keyword">from</span> torch.utils.data.distributed <span class="keyword">import</span> DistributedSampler     </span><br><span class="line"></span><br><span class="line"><span class="comment"># 实现分布式数据并行的核心类        </span></span><br><span class="line"><span class="keyword">from</span> torch.nn.parallel <span class="keyword">import</span> DistributedDataParallel <span class="keyword">as</span> DDP         </span><br><span class="line"></span><br><span class="line"><span class="comment"># DDP 在每个 GPU 上运行一个进程，其中都有一套完全相同的 Trainer 副本（包括model和optimizer）</span></span><br><span class="line"><span class="comment"># 各个进程之间通过一个进程池进行通信，这两个方法来初始化和销毁进程池</span></span><br><span class="line"><span class="keyword">from</span> torch.distributed <span class="keyword">import</span> init_process_group, destroy_process_group </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ddp_setup</span>():</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    setup the distribution process group</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        rank: Unique identifier of each process</span></span><br><span class="line"><span class="string">        world_size: Total number of processes</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># 用torchrun 后台自动设置的环境变量</span></span><br><span class="line">    init_process_group(backend=<span class="string">"nccl"</span>)</span><br><span class="line">    torch.cuda.set_device(<span class="built_in">int</span>(os.environ[<span class="string">'LOCAL_RANK'</span>]))</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConvNet</span>(nn.Module):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(ConvNet, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.features = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">1</span>, <span class="number">32</span>, <span class="number">3</span>, <span class="number">1</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">3</span>, <span class="number">1</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.25</span>)</span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">9216</span>, <span class="number">128</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Dropout(<span class="number">0.5</span>),</span><br><span class="line">            nn.Linear(<span class="number">128</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = <span class="variable language_">self</span>.features(x)</span><br><span class="line">        x = torch.flatten(x, <span class="number">1</span>)</span><br><span class="line">        x = <span class="variable language_">self</span>.classifier(x)</span><br><span class="line">        output = F.log_softmax(x, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义Dataset</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="variable language_">self</span>.data = data</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        image, label = <span class="variable language_">self</span>.data[idx]</span><br><span class="line">        <span class="keyword">return</span> image, label</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Trainer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        model: torch.nn.Module,</span></span><br><span class="line"><span class="params">        train_data: DataLoader,</span></span><br><span class="line"><span class="params">        optimizer: torch.optim.Optimizer,</span></span><br><span class="line"><span class="params">        save_every: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="variable language_">self</span>.gpu_id = <span class="built_in">int</span>(os.environ[<span class="string">'LOCAL_RANK'</span>]) <span class="comment"># gpu_id 由 torchrun 自动设置</span></span><br><span class="line">        <span class="variable language_">self</span>.model = model.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">        <span class="variable language_">self</span>.train_data = train_data</span><br><span class="line">        <span class="variable language_">self</span>.optimizer = optimizer</span><br><span class="line">        <span class="variable language_">self</span>.save_every = save_every                    <span class="comment"># 指定保存 ckpt 的周期</span></span><br><span class="line">        <span class="variable language_">self</span>.model = DDP(model, device_ids=[<span class="variable language_">self</span>.gpu_id])    <span class="comment"># model 要用 DDP 包装一下</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run_batch</span>(<span class="params">self, source, targets</span>):</span><br><span class="line">        <span class="variable language_">self</span>.optimizer.zero_grad()</span><br><span class="line">        output = <span class="variable language_">self</span>.model(source)</span><br><span class="line">        loss = F.cross_entropy(output, targets)</span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="variable language_">self</span>.optimizer.step()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 分布式同步 loss</span></span><br><span class="line">        reduced_loss = loss.detach()</span><br><span class="line">        dist.all_reduce(reduced_loss, op=dist.ReduceOp.SUM)</span><br><span class="line">        reduced_loss /= dist.get_world_size()</span><br><span class="line">        <span class="keyword">return</span> reduced_loss.item()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run_epoch</span>(<span class="params">self, epoch</span>):</span><br><span class="line">        b_sz = <span class="built_in">len</span>(<span class="built_in">next</span>(<span class="built_in">iter</span>(<span class="variable language_">self</span>.train_data))[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"[GPU<span class="subst">{self.gpu_id}</span>] Epoch <span class="subst">{epoch}</span> | Batchsize: <span class="subst">{b_sz}</span> | Steps: <span class="subst">{<span class="built_in">len</span>(self.train_data)}</span>"</span>)</span><br><span class="line">        <span class="variable language_">self</span>.train_data.sampler.set_epoch(epoch)</span><br><span class="line">        total_loss = <span class="number">0.0</span></span><br><span class="line">        num_batches = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> source, targets <span class="keyword">in</span> <span class="variable language_">self</span>.train_data: </span><br><span class="line">            source = source.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">            targets = targets.to(<span class="variable language_">self</span>.gpu_id)</span><br><span class="line">            loss = <span class="variable language_">self</span>._run_batch(source, targets)</span><br><span class="line">            total_loss += loss</span><br><span class="line">            num_batches += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        avg_loss = total_loss / num_batches</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.gpu_id == <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"[GPU<span class="subst">{self.gpu_id}</span>] Epoch <span class="subst">{epoch}</span> | Avg Loss: <span class="subst">{avg_loss:<span class="number">.4</span>f}</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_save_checkpoint</span>(<span class="params">self, epoch</span>):</span><br><span class="line">        ckp = <span class="variable language_">self</span>.model.module.state_dict()            <span class="comment"># 由于多了一层 DDP 包装，通过 .module 获取原始参数 </span></span><br><span class="line">        PATH = <span class="string">"checkpoint.pt"</span></span><br><span class="line">        torch.save(ckp, PATH)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"Epoch <span class="subst">{epoch}</span> | Training checkpoint saved at <span class="subst">{PATH}</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, max_epochs: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(max_epochs):</span><br><span class="line">            <span class="variable language_">self</span>._run_epoch(epoch)</span><br><span class="line">            <span class="comment"># 各个 GPU 上都在跑一样的训练进程，这里指定 rank0 进程保存 ckpt 以免重复保存</span></span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.gpu_id == <span class="number">0</span> <span class="keyword">and</span> epoch % <span class="variable language_">self</span>.save_every == <span class="number">0</span>:</span><br><span class="line">                <span class="variable language_">self</span>._save_checkpoint(epoch)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">prepare_dataset</span>():</span><br><span class="line">    transform = transforms.Compose([</span><br><span class="line">        transforms.ToTensor(),</span><br><span class="line">        transforms.Normalize((<span class="number">0.1307</span>,), (<span class="number">0.3081</span>,))</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    train_data = datasets.MNIST(</span><br><span class="line">        root = <span class="string">'./mnist'</span>,</span><br><span class="line">        train=<span class="literal">True</span>,       <span class="comment"># 设置True为训练数据，False为测试数据</span></span><br><span class="line">        transform = transform,</span><br><span class="line">        <span class="comment"># download=True  # 设置True后就自动下载，下载完成后改为False即可</span></span><br><span class="line">    )</span><br><span class="line">      </span><br><span class="line">    train_set = MyDataset(train_data)</span><br><span class="line">    </span><br><span class="line">    test_data = datasets.MNIST(</span><br><span class="line">        root = <span class="string">'./mnist'</span>,</span><br><span class="line">        train=<span class="literal">False</span>,       <span class="comment"># 设置True为训练数据，False为测试数据</span></span><br><span class="line">        transform = transform,</span><br><span class="line">    )</span><br><span class="line">      </span><br><span class="line">    test_set = MyDataset(test_data)</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">return</span> train_set, test_set</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_train_objs</span>():</span><br><span class="line">    train_set, test_set = prepare_dataset()  <span class="comment"># load your dataset</span></span><br><span class="line">    model = ConvNet()  <span class="comment"># load your model</span></span><br><span class="line">    </span><br><span class="line">    optimizer = optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line">    <span class="keyword">return</span> train_set, test_set, model, optimizer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">prepare_dataloader</span>(<span class="params">dataset: Dataset, batch_size: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="keyword">return</span> DataLoader(</span><br><span class="line">        dataset,</span><br><span class="line">        batch_size=batch_size,</span><br><span class="line">        pin_memory=<span class="literal">True</span>,</span><br><span class="line">        shuffle=<span class="literal">False</span>,                      <span class="comment"># 设置了新的 sampler，参数 shuffle 要设置为 False </span></span><br><span class="line">        sampler=DistributedSampler(dataset) <span class="comment"># 这个 sampler 自动将数据分块后送个各个 GPU，它能避免数据重叠</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">save_every: <span class="built_in">int</span>, total_epochs: <span class="built_in">int</span>, batch_size: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="comment"># 初始化进程池, 仅是单个进程 gpu rank 的初始化</span></span><br><span class="line">    ddp_setup()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 进行训练</span></span><br><span class="line">    train_set, test_set, model, optimizer = load_train_objs()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Train dataset size: <span class="subst">{<span class="built_in">len</span>(train_set)}</span>"</span>)</span><br><span class="line">    train_data = prepare_dataloader(train_set, batch_size)</span><br><span class="line">    trainer = Trainer(model, train_data, optimizer, save_every)</span><br><span class="line">    trainer.train(total_epochs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 销毁进程池</span></span><br><span class="line">    destroy_process_group()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">arg_parser</span>():</span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">'MNIST distributed training job'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"--epochs"</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">5</span>, <span class="built_in">help</span>=<span class="string">"Number of training epochs"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">"--batch_size"</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">512</span>, <span class="built_in">help</span>=<span class="string">"Batch size for training"</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--save_every'</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>, <span class="built_in">help</span>=<span class="string">'How often to save a snapshot'</span>)</span><br><span class="line">    <span class="keyword">return</span> parser.parse_args()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">r"""</span></span><br><span class="line"><span class="string">README</span></span><br><span class="line"><span class="string">执行命令: CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc_per_node=2 mnist_ddp_torchrun.py</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    args = arg_parser()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Training arguments: <span class="subst">{args}</span>"</span>)</span><br><span class="line">    </span><br><span class="line">    world_size = torch.cuda.device_count()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Using <span class="subst">{world_size}</span> GPUs for training"</span>)</span><br><span class="line"></span><br><span class="line">    main(</span><br><span class="line">        args.save_every, </span><br><span class="line">        args.epochs, </span><br><span class="line">        args.batch_size</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">   </span><br></pre></td></tr></table></figure></div>
+
+<p>启动代码</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc_per_node=2 mnist_ddp_torchrun.py</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/MNIST/">#MNIST</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/04/SFT-data-selection-series/1.LLM_based/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">黑盒模型评估 SFT 数据质量</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/04/torch-distributed-MNIST-series/2.MNIST_DP/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">MNIST 手写数字分类 Data Parallel (DP)</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">MNIST 手写数字分类 Distributed Data Parallel (DDP)</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5-DDP-%E7%9B%B8%E5%85%B3%E5%BA%93"><span class="nav-text">引入 DDP 相关库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ddp-%E5%AF%B9%E5%8E%9F%E5%A7%8B%E4%BB%A3%E7%A0%81%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-text">ddp 对原始代码的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ddp-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E9%94%80%E6%AF%81%E8%BF%9B%E7%A8%8B"><span class="nav-text">ddp 初始化和销毁进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ddp-%E5%8C%85%E8%A3%85-model"><span class="nav-text">ddp 包装 model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DistributedSampler"><span class="nav-text">DistributedSampler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multiprocessing-spawn-%E5%88%9B%E5%BB%BA%E5%A4%9A%E5%8D%A1%E8%BF%9B%E7%A8%8B"><span class="nav-text">multiprocessing.spawn 创建多卡进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torchrun"><span class="nav-text">torchrun</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E-torchrun-%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">非 torchrun 完整代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torchrun-%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">torchrun 完整代码</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        27 posts in total
+                    </span>
+                    
+                        <span>
+                            91.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
