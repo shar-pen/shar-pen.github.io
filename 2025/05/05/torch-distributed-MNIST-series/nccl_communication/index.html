@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2025/05/04/langchain-tutorial-series/01.basic/"/>
+    <link rel="canonical" href="http://example.com/2025/05/05/torch-distributed-mnist-series/nccl_communication/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -23,16 +23,16 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Langchain 入门教程 - 1.基础应用">
-<meta property="og:url" content="http://example.com/2025/05/04/langchain-tutorial-series/01.Basic/index.html">
+<meta property="og:title" content="NCCL 通信模式 简单示例">
+<meta property="og:url" content="http://example.com/2025/05/05/torch-distributed-MNIST-series/nccl_communication/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-05-04T14:43:57.508Z">
-<meta property="article:modified_time" content="2025-05-04T14:46:31.518Z">
+<meta property="article:published_time" content="2025-05-05T14:18:56.556Z">
+<meta property="article:modified_time" content="2025-05-05T14:21:52.455Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Langchain">
+<meta property="article:tag" content="分布式">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
     
@@ -46,7 +46,7 @@
     
     <title>
         
-            Langchain 入门教程 - 1.基础应用 | Sharpen&#39;s Blogs
+            NCCL 通信模式 简单示例 | Sharpen&#39;s Blogs
         
     </title>
 
@@ -556,7 +556,7 @@ mjx-container[display="true"] + br {
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Langchain 入门教程 - 1.基础应用</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">NCCL 通信模式 简单示例</h1>
 			</div>
 			
 		</div>
@@ -575,15 +575,15 @@ mjx-container[display="true"] + br {
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-05-04 22:43:57</span>
-        <span class="mobile">2025-05-04 22:43:57</span>
+        <span class="desktop">2025-05-05 22:18:56</span>
+        <span class="mobile">2025-05-05 22:18:56</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-05-04 22:46:31</span>
-            <span class="mobile">2025-05-04 22:46:31</span>
+            <span class="desktop">2025-05-05 22:21:52</span>
+            <span class="mobile">2025-05-05 22:21:52</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -597,7 +597,7 @@ mjx-container[display="true"] + br {
                     
                         
                         <li>
-                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
+                            <a href="/categories/MNIST%E5%88%86%E5%B8%83%E5%BC%8F/">MNIST分布式</a>&nbsp;
                         </li>
                     
                     
@@ -611,7 +611,7 @@ mjx-container[display="true"] + br {
             <ul>
                 
                     <li>
-                        <a href="/tags/Langchain/">Langchain</a>&nbsp;
+                        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
                     </li>
                 
             </ul>
@@ -621,12 +621,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.7k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.4k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>7 Mins</span>
         </span>
     
     
@@ -645,172 +645,119 @@ mjx-container[display="true"] + br {
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="初始化大模型接口并调用"><a href="#初始化大模型接口并调用" class="headerlink" title="初始化大模型接口并调用"></a>初始化大模型接口并调用</h1><p>一般都是用ChatOpenAI这个类，以下两个方式引用都可以:</p>
+			<p>接下来简单介绍几种 NCCL (NVIDIA Collective Communications Library) 的通信方式，不涉及原理，只是简单展示下效果。</p>
 <ul>
-<li>from langchain_openai.chat_models import ChatOpenAI</li>
-<li>from langchain_openai import ChatOpenAI</li>
+<li>scatter</li>
+<li>gather</li>
+<li>broadcast</li>
+<li>reduce</li>
+<li>all reduce</li>
+<li>all gather</li>
+<li>reduce scatter</li>
 </ul>
-<p>这是对话的重要参数,关键的是model.<br>Key init args — completion params:</p>
-<ul>
-<li>model: str, Name of OpenAI model to use.</li>
-<li>temperature: float, Sampling temperature.</li>
-<li>max_tokens: Optional[int], Max number of tokens to generate.</li>
-<li>logprobs: Optional[bool], Whether to return logprobs.</li>
-<li>stream_options: Dict, Configure streaming outputs, like whether to return token usage when streaming (<code>{"include_usage": True}</code>).</li>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.distributed <span class="keyword">as</span> dist</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="pytorch-分布式相关api"><a href="#pytorch-分布式相关api" class="headerlink" title="pytorch 分布式相关api"></a>pytorch 分布式相关api</h2><ul>
+<li><code>torch.distributed.init_process_group()</code> ，初始化进程组，必须先用这条命令才能使用 <code>torch.distrubuted</code> 相关操作。</li>
+<li><code>torch.distributed.get_rank()</code>，可以获得当前进程的 rank；</li>
+<li><code>torch.distributed.get_world_size()</code>，可以获得进程组的进程数量。</li>
+<li><code>torch.distributed.barrier()</code>，同步进程组内的所有进程，阻塞所有进程直到所有进程都执行到操作。</li>
 </ul>
-<p>这是客户端的重要参数，关键的有base_url和api_key.<br>Key init args — client params:</p>
-<ul>
-<li>timeout: Union[float, Tuple[float, float], Any, None], Timeout for requests.</li>
-<li>max_retries: int, Max number of retries.</li>
-<li>api_key: Optional[str], OpenAI API key. If not passed in will be read from env var OPENAI_API_KEY.</li>
-<li>base_url: Optional[str], Base URL for API requests. Only specify if using a proxy or service</li>
-</ul>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h3 id="节点获取信息"><a href="#节点获取信息" class="headerlink" title="节点获取信息"></a>节点获取信息</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">	dist.init_process_group(<span class="string">"nccl"</span>)</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line">	logging.info(<span class="string">f'world size: <span class="subst">{world_size}</span>, rank: <span class="subst">{rank}</span>'</span>)</span><br><span class="line"></span><br><span class="line">	dist.destroy_process_group()</span><br></pre></td></tr></table></figure></div>
 
-<p>使用<code>invoke</code>函数来调用大模型接口</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">question = <span class="string">"What is the capital of USA?"</span></span><br><span class="line"></span><br><span class="line">llm.invoke(question)</span><br></pre></td></tr></table></figure></div>
+<p>命令: torchrun –nproc_per_node 2 torch_nccl_test.py<br>输出结果为</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:world size: 2, rank: 0</span><br><span class="line">INFO:root:world size: 2, rank: 1</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="响应格式（AIMessage类）"><a href="#响应格式（AIMessage类）" class="headerlink" title="响应格式（AIMessage类）"></a>响应格式（AIMessage类）</h3><p>在使用 <code>ChatOpenAI</code> 对象时，响应以 <strong>AI 消息</strong> 的格式返回。这包括模型生成的文本内容以及与响应相关的元数据或附加属性。这些信息提供了关于 AI 回复的结构化数据，以及响应的生成方式。</p>
-<p><strong>AI 消息的关键组成部分</strong></p>
-<ol>
-<li><p><strong><code>content</code></strong>  </p>
-<ul>
-<li><strong>定义：</strong> 由 AI 生成的主要响应文本。  </li>
-<li><strong>示例：</strong> <strong>“韩国的首都是首尔。”</strong>  </li>
-<li><strong>作用：</strong> 这是用户与 AI 交互的主要部分。</li>
-</ul>
-</li>
-<li><p><strong><code>response_metadata</code></strong>  </p>
-<ul>
-<li><strong>定义：</strong> 关于响应生成过程的元数据。  </li>
-<li><strong>主要字段：</strong>  <ul>
-<li><strong><code>model_name</code> ：</strong> 使用的模型名称（例如 <code>"gpt-4o-mini"</code>）。  </li>
-<li><strong><code>finish_reason</code> ：</strong> 生成停止的原因（<code>stop</code> 表示正常完成）。  </li>
-<li><strong><code>token_usage</code> ：</strong> 令牌使用详情：<ul>
-<li><strong><code>prompt_tokens</code> ：</strong> 输入查询使用的令牌数。  </li>
-<li><strong><code>completion_tokens</code> ：</strong> 响应内容使用的令牌数。  </li>
-<li><strong><code>total_tokens</code> ：</strong> 输入和输出的总令牌数。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong><code>id</code></strong>  </p>
-<ul>
-<li><strong>定义：</strong> API 调用的唯一标识符。  </li>
-<li><strong>作用：</strong> 便于跟踪或调试特定交互。</li>
-</ul>
-</li>
-</ol>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">AIMessage(</span></span><br><span class="line"><span class="string">    content='The capital of the United States is Washington, D.C.', </span></span><br><span class="line"><span class="string">    additional_kwargs={</span></span><br><span class="line"><span class="string">        'refusal': None</span></span><br><span class="line"><span class="string">    }, </span></span><br><span class="line"><span class="string">    response_metadata={</span></span><br><span class="line"><span class="string">        'token_usage': {</span></span><br><span class="line"><span class="string">            'completion_tokens': 13, </span></span><br><span class="line"><span class="string">            'prompt_tokens': 36, </span></span><br><span class="line"><span class="string">            'total_tokens': 49, </span></span><br><span class="line"><span class="string">            'completion_tokens_details': None, </span></span><br><span class="line"><span class="string">            'prompt_tokens_details': None</span></span><br><span class="line"><span class="string">        }, </span></span><br><span class="line"><span class="string">        'model_name': 'Qwen2.5-7B-Instruct', </span></span><br><span class="line"><span class="string">        'system_fingerprint': None, </span></span><br><span class="line"><span class="string">        'finish_reason': 'stop', </span></span><br><span class="line"><span class="string">        'logprobs': None}, </span></span><br><span class="line"><span class="string">    id='run-e2adb89c-7c83-4a53-b68a-be914308c468-0', </span></span><br><span class="line"><span class="string">    usage_metadata={</span></span><br><span class="line"><span class="string">        'input_tokens': 36, </span></span><br><span class="line"><span class="string">        'output_tokens': 13, </span></span><br><span class="line"><span class="string">        'total_tokens': 49, </span></span><br><span class="line"><span class="string">        'input_token_details': {}, </span></span><br><span class="line"><span class="string">        'output_token_details': {}</span></span><br><span class="line"><span class="string">    }</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="流式输出"><a href="#流式输出" class="headerlink" title="流式输出"></a><strong>流式输出</strong></h3><p>流式选项特别适用于接收查询的实时响应。<br>与等待整个响应生成完成不同，该模型会逐个令牌或按数据块流式传输输出，从而实现更快的交互和即时反馈。</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">answer = llm.stream(</span><br><span class="line">    <span class="string">"Please provide 10 beautiful tourist destinations in USA along with their addresses!"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这种流式生成方式本质上是 迭代器 (iterator) 的一种应用。</span></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> answer:</span><br><span class="line">    <span class="built_in">print</span>(token.content, end=<span class="string">""</span>, flush=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="链式创建（Chain-Creation）"><a href="#链式创建（Chain-Creation）" class="headerlink" title="链式创建（Chain Creation）"></a><strong>链式创建（Chain Creation）</strong></h1><p>在这里，我们使用 <strong>LCEL（LangChain Expression Language / LangChain 表达式语言）</strong> 将多个组件组合成一个完整的链。  </p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chain = prompt | model | output_parser</span><br></pre></td></tr></table></figure></div>
-
-<ul>
-<li><strong><code>|</code> 运算符</strong> 类似于 <a class="link" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pipeline_(Unix)">Unix 管道操作符<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，用于连接不同的组件，并将一个组件的输出作为下一个组件的输入。</li>
-</ul>
-<p>在这个链式结构中：</p>
-<ol>
-<li>用户输入被传递到 <strong>提示模板（PromptTemplate）</strong>。  </li>
-<li><strong>提示模板</strong> 处理输入并生成结构化的提示。  </li>
-<li><strong>模型（LLM）</strong> 接收提示并生成响应。  </li>
-<li><strong>输出解析器（Output Parser）</strong> 进一步解析并格式化最终输出。</li>
-</ol>
-<p>通过单独检查每个组件，可以清楚地理解每一步的处理过程。</p>
-<h2 id="Prompt-模板"><a href="#Prompt-模板" class="headerlink" title="Prompt 模板"></a><strong>Prompt 模板</strong></h2><p><code>PromptTemplate</code> 用于通过用户的输入变量创建完整的提示字符串。</p>
-<ul>
-<li><strong><code>template</code></strong>：模板字符串是一个预定义的格式，其中使用大括号 <code>{}</code> 表示变量。  </li>
-<li><strong><code>input_variables</code></strong>：以列表形式定义要插入到大括号 <code>{}</code> 中的变量名称。</li>
-</ul>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="comment"># Define template</span></span><br><span class="line">template = <span class="string">"What is the capital of {country}?"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a `PromptTemplate` object using the `from_template` method.</span></span><br><span class="line">prompt_template = PromptTemplate.from_template(template)</span><br><span class="line">prompt_template</span><br></pre></td></tr></table></figure></div>
+<h3 id="scatter"><a href="#scatter" class="headerlink" title="scatter"></a>scatter</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://pytorch.org/tutorials/_images/scatter.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
 
 
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prompt_template.<span class="built_in">format</span>(country=<span class="string">"Korea"</span>)</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="大模型接口"><a href="#大模型接口" class="headerlink" title="大模型接口"></a><strong>大模型接口</strong></h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"></span><br><span class="line">model = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line">model</span><br></pre></td></tr></table></figure></div>
 
 
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">question = <span class="string">"What is the capital of USA?"</span></span><br><span class="line">model.invoke(question)</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="输出解析器（Output-Parser）"><a href="#输出解析器（Output-Parser）" class="headerlink" title="输出解析器（Output Parser）"></a><strong>输出解析器（Output Parser）</strong></h2><p><strong>输出解析器（Output Parser）</strong> 是一种用于转换或处理 AI 模型响应的工具。由于模型的输出通常是 <strong>自由格式文本（free-form text）</strong>，因此 <strong>输出解析器</strong> 在以下方面至关重要：  </p>
-<ul>
-<li><strong>将输出转换为结构化格式</strong>（如 JSON、表格或特定的数据结构）。  </li>
-<li><strong>提取所需的数据</strong>，过滤无关信息，以便更高效地使用 AI 生成的内容。</li>
-</ul>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> StrOutputParser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接返回str</span></span><br><span class="line">output_parser = (</span><br><span class="line">    StrOutputParser()</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="组成chain"><a href="#组成chain" class="headerlink" title="组成chain"></a>组成chain</h2><p><strong>调用 <code>invoke()</code></strong>  </p>
-<ul>
-<li>输入值(prompt模板中的变量)以 <strong>Python 字典</strong>（键值对）的形式提供。</li>
-<li>在调用 <code>invoke()</code> 函数时，这些输入值作为参数传递。</li>
-</ul>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> StrOutputParser</span><br><span class="line"></span><br><span class="line">prompt = PromptTemplate.from_template(<span class="string">"Please explain {topic} in simple terms."</span>)</span><br><span class="line">model = ChatOpenAI(</span><br><span class="line">	base_url=<span class="string">'http://localhost:5551/v1'</span>,</span><br><span class="line">	api_key=<span class="string">'EMPTY'</span>,</span><br><span class="line">	model_name=<span class="string">'Qwen2.5-7B-Instruct'</span>,</span><br><span class="line">	temperature=<span class="number">0.2</span>,</span><br><span class="line">)</span><br><span class="line">output_parser = StrOutputParser()</span><br><span class="line">chain = prompt | model | output_parser</span><br></pre></td></tr></table></figure></div>
+<img lazyload="" src="/images/loading.svg" data-src="https://pytorch.org/tutorials/_images/scatter.png" width="400">
 
 
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span> = {<span class="string">"topic"</span>: <span class="string">"The Principles of Learning in Artificial Intelligence Models"</span>}</span><br><span class="line"><span class="built_in">print</span>(chain.invoke(<span class="built_in">input</span>))</span><br></pre></td></tr></table></figure></div>
 
 
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同理，chain也可以流式生成</span></span><br><span class="line"></span><br><span class="line">answer = chain.stream(<span class="built_in">input</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> answer:</span><br><span class="line">    <span class="built_in">print</span>(token, end=<span class="string">""</span>, flush=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dist_scatter</span>():</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> rank == <span class="number">0</span>:</span><br><span class="line">		logging.info(<span class="string">f"rank: <span class="subst">{rank}</span> is scattering data"</span>)</span><br><span class="line"></span><br><span class="line">	tensor = torch.zeros(world_size)</span><br><span class="line">	before_tensor = tensor.clone()</span><br><span class="line">	<span class="keyword">if</span> dist.get_rank() == <span class="number">0</span>:</span><br><span class="line">		<span class="comment"># Assumes world_size of 2.</span></span><br><span class="line">		<span class="comment"># Only tensors, all of which must be the same size.</span></span><br><span class="line">		t_ones = torch.ones(world_size)</span><br><span class="line">		t_fives = torch.ones(world_size) * <span class="number">5</span></span><br><span class="line">		<span class="comment"># [[1, 1], [5, 5]]</span></span><br><span class="line">		scatter_list = [t_ones, t_fives]</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		scatter_list = <span class="literal">None</span></span><br><span class="line">	dist.scatter(tensor, scatter_list, src=<span class="number">0</span>)</span><br><span class="line">	logging.info(<span class="string">f"scatter, rank: <span class="subst">{rank}</span>, before scatter: <span class="subst">{<span class="built_in">repr</span>(before_tensor)}</span> after scatter: <span class="subst">{<span class="built_in">repr</span>(tensor)}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
 
-<pre><code>Sure! The principles of learning in artificial intelligence (AI) models can be explained in simple terms as follows:
+<p>scatter 的用法就是从某个节点把数据分散到所有节点，包括自己。scatter_list 本身两个数组，在指定 src=0 (source)(由 rank 0 来分散数据)时，scatter_list数据被分别发送给 rank 0 和 rank 1，最终赋值到 tensor 上。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:rank: 0 is scattering data</span><br><span class="line">INFO:root:scatter, rank: 1, before scatter: tensor([0., 0.], device='cuda:1') after scatter: tensor([5., 5.], device='cuda:1')</span><br><span class="line">INFO:root:scatter, rank: 0, before scatter: tensor([0., 0.], device='cuda:0') after scatter: tensor([1., 1.], device='cuda:0')</span><br></pre></td></tr></table></figure></div>
 
-### 1. **Data**
-- **What it is:** Data are the raw materials that AI models use to learn.
-- **Why it's important:** Good quality data helps the model understand patterns and make accurate predictions.
+<h3 id="gather"><a href="#gather" class="headerlink" title="gather"></a>gather</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://pytorch.org/tutorials/_images/gather.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
 
-### 2. **Training**
-- **What it is:** Training is the process where the AI model learns from the data.
-- **How it works:** The model is shown examples (data) and adjusts its internal parameters to minimize errors in predictions.
 
-### 3. **Model**
-- **What it is:** A model is the mathematical representation of the AI system.
-- **How it works:** It processes input data and produces output predictions or decisions.
 
-### 4. **Parameters**
-- **What they are:** Parameters are the internal settings or weights of the model that are adjusted during training.
-- **Why they're important:** These settings determine how the model makes predictions.
 
-### 5. **Loss Function**
-- **What it is:** A loss function measures how wrong the model's predictions are.
-- **How it works:** The model tries to minimize this function by adjusting its parameters.
+<img lazyload="" src="/images/loading.svg" data-src="https://pytorch.org/tutorials/_images/gather.png" width="400">
 
-### 6. **Optimization**
-- **What it is:** Optimization is the process of finding the best set of parameters to minimize the loss function.
-- **How it works:** Algorithms like gradient descent are used to iteratively adjust the parameters.
 
-### 7. **Validation**
-- **What it is:** Validation is the process of checking how well the model performs on new, unseen data.
-- **Why it's important:** It helps ensure the model generalizes well to new data and isn't just memorizing the training data.
 
-### 8. **Testing**
-- **What it is:** Testing is the final step where the model's performance is evaluated on a completely separate set of data.
-- **Why it's important:** It gives a final assessment of how well the model will perform in real-world scenarios.
 
-### 9. **Feedback Loop**
-- **What it is:** A feedback loop is where the model's predictions are used to improve the training data or the model itself.
-- **Why it's important:** Continuous improvement can lead to better performance over time.
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dist_gather</span>():</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line"></span><br><span class="line">	tensor = torch.tensor([rank], dtype=torch.float32)</span><br><span class="line">	before_tensor = tensor.clone()</span><br><span class="line">	</span><br><span class="line">	gather_list = [torch.zeros(<span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(world_size)] <span class="keyword">if</span> rank == <span class="number">0</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">	dist.gather(tensor, gather_list, dst=<span class="number">0</span>)</span><br><span class="line">	</span><br><span class="line">	logging.info(<span class="string">f"gather, rank: <span class="subst">{rank}</span>, before gather: <span class="subst">{<span class="built_in">repr</span>(before_tensor)}</span> after gather: <span class="subst">{<span class="built_in">repr</span>(gather_list)}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
 
-### 10. **Regularization**
-- **What it is:** Regularization is a technique to prevent overfitting by adding a penalty for complex models.
-- **Why it's important:** It helps the model generalize better to new data by avoiding overly complex solutions.
+<p>gather 的作用是 scatter 相反作用的，让所有 rank 上的 tensor 收集到 rank 为 dst (destination) 的卡上</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:gather, rank: 0, before gather: tensor([0.], device='cuda:0') after gather: [tensor([0.], device='cuda:0'), tensor([1.], device='cuda:0')]</span><br><span class="line">INFO:root:gather, rank: 1, before gather: tensor([1.], device='cuda:1') after gather: None</span><br></pre></td></tr></table></figure></div>
 
-### 11. **Evaluation Metrics**
-- **What they are:** Evaluation metrics are specific measures used to assess the performance of the model.
-- **Examples:** Accuracy, precision, recall, F1 score, etc.
-- **Why they're important:** They provide a quantitative way to compare different models or evaluate the effectiveness of changes.
+<h3 id="broadcast"><a href="#broadcast" class="headerlink" title="broadcast"></a>broadcast</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://pytorch.org/tutorials/_images/broadcast.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
 
-### 12. **Hyperparameters**
-- **What they are:** Hyperparameters are settings that control the training process but are not learned from the data.
-- **Examples:** Learning rate, batch size, number of layers in a neural network.
-- **Why they're important:** They can significantly affect the model's performance and need to be carefully tuned.
 
-These principles form the foundation of how AI models learn and improve over time. By understanding these concepts, you can better appreciate how AI systems are developed and deployed in various applications.
-</code></pre>
+<img lazyload="" src="/images/loading.svg" data-src="https://pytorch.org/tutorials/_images/broadcast.png" width="400">
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dist_broadcast</span>():</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line"></span><br><span class="line">	src_rank = <span class="number">0</span></span><br><span class="line">	tensor = torch.tensor(rank)</span><br><span class="line">	before_tensor = tensor.clone()</span><br><span class="line">	dist.broadcast(tensor, src=src_rank)</span><br><span class="line">	logging.info(<span class="string">f"broadcast, rank: <span class="subst">{rank}</span>, before broadcast tensor: <span class="subst">{<span class="built_in">repr</span>(before_tensor)}</span> after broadcast tensor: <span class="subst">{<span class="built_in">repr</span>(tensor)}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
+
+<p>broadcast 的作用就是把 rank 为 src_rank 的 tensor 广播到其他 rank 上。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:broadcast, rank: 1, before broadcast tensor: tensor(1, device='cuda:1') after broadcast tensor: tensor(0, device='cuda:1')</span><br><span class="line">INFO:root:broadcast, rank: 2, before broadcast tensor: tensor(2, device='cuda:2') after broadcast tensor: tensor(0, device='cuda:2')</span><br><span class="line">INFO:root:broadcast, rank: 3, before broadcast tensor: tensor(3, device='cuda:3') after broadcast tensor: tensor(0, device='cuda:3')</span><br><span class="line">INFO:root:broadcast, rank: 0, before broadcast tensor: tensor(0, device='cuda:0') after broadcast tensor: tensor(0, device='cuda:0')</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://pytorch.org/tutorials/_images/reduce.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<img lazyload="" src="/images/loading.svg" data-src="https://pytorch.org/tutorials/_images/reduce.png" width="400">
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.distributed <span class="keyword">import</span> ReduceOp</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dist_reduce</span>():</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line"></span><br><span class="line">	tensor = torch.tensor([rank], dtype=torch.float32)</span><br><span class="line">	before_tensor = tensor.clone()</span><br><span class="line"></span><br><span class="line">	dist.reduce(tensor, op=ReduceOp.SUM, dst=<span class="number">0</span>)</span><br><span class="line">	</span><br><span class="line">	logging.info(<span class="string">f"reduce, rank: <span class="subst">{rank}</span>, before reduce: <span class="subst">{<span class="built_in">repr</span>(before_tensor)}</span> after reduce: <span class="subst">{<span class="built_in">repr</span>(tensor)}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
+
+<p>reduce 的作用和 gather 类似，都是把所有卡上数据集合到某个卡上，但不会组合为 list，会直接对这些数据进行结合式的计算。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:reduce, rank: 1, before reduce: tensor([1.], device='cuda:1') after reduce: tensor([1.], device='cuda:1')</span><br><span class="line">INFO:root:reduce, rank: 0, before reduce: tensor([0.], device='cuda:0') after reduce: tensor([6.], device='cuda:0')</span><br><span class="line">INFO:root:reduce, rank: 2, before reduce: tensor([2.], device='cuda:2') after reduce: tensor([2.], device='cuda:2')</span><br><span class="line">INFO:root:reduce, rank: 3, before reduce: tensor([3.], device='cuda:3') after reduce: tensor([3.], device='cuda:3')</span><br></pre></td></tr></table></figure></div>
+<p>rank 0 上的 tensor 值为 0+1+2+3 = 6</p>
+<h3 id="all-reduce"><a href="#all-reduce" class="headerlink" title="all-reduce"></a>all-reduce</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://pytorch.org/tutorials/_images/all_reduce.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<img lazyload="" src="/images/loading.svg" data-src="https://pytorch.org/tutorials/_images/all_reduce.png" width="400">
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dist_allreduce</span>():</span><br><span class="line">	print_rank_0(<span class="string">"all_reduce:"</span>)</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	<span class="comment"># world_size = torch.distributed.get_world_size()</span></span><br><span class="line"></span><br><span class="line">	tensor = torch.tensor([rank], dtype=torch.float32)</span><br><span class="line">	input_tensor = tensor.clone()</span><br><span class="line">	dist.all_reduce(tensor)</span><br><span class="line"></span><br><span class="line">	logging.info(<span class="string">f"all_reduce, rank: <span class="subst">{rank}</span>, before allreduce tensor: <span class="subst">{<span class="built_in">repr</span>(input_tensor)}</span>, after allreduce tensor: <span class="subst">{<span class="built_in">repr</span>(tensor)}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
+
+<p>all_reduce 相当于 reduce + broadcast，all 体现在所有 rank 都要执行所有操作，可以视为 reduce + broadcast，实际应该是所有 rank 都执行 reduce。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:all<span class="emphasis">_reduce, rank: 0, before allreduce tensor: tensor([0.], device='cuda:0'), after allreduce tensor: tensor([6.], device='cuda:0')</span></span><br><span class="line"><span class="emphasis">INFO:root:all_</span>reduce, rank: 2, before allreduce tensor: tensor([2.], device='cuda:2'), after allreduce tensor: tensor([6.], device='cuda:2')</span><br><span class="line">INFO:root:all<span class="emphasis">_reduce, rank: 1, before allreduce tensor: tensor([1.], device='cuda:1'), after allreduce tensor: tensor([6.], device='cuda:1')</span></span><br><span class="line"><span class="emphasis">INFO:root:all_</span>reduce, rank: 3, before allreduce tensor: tensor([3.], device='cuda:3'), after allreduce tensor: tensor([6.], device='cuda:3')</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="all-gather"><a href="#all-gather" class="headerlink" title="all gather"></a>all gather</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://pytorch.org/tutorials/_images/all_gather.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<img lazyload="" src="/images/loading.svg" data-src="https://pytorch.org/tutorials/_images/all_gather.png" width="400">
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dist_allgather</span>():</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line"></span><br><span class="line">	input_tensor = torch.tensor(rank)</span><br><span class="line">	tensor_list = [torch.zeros(<span class="number">1</span>, dtype=torch.int64) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(world_size)]</span><br><span class="line">	dist.all_gather(tensor_list, input_tensor)</span><br><span class="line">	logging.info(<span class="string">f"allgather, rank: <span class="subst">{rank}</span>, input_tensor: <span class="subst">{<span class="built_in">repr</span>(input_tensor)}</span>, output tensor_list: <span class="subst">{tensor_list}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
+
+<p>all_gather 也是类似所有 rank 执行 gather</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:allgather, rank: 0, input<span class="emphasis">_tensor: tensor(0, device='cuda:0'), output tensor_</span>list: [tensor([0], device='cuda:0'), tensor([1], device='cuda:0')]</span><br><span class="line">INFO:root:allgather, rank: 1, input<span class="emphasis">_tensor: tensor(1, device='cuda:1'), output tensor_</span>list: [tensor([0], device='cuda:1'), tensor([1], device='cuda:1')]</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="reduce-scatter"><a href="#reduce-scatter" class="headerlink" title="reduce-scatter"></a>reduce-scatter</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(url=<span class="string">'https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/_images/reducescatter.png'</span>, width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<img lazyload="" src="/images/loading.svg" data-src="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/_images/reducescatter.png" width="400">
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dist_reducescatter</span>():</span><br><span class="line">	dist.barrier()</span><br><span class="line"></span><br><span class="line">	rank = dist.get_rank()</span><br><span class="line">	world_size = dist.get_world_size()</span><br><span class="line"></span><br><span class="line">	output = torch.empty(<span class="number">1</span>, dtype=torch.int64)</span><br><span class="line">	input_list = [torch.tensor(rank*<span class="number">2</span>+<span class="number">1</span>), torch.tensor(rank*<span class="number">2</span>+<span class="number">2</span>)]</span><br><span class="line">	dist.reduce_scatter(output, input_list, op=ReduceOp.SUM)</span><br><span class="line">	dist.barrier()</span><br><span class="line">	logging.info(<span class="string">f"reduce_scatter, rank: <span class="subst">{rank}</span>, input_list: <span class="subst">{input_list}</span>, tensor: <span class="subst">{<span class="built_in">repr</span>(output)}</span>"</span>)</span><br><span class="line">	dist.barrier()</span><br></pre></td></tr></table></figure></div>
+
+<p>reduce_scatter 是每个 rank 上都有完整的数据，但 reduce 后再 scatter 到所有 rank 上。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:reduce<span class="emphasis">_scatter, rank: 0, input_</span>list: [tensor(1, device='cuda:0'), tensor(2, device='cuda:0')], tensor: tensor([4], device='cuda:0')</span><br><span class="line">INFO:root:reduce<span class="emphasis">_scatter, rank: 1, input_</span>list: [tensor(3, device='cuda:1'), tensor(4, device='cuda:1')], tensor: tensor([6], device='cuda:1')</span><br></pre></td></tr></table></figure></div>
+<p>rank 0 上是 [1,2], rank 1 上是 [3,4]， 执行 reduce 效果是 [4,6], 再加上 scatter 效果变成了 rank 0 上是 4, rank 1 上是 6。</p>
 
 		</div>
 
@@ -820,7 +767,7 @@ These principles form the foundation of how AI models learn and improve over tim
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/Langchain/">#Langchain</a>&nbsp;
+				<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>&nbsp;
 			</li>
 			
 		</ul>
@@ -831,23 +778,11 @@ These principles form the foundation of how AI models learn and improve over tim
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/05/04/langchain-tutorial-series/03.OutputParser/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Langchain 入门教程 - 3.输出解析器</span>
-						<span class="post-nav-item">Prev posts</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2025/05/04/RAG-context-compression-series/1.basic/">
+				<a class="next" rel="next" href="/2025/05/04/agent/simple_agent/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">RAG 上下文压缩 - 基础概念</span>
+						<span class="post-nav-title-item">单轮对话-&gt;多轮对话-&gt;简单agent示例</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -911,8 +846,8 @@ These principles form the foundation of how AI models learn and improve over tim
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">Langchain 入门教程 - 1.基础应用</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%8F%A3%E5%B9%B6%E8%B0%83%E7%94%A8"><span class="nav-text">初始化大模型接口并调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%A0%BC%E5%BC%8F%EF%BC%88AIMessage%E7%B1%BB%EF%BC%89"><span class="nav-text">响应格式（AIMessage类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA"><span class="nav-text">流式输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E5%BC%8F%E5%88%9B%E5%BB%BA%EF%BC%88Chain-Creation%EF%BC%89"><span class="nav-text">链式创建（Chain Creation）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prompt-%E6%A8%A1%E6%9D%BF"><span class="nav-text">Prompt 模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="nav-text">大模型接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E8%A7%A3%E6%9E%90%E5%99%A8%EF%BC%88Output-Parser%EF%BC%89"><span class="nav-text">输出解析器（Output Parser）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E6%88%90chain"><span class="nav-text">组成chain</span></a></li></ol></li></ol>
+		<div class="page-title">NCCL 通信模式 简单示例</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch-%E5%88%86%E5%B8%83%E5%BC%8F%E7%9B%B8%E5%85%B3api"><span class="nav-text">pytorch 分布式相关api</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF"><span class="nav-text">节点获取信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scatter"><span class="nav-text">scatter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gather"><span class="nav-text">gather</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#broadcast"><span class="nav-text">broadcast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce"><span class="nav-text">reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#all-reduce"><span class="nav-text">all-reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#all-gather"><span class="nav-text">all gather</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-scatter"><span class="nav-text">reduce-scatter</span></a></li></ol></li></ol>
 
 	</div>
 </div>
