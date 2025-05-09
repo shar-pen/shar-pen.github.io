@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/09/torch-distributed-series/fsdp/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FSDP - Fully Sharded Data Parallel">
+<meta property="og:url" content="http://example.com/2025/05/09/torch-distributed-series/FSDP/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-09T14:37:23.333Z">
+<meta property="article:modified_time" content="2025-05-09T14:38:22.720Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="分布式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            FSDP - Fully Sharded Data Parallel | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">FSDP - Fully Sharded Data Parallel</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-09 22:37:23</span>
+        <span class="mobile">2025-05-09 22:37:23</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-09 22:38:22</span>
+            <span class="mobile">2025-05-09 22:38:22</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>FSDP 是 DDP 的一种改进，它晚于 deepspeed 出现，借鉴了 deepspeed 的一个概念，sharding，即参数拆分。但是没有借鉴全，张量并行没有实现，但理解起来不难，结合下 NCCL 通信就可以知道他干什么和怎么实现的。记住，FSDP的两个关键点，sharding 和 data parallel。</p>
+<h2 id="sharding"><a href="#sharding" class="headerlink" title="sharding"></a>sharding</h2><blockquote>
+<p>在深度学习中，shard（分片）指的是把一个整体的数据结构或模型参数拆成多个部分，分别分布到不同设备或进程中处理或存储。通俗点，Sharding 就是“切块+分发”。</p>
+</blockquote>
+<p>Sharding 的思想就是万物都可以分裂开，只要用的时候再复原，而且用完继续分裂开。这里的分裂不是常规意义上的分裂，更类似与分布式存储，每个节点都存储部分内容。FSDP 的前任是 DDP，DDP 的前提条件是每个 gpu 上都有一个模型副本，但随着模型不断变大，模型很难在单张 gpu 上部署，而且所有 gpu 都保存了大量重复的参数，也不够有效。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/pipelineparallel.png"></p>
+<p>模型并行是一个解决方法:</p>
+<ol>
+<li>将整个模型按层划分为多个连续的阶段(stage)，每个阶段由一个设备负责计算。</li>
+<li>在每个训练迭代开始时，第一个设备获取一个 batch 的输入数据，并执行前向计算。</li>
+<li>第一个设备将计算出的中间激活值(activations)传递给第二个阶段的设备。</li>
+<li>第二个设备接收到激活值后，基于这个输入继续执行前向计算，并将结果传递给下一个阶段，如此类推。</li>
+<li>直到最后一个阶段完成前向计算，得到最终的输出。</li>
+<li>基于输出，计算损失函数，并执行反向传播。</li>
+<li>每个阶段在反向传播时，计算本阶段所需的梯度，并将上游梯度传递给前一个阶段。</li>
+<li>所有阶段计算完成后，将各自的梯度汇总，更新对应的模型参数。</li>
+<li>将更新后的模型参数分发到对应的设备，准备进行下一个 batch 的训练迭代。</li>
+</ol>
+<p>但他还是以 layer 层面切分模型的，现在如果有超大的 layer，必然存在放不了一个超大的 layer 或者剩下的空间不足以放下一个 layer。</p>
+<p>虽然模型并行和 sharding 都是只在多 gpu 上保留一份模型参数，但 sharding 直接分裂开 tensor，粒度更细，使得其更灵活。</p>
+<p>Shard parameters, gradients, and optimizer states across all data-parallel processes</p>
+<ul>
+<li>P: Parameters</li>
+<li>G: Gradients</li>
+<li>OS: Optimizer states</li>
+</ul>
+<p>这是 deepspeed 介绍他们三种模式的图片<br><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/DeepSpeed-Image-1.png"></p>
+<p>随着我们从 Optimizer 到 Gradients 到 Parameters 不断 sharding，每个 gpu 上的显存占用直线降低，而通讯压力仅有极小的成本上升。</p>
+<p>sharding 的重要基础就是 NCCL 的通信机制，例如以下的通信方式：</p>
+<ul>
+<li>all-gather,</li>
+<li>all-reduce,</li>
+<li>broadcast,</li>
+<li>reduce,</li>
+<li>reduce-scatter</li>
+<li>as well as point-to-point send and receive</li>
+</ul>
+<blockquote>
+<p>The NVIDIA Collective Communication Library (NCCL) implements multi-GPU and multi-node <strong>communication primitives</strong> optimized for NVIDIA GPUs and Networking. </p>
+</blockquote>
+<p>在 DDP 中我们就用了 all-reduce 的概念，即每个 gpu 上都计算了分配给它的 mini batch 的梯度，为了让所有卡上都维持相同的模型，or梯度更新都一致，我们用 all-reduce 让所有 gpu 上的梯度都获得了所有 gpu 上的梯度。FSDP 在此基础上，让 FWD 和 BWD 过程都利用 all-reduce 实现了参数随用随 gather，用完即丢的效果。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/all_reduce.png"></p>
+<h2 id="sharding-示例"><a href="#sharding-示例" class="headerlink" title="sharding 示例"></a>sharding 示例</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/fsdp_allgather.png"></p>
+<p>这里以一个 Linear 层为例，现在共有 4 个节点，我们把 linear 层平均的分散到每个 gpu 上，每个 gpu 只有一部分，不足以直接计算，现在 FWD 和 BWD 时，每个节点以 all-gather 的形式将所有节点上的 shard 收集为完整的 linear 层，这样每个节点都可以基于它自己的数据计算出输出，现在这个输出可以转到下一个层的计算，也是同样的 all-gather，而已经用的层，后续不再需要，因此直接释放，还是只保留原本的 shard。</p>
+<p>FSDP 并不会对数据进行切分，因为它还是属于 data parallel 的范畴，即每个节点上运行部分数据，一个节点上的数据就交给这个节点计算，因此数据不会切分。</p>
+<p><strong>FSDP 本质上仍是一种数据并行（DP）策略，目标是解决单卡放不下完整模型的问题，同时保留传统 DDP 的易用性与训练逻辑。<br>不同于模型并行（MP）或流水线并行（PP）那种“切分计算”的思想，FSDP 并不切算子，而是切分参数存储（shard weight storage），从而在所有 GPU 上共同维护一个被 shard 化的模型。</strong></p>
+<p>!!! 注意，FSDP 不涉及张量并行或者模型并行的概念，它只用 sharding 来存储参数，用 gather 来随时收集分散的参数，此外和正常计算一样，计算方式上没有任何改变。</p>
+<h2 id="FSDP"><a href="#FSDP" class="headerlink" title="FSDP"></a>FSDP</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/fsdp_overall.png"></p>
+<p>以图为例，重新分散模型：</p>
+<ul>
+<li>unit 0: [layer 0, layer 3]</li>
+<li>unit 1: [layer 1, layer 2]</li>
+<li>unit 2: [layer 4, layer 5]</li>
+</ul>
+<p>这里的 unit 即节点， sharding 本身没有任何顺序或者既定的比例，随便分散即可。每个节点执行 FWD 和 BWD 时都是先 gather 全部参数，计算，在释放非自己的 shard， BWD 同理，最后同步 gradient 。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/overlap_comm_comp.png"></p>
+<p>再从计算和通信上看，在进行完 AG0 (all-gather layer 0)时可以同时 FWD0 和 AG1，此时通信和计算就会overlap，但不影响双方。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/fsdp_red_scatter.png"></p>
+<p>在 BWD 时也是 all-gather 完了进行 BWD 计算，这里直接进行了 reduce-scatter，因为 FSDP 还是类似 DDP 一样，要维持相同的模型或者梯度更新，这一步直接当前梯度计算完，直接同步。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/FSDP/ddp_fsdp.png"></p>
+<p>FSDP 和 DDP 的区别还是很明显的，DDP 要在每个节点上保留一个完整的模型副本，模型比较大时就非常吃亏，因为大部分显存都被模型占着。而 FSDP 让所有节点共同存储一个模型，每个模型平摊代价，使得每个节点只需要承担 sub-model 级别的代价，使得可以跑更大的 batch 。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 大概用 FSDP 包装下模型就可以了，当然也要设置类似 DDP 的参数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.distributed._fsdp <span class="keyword">import</span> FullyShardedDataParallel <span class="keyword">as</span> FSDP</span><br><span class="line"></span><br><span class="line">torch.cuda.set_device(device_id)</span><br><span class="line"></span><br><span class="line">model = Net()</span><br><span class="line">sharded_model = FSDP(model)</span><br><span class="line">optim = torch.optim.Adam(sharded_model.parameters(), lr=<span class="number">0.0001</span>)</span><br><span class="line">sharded_model(<span class="built_in">input</span>).<span class="built_in">sum</span>().backward()</span><br><span class="line">optim.step()</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="MNIST-FSDP"><a href="#MNIST-FSDP" class="headerlink" title="MNIST FSDP"></a>MNIST FSDP</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Based on: https://github.com/pytorch/examples/blob/master/mnist/main.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, transforms</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch.optim.lr_scheduler <span class="keyword">import</span> StepLR</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch.distributed <span class="keyword">as</span> dist</span><br><span class="line"><span class="keyword">import</span> torch.multiprocessing <span class="keyword">as</span> mp</span><br><span class="line"><span class="keyword">from</span> torch.utils.data.distributed <span class="keyword">import</span> DistributedSampler</span><br><span class="line"><span class="keyword">from</span> torch.distributed.fsdp <span class="keyword">import</span> FullyShardedDataParallel <span class="keyword">as</span> FSDP</span><br><span class="line"><span class="keyword">from</span> torch.distributed.fsdp.wrap <span class="keyword">import</span> (</span><br><span class="line">    size_based_auto_wrap_policy,</span><br><span class="line">    enable_wrap,</span><br><span class="line">    wrap,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Distributed training setup</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup</span>(<span class="params">rank, world_size</span>):</span><br><span class="line">    os.environ[<span class="string">'MASTER_ADDR'</span>] = <span class="string">'localhost'</span></span><br><span class="line">    os.environ[<span class="string">'MASTER_PORT'</span>] = <span class="string">'12355'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># initialize the process group</span></span><br><span class="line">    dist.init_process_group(<span class="string">"nccl"</span>, rank=rank, world_size=world_size)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cleanup</span>():</span><br><span class="line">    dist.destroy_process_group()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Net</span>(nn.Module):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Net, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">32</span>, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.conv2 = nn.Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.dropout1 = nn.Dropout(<span class="number">0.25</span>)</span><br><span class="line">        <span class="variable language_">self</span>.dropout2 = nn.Dropout(<span class="number">0.5</span>)</span><br><span class="line">        <span class="variable language_">self</span>.fc1 = nn.Linear(<span class="number">9216</span>, <span class="number">128</span>)</span><br><span class="line">        <span class="variable language_">self</span>.fc2 = nn.Linear(<span class="number">128</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line"></span><br><span class="line">        x = <span class="variable language_">self</span>.conv1(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.conv2(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        x = F.max_pool2d(x, <span class="number">2</span>)</span><br><span class="line">        x = <span class="variable language_">self</span>.dropout1(x)</span><br><span class="line">        x = torch.flatten(x, <span class="number">1</span>)</span><br><span class="line">        x = <span class="variable language_">self</span>.fc1(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.dropout2(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.fc2(x)</span><br><span class="line">        output = F.log_softmax(x, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">model, rank, train_loader, optimizer, epoch, sampler=<span class="literal">None</span></span>):</span><br><span class="line">    model.train()</span><br><span class="line">    ddp_loss = torch.zeros(<span class="number">2</span>).to(rank)</span><br><span class="line">    <span class="keyword">if</span> sampler:</span><br><span class="line">        sampler.set_epoch(epoch)</span><br><span class="line">    <span class="keyword">for</span> batch_idx, (data, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):</span><br><span class="line">        data, target = data.to(rank), target.to(rank)</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        output = model(data)</span><br><span class="line">        loss = F.nll_loss(output, target, reduction=<span class="string">'sum'</span>)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        ddp_loss[<span class="number">0</span>] += loss.item()</span><br><span class="line">        ddp_loss[<span class="number">1</span>] += <span class="built_in">len</span>(data)</span><br><span class="line"></span><br><span class="line">    dist.all_reduce(ddp_loss, op=dist.ReduceOp.SUM)</span><br><span class="line">    <span class="keyword">if</span> rank == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Train Epoch: {} \tLoss: {:.6f}'</span>.<span class="built_in">format</span>(epoch, ddp_loss[<span class="number">0</span>] / ddp_loss[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">model, rank, test_loader</span>):</span><br><span class="line">    model.<span class="built_in">eval</span>()</span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    ddp_loss = torch.zeros(<span class="number">3</span>).to(rank)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> data, target <span class="keyword">in</span> test_loader:</span><br><span class="line">            data, target = data.to(rank), target.to(rank)</span><br><span class="line">            output = model(data)</span><br><span class="line">            ddp_loss[<span class="number">0</span>] += F.nll_loss(output, target, reduction=<span class="string">'sum'</span>).item()  <span class="comment"># sum up batch loss</span></span><br><span class="line">            pred = output.argmax(dim=<span class="number">1</span>, keepdim=<span class="literal">True</span>)  <span class="comment"># get the index of the max log-probability</span></span><br><span class="line">            ddp_loss[<span class="number">1</span>] += pred.eq(target.view_as(pred)).<span class="built_in">sum</span>().item()</span><br><span class="line">            ddp_loss[<span class="number">2</span>] += <span class="built_in">len</span>(data)</span><br><span class="line"></span><br><span class="line">    dist.all_reduce(ddp_loss, op=dist.ReduceOp.SUM)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> rank == <span class="number">0</span>:</span><br><span class="line">        test_loss = ddp_loss[<span class="number">0</span>] / ddp_loss[<span class="number">2</span>]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'</span>.<span class="built_in">format</span>(</span><br><span class="line">            test_loss, <span class="built_in">int</span>(ddp_loss[<span class="number">1</span>]), <span class="built_in">int</span>(ddp_loss[<span class="number">2</span>]),</span><br><span class="line">            <span class="number">100.</span> * ddp_loss[<span class="number">1</span>] / ddp_loss[<span class="number">2</span>]))</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fsdp_main</span>(<span class="params">rank, world_size, args</span>):</span><br><span class="line">    setup(rank, world_size)</span><br><span class="line"></span><br><span class="line">    transform=transforms.Compose([</span><br><span class="line">        transforms.ToTensor(),</span><br><span class="line">        transforms.Normalize((<span class="number">0.1307</span>,), (<span class="number">0.3081</span>,))</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    dataset1 = datasets.MNIST(<span class="string">'./mnist'</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                        transform=transform)</span><br><span class="line">    dataset2 = datasets.MNIST(<span class="string">'./mnist'</span>, train=<span class="literal">False</span>,</span><br><span class="line">                        transform=transform)</span><br><span class="line"></span><br><span class="line">    sampler1 = DistributedSampler(dataset1, rank=rank, num_replicas=world_size, shuffle=<span class="literal">True</span>)</span><br><span class="line">    sampler2 = DistributedSampler(dataset2, rank=rank, num_replicas=world_size)</span><br><span class="line"></span><br><span class="line">    train_kwargs = {<span class="string">'batch_size'</span>: args.batch_size, <span class="string">'sampler'</span>: sampler1}</span><br><span class="line">    test_kwargs = {<span class="string">'batch_size'</span>: args.test_batch_size, <span class="string">'sampler'</span>: sampler2}</span><br><span class="line">    cuda_kwargs = {<span class="string">'num_workers'</span>: <span class="number">2</span>,</span><br><span class="line">                    <span class="string">'pin_memory'</span>: <span class="literal">True</span>,</span><br><span class="line">                    <span class="string">'shuffle'</span>: <span class="literal">False</span>}</span><br><span class="line">    train_kwargs.update(cuda_kwargs)</span><br><span class="line">    test_kwargs.update(cuda_kwargs)</span><br><span class="line"></span><br><span class="line">    train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)</span><br><span class="line">    test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)</span><br><span class="line">    </span><br><span class="line">	<span class="comment"># !!! 只有参数数量超过某个阈值的模块，才会被 FSDP 自动包裹（即切分）</span></span><br><span class="line">    my_auto_wrap_policy = functools.partial(</span><br><span class="line">        size_based_auto_wrap_policy, min_num_params=<span class="number">100</span></span><br><span class="line">    )</span><br><span class="line">    torch.cuda.set_device(rank)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    model = Net().to(rank)</span><br><span class="line"></span><br><span class="line">    model = FSDP(model)</span><br><span class="line"></span><br><span class="line">    optimizer = optim.Adam(model.parameters(), lr=args.lr)</span><br><span class="line"></span><br><span class="line">    scheduler = StepLR(optimizer, step_size=<span class="number">1</span>, gamma=args.gamma)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, args.epochs + <span class="number">1</span>):</span><br><span class="line">        train(model, rank, train_loader, optimizer, epoch, sampler=sampler1)</span><br><span class="line">        test(model, rank, test_loader)</span><br><span class="line">        scheduler.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> args.save_model:</span><br><span class="line">        <span class="comment"># use a barrier to make sure training is done on all ranks</span></span><br><span class="line">        dist.barrier()</span><br><span class="line">        states = model.state_dict()</span><br><span class="line">        <span class="keyword">if</span> rank == <span class="number">0</span>:</span><br><span class="line">            torch.save(states, <span class="string">"mnist_cnn.pt"</span>)</span><br><span class="line"></span><br><span class="line">    cleanup()</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># Training settings</span></span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">'PyTorch MNIST Example'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--batch-size'</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">64</span>, metavar=<span class="string">'N'</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'input batch size for training (default: 64)'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--test-batch-size'</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1000</span>, metavar=<span class="string">'N'</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'input batch size for testing (default: 1000)'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--epochs'</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">10</span>, metavar=<span class="string">'N'</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'number of epochs to train (default: 14)'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--lr'</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">1.0</span>, metavar=<span class="string">'LR'</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'learning rate (default: 1.0)'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--gamma'</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">0.7</span>, metavar=<span class="string">'M'</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'Learning rate step gamma (default: 0.7)'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--no-cuda'</span>, action=<span class="string">'store_true'</span>, default=<span class="literal">False</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'disables CUDA training'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--seed'</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>, metavar=<span class="string">'S'</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'random seed (default: 1)'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--save-model'</span>, action=<span class="string">'store_true'</span>, default=<span class="literal">False</span>,</span><br><span class="line">                        <span class="built_in">help</span>=<span class="string">'For Saving the current Model'</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    torch.manual_seed(args.seed)</span><br><span class="line"></span><br><span class="line">    WORLD_SIZE = torch.cuda.device_count()</span><br><span class="line">    mp.spawn(fsdp_main,</span><br><span class="line">        args=(WORLD_SIZE, args),</span><br><span class="line">        nprocs=WORLD_SIZE,</span><br><span class="line">        join=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html">https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://github.com/chunhuizhang/pytorch_distribute_tutorials/blob/main/tutorials/FSDP.ipynb">https://github.com/chunhuizhang/pytorch_distribute_tutorials/blob/main/tutorials/FSDP.ipynb<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/09/torch-distributed-series/autocast_mixed_precision/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item"></span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/06/Knowledge-Distillation-series/KD_pytorch_intro/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">三种知识蒸馏的简单CIFAR-10示例</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">FSDP - Fully Sharded Data Parallel</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sharding"><span class="nav-text">sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sharding-%E7%A4%BA%E4%BE%8B"><span class="nav-text">sharding 示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FSDP"><span class="nav-text">FSDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MNIST-FSDP"><span class="nav-text">MNIST FSDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        31 posts in total
+                    </span>
+                    
+                        <span>
+                            100.6k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

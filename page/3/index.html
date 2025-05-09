@@ -565,7 +565,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -644,7 +644,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -659,6 +659,119 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/04/RAG-context-compression-series/2.map_refine-early_stop/">
+                            RAG 上下文压缩 - 带早停机制的 map-refine
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            我试过用map-refine方法来精炼上下文，由于它是线性的，运行时间随着文档数量线性增长。所以可以考虑通过判断上下文是否可以满足QA来提前结束过程。
+1234567891011121314151617import osimport jsonfrom langchain_core.documents import Documentdata = []file_path = './data/da...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 04 2025 22:42:26 GMT+0800">
+                
+                    2025-05-04
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/RAG-%E4%B8%8A%E4%B8%8B%E6%96%87%E5%8E%8B%E7%BC%A9/">RAG 上下文压缩</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/05/04/RAG-context-compression-series/2.map_refine-early_stop/">Read more<span class="seo-reader-text">RAG 上下文压缩 - 带早停机制的 map-refine</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/04/RAG-context-compression-series/3.map_reduce-filter_and_compress/">
+                            RAG 上下文压缩 - 优化map-reduce(reranker过滤+社区聚类)
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            我遇到的业务问题实际上是RAG需要处理很多同一对象的日常报告，不像常识类问题，它的相关Document更多而且更分散，日常报告代表数据库里有很多它的内容，而且对象可能只在段落中的几句话提及到。top-k数量受限于大模型长度，目前是top-10/15，明显一个月的情况都没法正常枚举，而且上下文中也有很多无关内容，既会干扰大模型又会占着token，所以必需对上下文进行过滤，到这一步后再压缩下文本...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 04 2025 22:42:26 GMT+0800">
+                
+                    2025-05-04
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/RAG-%E4%B8%8A%E4%B8%8B%E6%96%87%E5%8E%8B%E7%BC%A9/">RAG 上下文压缩</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/05/04/RAG-context-compression-series/3.map_reduce-filter_and_compress/">Read more<span class="seo-reader-text">RAG 上下文压缩 - 优化map-reduce(reranker过滤+社区聚类)</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1078,7 +1191,7 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/05/04/torch-distributed-MNIST-series/3.MNIST_DDP/">
+                        <a href="/2025/05/04/torch-distributed-series/3.MNIST_DDP/">
                             MNIST 手写数字分类 Distributed Data Parallel (DDP)
                         </a>
                     </h3>
@@ -1109,7 +1222,7 @@ The difference between DistributedDataParallel and DataParallel is: DistributedD
                     
                         
                         <li>
-                            <a href="/categories/MNIST%E5%88%86%E5%B8%83%E5%BC%8F/">MNIST分布式</a>&nbsp;
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
                         </li>
                     
                     
@@ -1137,7 +1250,7 @@ The difference between DistributedDataParallel and DataParallel is: DistributedD
         
     </div>
 
-    <a href="/2025/05/04/torch-distributed-MNIST-series/3.MNIST_DDP/">Read more<span class="seo-reader-text">MNIST 手写数字分类 Distributed Data Parallel (DDP)</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/05/04/torch-distributed-series/3.MNIST_DDP/">Read more<span class="seo-reader-text">MNIST 手写数字分类 Distributed Data Parallel (DDP)</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1152,7 +1265,7 @@ The difference between DistributedDataParallel and DataParallel is: DistributedD
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/05/04/torch-distributed-MNIST-series/2.MNIST_DP/">
+                        <a href="/2025/05/04/torch-distributed-series/2.MNIST_DP/">
                             MNIST 手写数字分类 Data Parallel (DP)
                         </a>
                     </h3>
@@ -1187,7 +1300,7 @@ During the backwards pass, gradients from ea...
                     
                         
                         <li>
-                            <a href="/categories/MNIST%E5%88%86%E5%B8%83%E5%BC%8F/">MNIST分布式</a>&nbsp;
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
                         </li>
                     
                     
@@ -1215,88 +1328,7 @@ During the backwards pass, gradients from ea...
         
     </div>
 
-    <a href="/2025/05/04/torch-distributed-MNIST-series/2.MNIST_DP/">Read more<span class="seo-reader-text">MNIST 手写数字分类 Data Parallel (DP)</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/04/torch-distributed-MNIST-series/1.MNIST/">
-                            MNIST 手写数字分类 单卡实现
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            本笔记本演示了训练一个卷积神经网络（CNN）来对 MNIST 数据集中的手写数字进行分类的过程。工作流程包括：
-
-数据准备：加载和预处理 MNIST 数据集。
-模型定义：使用 PyTorch 构建 CNN 模型。
-模型训练：在 MNIST 训练数据集上训练模型。
-模型评估：在 MNIST 测试数据集上测试模型并评估其性能。
-可视化：展示样本图像及其对应的标签。
-
-参考 pytorch 官方示...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 04 2025 22:09:07 GMT+0800">
-                
-                    2025-05-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/MNIST%E5%88%86%E5%B8%83%E5%BC%8F/">MNIST分布式</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/MNIST/">MNIST</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/04/torch-distributed-MNIST-series/1.MNIST/">Read more<span class="seo-reader-text">MNIST 手写数字分类 单卡实现</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/05/04/torch-distributed-series/2.MNIST_DP/">Read more<span class="seo-reader-text">MNIST 手写数字分类 Data Parallel (DP)</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1306,7 +1338,7 @@ During the backwards pass, gradients from ea...
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1329,11 +1361,11 @@ During the backwards pass, gradients from ea...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        29 posts in total
+                        31 posts in total
                     </span>
                     
                         <span>
-                            96.7k words in total
+                            100.6k words in total
                         </span>
                     
                 </p>
