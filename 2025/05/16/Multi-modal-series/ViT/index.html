@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/16/multi-modal-series/vit/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ViT - vision transformer">
+<meta property="og:url" content="http://example.com/2025/05/16/Multi-modal-series/ViT/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-16T13:43:03.795Z">
+<meta property="article:modified_time" content="2025-05-16T13:43:36.558Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="多模态">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            ViT - vision transformer | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">ViT - vision transformer</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-16 21:43:03</span>
+        <span class="mobile">2025-05-16 21:43:03</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-16 21:43:36</span>
+            <span class="mobile">2025-05-16 21:43:36</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CV/">CV</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>ViT (vision transformer) 这个模型的重点在于对特征的提炼能力，预训练只用简单的 softmax 作为 分类头，使得特征提取尽量优化，而不是更复杂的分类头</p>
+<h2 id="BG"><a href="#BG" class="headerlink" title="BG"></a>BG</h2><p>将自注意力机制直接应用于图像时，需要每个像素与所有其他像素进行交互。这种全连接的方式导致计算复杂度随像素数量呈二次增长，因此难以扩展到实际图像尺寸。为了解决这一问题，以下多种策略在图像处理中应用 Transformer ：</p>
+<ul>
+<li><strong>局部像素注意力（Local Attention）</strong>：只在邻近像素之间施加注意力，从而构建局部的多头自注意力模块，可在一定程度上替代卷积操作。</li>
+<li><strong>全局注意力近似（Global Attention Approximation）</strong>：如 Sparse Transformer 提出了可扩展的稀疏注意力机制，使得 Transformer 能够处理大规模图像输入。</li>
+<li><strong>基于图像块的注意力（Patch-wise Attention）</strong>：将输入图像划分为固定大小的图像块（如 2×2 patch），在每个块之间施加完整的自注意力机制。Cordonnier 等人的工作即采用了这种策略，并在较小图像上进行了实验。</li>
+</ul>
+<p>ViT（Vision Transformer）本质上延续了最后一种思路，但对其进行了尺度扩展。相比于早期方法仅处理 2×2 的小块，ViT采用更大尺寸的 patch，从而能够适应中等分辨率的图像任务，实现了更强的表达能力和更广的应用范围。</p>
+<h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><p>因为 ViT 底层设计和 BERT 很类似，因此先讲下 BERT 的基本原理。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="C:\Users\29492\Desktop\1_i8zICfESnaGt4EVRcWBLKw.png"></p>
+<p>BERT 的 input是一条文本。文本中的每个词（token）我们都通过 embedding 矩阵 把它表示成了向量的形式。</p>
+<p><strong>embedding</strong> = <strong>token_embedding</strong>(将单个词转变为词向量) + <strong>position_embedding</strong>(位置编码，用于表示 token 在输入序列中的位置) + **segment_emebdding(**非必须，在 bert 中用于表示每个词属于哪个句子)。</p>
+<p>在 VIT 中，同样存在 token_embedding 和 postion_emebedding。</p>
+<p>在 Bert 中，我们同时做 2 个训练任务：</p>
+<ul>
+<li><strong>Next Sentence Prediction Model（下一句预测）</strong>：input 中会包含两个句子，这两个句子有 50% 的概率是真实相连的句子，50% 的概率是随机组装在一起的句子。我们在每个 input 前面增加特殊符<code>&lt;cls&gt;</code>，这个位置所在的 token 将会在训练里不断学习整条文本蕴含的信息。最后它将作为 “下一句预测” 任务的输入向量，该任务是一个二分类模型，输出结果表示两个句子是否真实相连。</li>
+<li><strong>Masked Language Model（遮蔽词猜测）</strong>：在 input 中，我们会以一定概率随机遮盖掉一些 token（<code>&lt;mask&gt;</code>)，以此来强迫模型通过 Bert 中的 attention 结构更好抽取上下文信息，然后在 “遮蔽词猜测” 任务重，准确地将被覆盖的词猜测出来。</li>
+</ul>
+<p>就和这次讲的 ViT 一样， BERT也只是重点放在特征的提取，同样也最多适用于分类任务。</p>
+<h2 id="ViT-model-design"><a href="#ViT-model-design" class="headerlink" title="ViT model design"></a>ViT model design</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/ViT/image-20250413023931052.png" alt="image-20250413023931052"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/ViT/image-20250413025715087.png" alt="image-20250413025715087"></p>
+<p>标准transformer接受 1D序列的 embedding （实际整体是2D）。为了针对 2D 序列的图片，要把图片扁平为 2D 的patch。将 HxWxC 的图片转换为 Nx(P^2xC) 的patch，注意是把 图片尺寸 HxW 切分成 P^2 的小块。</p>
+<ul>
+<li><strong>patch embeddings</strong>: 之后为了转换为 embedding，将每个patch扁平化，并用linear层映射到embedding，类似于bert的 [cls] token，我们也需要用一个token，来作为最终的整体图片表示，这个 token 最终的标表征用于分类任务，实现起来就是定义一组可学习参数。transformers 里源码是定义 (1,1,hs) 的矩阵，FWD时会在batch维度扩展，再在第二维度（序列维度）上拼接。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># init</span></span><br><span class="line"><span class="variable language_">self</span>.cls_token = nn.Parameter(torch.randn(<span class="number">1</span>, <span class="number">1</span>, config.hidden_size))</span><br><span class="line"><span class="comment"># foward</span></span><br><span class="line">cls_tokens = <span class="variable language_">self</span>.cls_token.expand(batch_size, -<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">embeddings = torch.cat((cls_tokens, embeddings), dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>position embedding</strong>: 另外将 position embedding添加到 patch embedding中以保留位置信息。我们使用标准可学习的1D位置嵌入，因为我们没有观察到使用更高级的2D感知能position embedding的性能提高，源码里除了正常图片的处理外，还有非正常大小图片的处理，大概就是将原本的 PE 插值化到目标图片的大小。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add positional encoding to each token</span></span><br><span class="line"><span class="keyword">if</span> interpolate_pos_encoding:</span><br><span class="line">    embeddings = embeddings + <span class="variable language_">self</span>.interpolate_pos_encoding(embeddings, height, width)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    embeddings = embeddings + <span class="variable language_">self</span>.position_embeddings</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>transformer blocks</strong>: 之后整体就和正常 transformer 一样了，都是 attention 和MLP的叠加，最后有一个分类head，是由MLP在预训练时间和微调时间的单个线性层的MLP实现的。</li>
+</ul>
+<p>通常，我们在大型数据集上预先培训VIT，并对（较小）下游任务进行微调。为此，我们删除了预训练的预测头，并连接一个初始化为0的d×k的FFN，其中k是下游类的数量。比预训练更高的分辨率进行微分解通常是有益的。在喂食较高分辨率的图像时，我们保持patch大小相同，从而导致较大的有效序列长度。ViT可以处理任意序列长度（直至记忆约束），但是，预训练的position embedding可能不再有意义。因此，我们根据原始图像中的位置，对预训练的position embedding进行2D插值。</p>
+<h2 id="ViT-CNN-混合模型"><a href="#ViT-CNN-混合模型" class="headerlink" title="ViT CNN 混合模型"></a>ViT CNN 混合模型</h2><p>原文在最后还提出了混合结构，作为原始图像patch的替代方法，可以先从CNN的特征图中形成输入序列。在此混合模型中，patch embeddings 应用于从CNN特征图中提取的patch，相当于替代 linear 层提取特征。</p>
+<blockquote>
+<p>As an alternative to raw image patches, the input sequence can be formed from feature maps of a CNN (LeCun et al., 1989). In this hybrid model, the patch embedding projection E (Eq. 1) is applied to patches extracted from a CNN feature map. As a special case, the patches can have spatial size 1x1, which means that the input sequence is obtained by simply flattening the spatial dimensions of the feature map and projecting to the Transformer dimension. The classification input embedding and position embeddings are added as described above.</p>
+</blockquote>
+<p>虽说 ViT 是作为替代 CNN 的方法，但用 CNN 和这个不矛盾，由于这一步只是输入预处理阶段，和主体模型没有关系。</p>
+<h2 id="Transformers-ViT-微调"><a href="#Transformers-ViT-微调" class="headerlink" title="Transformers ViT 微调"></a>Transformers ViT 微调</h2><p>预下载数据集和模型</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HF_ENDPOINT=<span class="string">"https://hf-mirror.com"</span></span><br><span class="line">huggingface-cli download --repo-type dataset  --resume-download beans --local-dir ./beans</span><br><span class="line">huggingface-cli download google/vit-base-patch16-224-in21k --local-dir vit-base-patch16-224-in21k</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="loading-dataset-beans"><a href="#loading-dataset-beans" class="headerlink" title="loading dataset - beans"></a>loading dataset - beans</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># load cifar10 (only small portion for demonstration purposes) </span></span><br><span class="line">parquet_path = <span class="string">'beans/data'</span></span><br><span class="line"></span><br><span class="line">ds = load_dataset(<span class="string">'parquet'</span>,</span><br><span class="line">	data_files={</span><br><span class="line">    <span class="string">"train"</span>: os.path.join(parquet_path, <span class="string">'train-*.parquet'</span>),</span><br><span class="line">	<span class="string">"validation"</span>: os.path.join(parquet_path, <span class="string">'validation-*.parquet'</span>),</span><br><span class="line">    <span class="string">"test"</span>: os.path.join(parquet_path, <span class="string">'test-*.parquet'</span>)</span><br><span class="line">	}</span><br><span class="line">)</span><br><span class="line">ds</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">DatasetDict({</span><br><span class="line"><span class="code">    train: Dataset({</span></span><br><span class="line"><span class="code">        features: ['image_file_path', 'image', 'labels'],</span></span><br><span class="line"><span class="code">        num_rows: 1034</span></span><br><span class="line"><span class="code">    })</span></span><br><span class="line"><span class="code">    validation: Dataset({</span></span><br><span class="line"><span class="code">        features: ['image_file_path', 'image', 'labels'],</span></span><br><span class="line"><span class="code">        num_rows: 133</span></span><br><span class="line"><span class="code">    })</span></span><br><span class="line"><span class="code">    test: Dataset({</span></span><br><span class="line"><span class="code">        features: ['image_file_path', 'image', 'labels'],</span></span><br><span class="line"><span class="code">        num_rows: 128</span></span><br><span class="line"><span class="code">    })</span></span><br><span class="line"><span class="code">})</span></span><br></pre></td></tr></table></figure></div>
+
+<p>每个样本包含三个特征：</p>
+<ul>
+<li>image：一个 PIL 图像对象</li>
+<li>image_file_path：图像文件的路径，类型为字符串，该路径对应的图像已被加载为 image</li>
+<li>labels：一个 datasets.ClassLabel 特征，这里会以整数形式表示每个样本的标签</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ex = ds[<span class="string">'train'</span>][<span class="number">400</span>]</span><br><span class="line">ex</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">{'image<span class="emphasis">_file_</span>path': '/home/albert/.cache/huggingface/datasets/downloads/extracted/967f0d9f61a7a8de58892c6fab6f02317c06faf3e19fba6a07b0885a9a7142c7/train/bean<span class="emphasis">_rust/bean_</span>rust<span class="emphasis">_train.148.jpg',</span></span><br><span class="line"><span class="emphasis"> 'image': <span class="language-xml"><span class="tag">&lt;<span class="name">PIL.JpegImagePlugin.JpegImageFile</span> <span class="attr">image</span> <span class="attr">mode</span>=<span class="string">RGB</span> <span class="attr">size</span>=<span class="string">500x500</span>&gt;</span></span>,</span></span><br><span class="line"><span class="emphasis"> 'labels': 1}</span></span><br></pre></td></tr></table></figure></div>
+
+<p>打印下图片</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image = ex[<span class="string">'image'</span>]</span><br><span class="line">image</span><br></pre></td></tr></table></figure></div>
+
+
+<p>​    <img lazyload="" src="/images/loading.svg" data-src="/images/ViT/main_7_0-1747402583212-4.png" alt="main_7_0"></p>
+<p>打印出该样本对应的类别标签。可以使用 <code>ClassLabel</code> 提供的 <code>int2str</code> 函数来实现，该函数可以将类别的整数表示转换为对应的字符串标签</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">labels = ds[<span class="string">'train'</span>].features[<span class="string">'labels'</span>]</span><br><span class="line"><span class="built_in">print</span>(labels)</span><br><span class="line"><span class="built_in">print</span>(labels.int2str(ex[<span class="string">'labels'</span>]))</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ClassLabel(names=['angular<span class="emphasis">_leaf_</span>spot', 'bean<span class="emphasis">_rust', 'healthy'], id=None)</span></span><br><span class="line"><span class="emphasis">bean_</span>rust</span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="loading-ViT-Image-Processor"><a href="#loading-ViT-Image-Processor" class="headerlink" title="loading ViT Image Processor"></a>loading ViT Image Processor</h3><p>在训练 ViT 模型时，输入图像会经过特定的变换处理。如果对图像应用了错误的变换，模型将无法理解其所看到的内容！</p>
+<p>为了确保应用正确的图像变换，我们将使用与预训练模型一同保存的配置来初始化一个 <code>ViTImageProcessor</code>。在本例中，使用的是 <code>google/vit-base-patch16-224-in21k</code> 模型</p>
+<p>可以直接打印 ImageProcessor 来显示其 config</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> ViTImageProcessor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model_name_or_path = <span class="string">"../DC/vit-base-patch16-224-in21k"</span></span><br><span class="line">processor = ViTImageProcessor.from_pretrained(model_name_or_path)</span><br><span class="line">processor</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ViTImageProcessor {</span><br><span class="line">  "do<span class="emphasis">_convert_</span>rgb": null,</span><br><span class="line">  "do<span class="emphasis">_normalize": true,</span></span><br><span class="line"><span class="emphasis">  "do_</span>rescale": true,</span><br><span class="line">  "do<span class="emphasis">_resize": true,</span></span><br><span class="line"><span class="emphasis">  "image_</span>mean": [</span><br><span class="line"><span class="code">    0.5,</span></span><br><span class="line"><span class="code">    0.5,</span></span><br><span class="line"><span class="code">    0.5</span></span><br><span class="line"><span class="code">  ],</span></span><br><span class="line"><span class="code">  "image_processor_type": "ViTImageProcessor",</span></span><br><span class="line"><span class="code">  "image_std": [</span></span><br><span class="line"><span class="code">    0.5,</span></span><br><span class="line"><span class="code">    0.5,</span></span><br><span class="line"><span class="code">    0.5</span></span><br><span class="line"><span class="code">  ],</span></span><br><span class="line"><span class="code">  "resample": 2,</span></span><br><span class="line"><span class="code">  "rescale_factor": 0.00392156862745098,</span></span><br><span class="line"><span class="code">  "size": {</span></span><br><span class="line"><span class="code">    "height": 224,</span></span><br><span class="line"><span class="code">    "width": 224</span></span><br><span class="line"><span class="code">  }</span></span><br><span class="line"><span class="code">}</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>要处理一张图像，只需将其传递给图像处理器的 <code>__call__</code> 函数即可。该函数会返回一个字典，其中包含 <code>pixel_values</code>，即图像的数值表示，可直接输入到模型中。</p>
+<p>默认情况下返回的是 NumPy 数组，但如果添加参数 <code>return_tensors='pt'</code>，则会返回 PyTorch 张量。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ret = processor(image, return_tensors=<span class="string">'pt'</span>)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line"><span class="built_in">print</span>(ret[<span class="string">'pixel_values'</span>].shape)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">{'pixel<span class="emphasis">_values': tensor([[[[ 0.7882,  0.6706,  0.7098,  ..., -0.1922, -0.1294, -0.1765],</span></span><br><span class="line"><span class="emphasis">          [ 0.7098,  0.6000,  0.6784,  ..., -0.2863, -0.1608, -0.1608],</span></span><br><span class="line"><span class="emphasis">          [ 0.4902,  0.3882,  0.4667,  ..., -0.1922, -0.0196,  0.0275],</span></span><br><span class="line"><span class="emphasis">          ...,</span></span><br><span class="line"><span class="emphasis">          [ 0.3804,  0.5294,  0.4824,  ..., -0.8275, -0.8196, -0.8039],</span></span><br><span class="line"><span class="emphasis">          [ 0.0902,  0.3725,  0.3804,  ..., -0.8667, -0.8431, -0.8510],</span></span><br><span class="line"><span class="emphasis">          [-0.0510,  0.2784,  0.3176,  ..., -0.8588, -0.8275, -0.8353]],</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">         [[ 0.4902,  0.3490,  0.3804,  ..., -0.6078, -0.5373, -0.5843],</span></span><br><span class="line"><span class="emphasis">          [ 0.3569,  0.2000,  0.3176,  ..., -0.7255, -0.6000, -0.5922],</span></span><br><span class="line"><span class="emphasis">          [ 0.0431, -0.0902,  0.0588,  ..., -0.6392, -0.4745, -0.4275],</span></span><br><span class="line"><span class="emphasis">          ...,</span></span><br><span class="line"><span class="emphasis">          [-0.2235, -0.0510, -0.0902,  ..., -0.9686, -0.9529, -0.9294],</span></span><br><span class="line"><span class="emphasis">          [-0.5059, -0.2078, -0.1922,  ..., -0.9922, -0.9922, -1.0000],</span></span><br><span class="line"><span class="emphasis">          [-0.6471, -0.2941, -0.2471,  ..., -0.9843, -0.9765, -0.9843]],</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">         [[ 0.4196,  0.2706,  0.3020,  ..., -0.7098, -0.6392, -0.6863],</span></span><br><span class="line"><span class="emphasis">          [ 0.2314,  0.0824,  0.2078,  ..., -0.8039, -0.6627, -0.6627],</span></span><br><span class="line"><span class="emphasis">          [-0.1137, -0.2314, -0.0824,  ..., -0.7020, -0.5373, -0.4980],</span></span><br><span class="line"><span class="emphasis">          ...,</span></span><br><span class="line"><span class="emphasis">          [-0.2784, -0.1373, -0.2000,  ..., -0.9529, -0.9529, -0.9451],</span></span><br><span class="line"><span class="emphasis">          [-0.6000, -0.3098, -0.3176,  ..., -0.9765, -0.9843, -0.9922],</span></span><br><span class="line"><span class="emphasis">          [-0.7569, -0.4118, -0.3804,  ..., -0.9765, -0.9686, -0.9686]]]])}</span></span><br><span class="line"><span class="emphasis">torch.Size([1, 3, 224, 224])</span></span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="Processing-the-Dataset"><a href="#Processing-the-Dataset" class="headerlink" title="Processing the Dataset"></a>Processing the Dataset</h3><p>接下来就要批量将 dataset 里的 image 转换为数值，我们直接利用 ViT 的 ImageProcessor。我们定义这个函数，仅返回训练所需的数据，即 1. 数值化的图片 2.分类标签</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">process_example</span>(<span class="params">example</span>):</span><br><span class="line">    inputs = processor(example[<span class="string">'image'</span>], return_tensors=<span class="string">'pt'</span>)</span><br><span class="line">    inputs[<span class="string">'labels'</span>] = example[<span class="string">'labels'</span>]</span><br><span class="line">    <span class="keyword">return</span> inputs</span><br><span class="line"></span><br><span class="line">process_example(ds[<span class="string">'train'</span>][<span class="number">0</span>])</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">{'pixel<span class="emphasis">_values': tensor([[[[-0.5686, -0.5686, -0.5608,  ..., -0.0275,  0.1843, -0.2471],</span></span><br><span class="line"><span class="emphasis">          [-0.6078, -0.6000, -0.5765,  ..., -0.0353, -0.0196, -0.2627],</span></span><br><span class="line"><span class="emphasis">          [-0.6314, -0.6314, -0.6078,  ..., -0.2314, -0.3647, -0.2235],</span></span><br><span class="line"><span class="emphasis">          ...,</span></span><br><span class="line"><span class="emphasis">          [-0.5373, -0.5529, -0.5843,  ..., -0.0824, -0.0431, -0.0902],</span></span><br><span class="line"><span class="emphasis">          [-0.5608, -0.5765, -0.5843,  ...,  0.3098,  0.1843,  0.1294],</span></span><br><span class="line"><span class="emphasis">          [-0.5843, -0.5922, -0.6078,  ...,  0.2627,  0.1608,  0.2000]],</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">         [[-0.7098, -0.7098, -0.7490,  ..., -0.3725, -0.1608, -0.6000],</span></span><br><span class="line"><span class="emphasis">          [-0.7333, -0.7333, -0.7569,  ..., -0.3647, -0.3255, -0.5686],</span></span><br><span class="line"><span class="emphasis">          [-0.7490, -0.7490, -0.7725,  ..., -0.5373, -0.6549, -0.5373],</span></span><br><span class="line"><span class="emphasis">          ...,</span></span><br><span class="line"><span class="emphasis">          [-0.7725, -0.7804, -0.8196,  ..., -0.2235, -0.0353,  0.0824],</span></span><br><span class="line"><span class="emphasis">          [-0.7961, -0.8118, -0.8118,  ...,  0.1922,  0.3098,  0.3725],</span></span><br><span class="line"><span class="emphasis">          [-0.8196, -0.8196, -0.8275,  ...,  0.0824,  0.2784,  0.3961]],</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">         [[-0.9922, -0.9922, -1.0000,  ..., -0.5451, -0.3569, -0.7255],</span></span><br><span class="line"><span class="emphasis">          [-0.9922, -0.9922, -1.0000,  ..., -0.5529, -0.5216, -0.7176],</span></span><br><span class="line"><span class="emphasis">          [-0.9843, -0.9922, -1.0000,  ..., -0.6549, -0.7569, -0.6392],</span></span><br><span class="line"><span class="emphasis">          ...,</span></span><br><span class="line"><span class="emphasis">          [-0.8431, -0.8588, -0.8980,  ..., -0.5765, -0.5529, -0.5451],</span></span><br><span class="line"><span class="emphasis">          [-0.8588, -0.8902, -0.9059,  ..., -0.2000, -0.2392, -0.2627],</span></span><br><span class="line"><span class="emphasis">          [-0.8824, -0.9059, -0.9216,  ..., -0.2549, -0.2000, -0.1216]]]]), 'labels': 0}</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><code>map</code> 返回的数据结构会将 PyTorch tensor 自动转换为 Python list（<code>tolist()</code>），以保证结果是 JSON 可序列化的。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">prepared_ds = ds.<span class="built_in">map</span>(</span><br><span class="line">	process_example,</span><br><span class="line">	remove_columns=ds[<span class="string">'train'</span>].column_names,</span><br><span class="line">	batched=<span class="literal">False</span>,</span><br><span class="line">	desc=<span class="string">"Processing dataset"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds[<span class="string">'train'</span>]</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dataset({</span><br><span class="line"><span class="code">    features: ['image_file_path', 'image', 'labels'],</span></span><br><span class="line"><span class="code">    num_rows: 1034</span></span><br><span class="line"><span class="code">})</span></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prepared_ds[<span class="string">'train'</span>]</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dataset({</span><br><span class="line"><span class="code">    features: ['labels', 'pixel_values'],</span></span><br><span class="line"><span class="code">    num_rows: 1034</span></span><br><span class="line"><span class="code">})</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Training-and-Evaluation"><a href="#Training-and-Evaluation" class="headerlink" title="Training and Evaluation"></a>Training and Evaluation</h3><p>数据已经处理完毕，现在你可以开始搭建训练流程了。本教程使用的是 Hugging Face 的 <code>Trainer</code>，但在此之前我们需要完成以下几项准备工作：</p>
+<ul>
+<li><strong>定义一个 <code>collate</code> 函数</strong>：用于将一个 batch 的数据整理成模型可以接受的格式。</li>
+<li><strong>定义评估指标</strong>：在训练过程中，模型需要根据预测准确率进行评估，因此你需要定义一个 <code>compute_metrics</code> 函数来计算这一指标。</li>
+<li><strong>加载预训练模型检查点</strong>：你需要加载一个预训练的检查点，并正确配置它以便进行训练。</li>
+<li><strong>定义训练配置</strong>：包括超参数设置、保存策略、日志输出等。</li>
+</ul>
+<p>data collator 里再次将数据转换为 tensor，因为 dataset.map 默认还是会把 tensor 改为 list</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">collate_fn</span>(<span class="params">batch</span>):</span><br><span class="line">    <span class="keyword">return</span> {</span><br><span class="line">        <span class="string">'pixel_values'</span>: torch.stack([torch.tensor(x[<span class="string">'pixel_values'</span>]).squeeze(<span class="number">0</span>) <span class="keyword">for</span> x <span class="keyword">in</span> batch]),</span><br><span class="line">        <span class="string">'labels'</span>: torch.tensor([x[<span class="string">'labels'</span>] <span class="keyword">for</span> x <span class="keyword">in</span> batch])</span><br><span class="line">    }</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collate_fn([prepared_ds[<span class="string">'train'</span>][<span class="number">1</span>], prepared_ds[<span class="string">'train'</span>][<span class="number">1</span>]])[<span class="string">'pixel_values'</span>].shape</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.Size([2, 3, 224, 224])</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>我们利用 evaluate 的 accuracy 函数来计算分类准确率</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> evaluate <span class="keyword">import</span> load</span><br><span class="line"></span><br><span class="line">metric = load(<span class="string">"../DC/evaluate/metrics/accuracy"</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_metrics</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> metric.compute(predictions=np.argmax(p.predictions, axis=<span class="number">1</span>), references=p.label_ids)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>现在让我们加载预训练模型。在初始化时，我们会传入 <code>num_labels</code> 参数，以便模型构建一个具有正确输出单元数量的分类头。同时，我们还会提供 <code>id2label</code> 和 <code>label2id</code> 的映射关系，以便在将模型推送到 Hugging Face Hub 时，能够在界面中显示可读的标签名称。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> ViTForImageClassification</span><br><span class="line"></span><br><span class="line">labels = ds[<span class="string">'train'</span>].features[<span class="string">'labels'</span>].names</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f'num of labels: <span class="subst">{<span class="built_in">len</span>(labels)}</span>'</span>)</span><br><span class="line"></span><br><span class="line">model = ViTForImageClassification.from_pretrained(</span><br><span class="line">    model_name_or_path,</span><br><span class="line">    num_labels=<span class="built_in">len</span>(labels),</span><br><span class="line">    id2label={i: c <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(labels)},</span><br><span class="line">    label2id={c: i <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(labels)}</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num of labels: 3</span><br><span class="line">Some weights of ViTForImageClassification were not initialized from the model checkpoint at ../DC/vit-base-patch16-224-in21k and are newly initialized: ['classifier.bias', 'classifier.weight']</span><br><span class="line">You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.</span><br></pre></td></tr></table></figure></div>
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> TrainingArguments</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">training_args = TrainingArguments(</span><br><span class="line">  output_dir=<span class="string">"./vit-base-beans"</span>,</span><br><span class="line">  per_device_train_batch_size=<span class="number">16</span>,</span><br><span class="line">  eval_strategy=<span class="string">"steps"</span>,</span><br><span class="line">  num_train_epochs=<span class="number">2</span>,</span><br><span class="line">  fp16=<span class="literal">True</span>,</span><br><span class="line">  save_steps=<span class="number">100</span>,</span><br><span class="line">  eval_steps=<span class="number">10</span>,</span><br><span class="line">  logging_steps=<span class="number">1</span>,</span><br><span class="line">  learning_rate=<span class="number">2e-4</span>,</span><br><span class="line">  save_total_limit=<span class="number">2</span>,</span><br><span class="line">  remove_unused_columns=<span class="literal">False</span>,</span><br><span class="line">  push_to_hub=<span class="literal">False</span>,</span><br><span class="line">  report_to=<span class="string">'wandb'</span>,  <span class="comment"># 使用 wandb 进行训练监控</span></span><br><span class="line">  load_best_model_at_end=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> Trainer</span><br><span class="line"></span><br><span class="line">trainer = Trainer(</span><br><span class="line">    model=model,</span><br><span class="line">    args=training_args,</span><br><span class="line">    data_collator=collate_fn,</span><br><span class="line">    compute_metrics=compute_metrics,</span><br><span class="line">    train_dataset=prepared_ds[<span class="string">"train"</span>],</span><br><span class="line">    eval_dataset=prepared_ds[<span class="string">"validation"</span>],</span><br><span class="line">    processing_class=processor,</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">train_results = trainer.train()</span><br><span class="line">trainer.save_model()</span><br><span class="line">trainer.log_metrics(<span class="string">"train"</span>, train_results.metrics)</span><br><span class="line">trainer.save_metrics(<span class="string">"train"</span>, train_results.metrics)</span><br><span class="line">trainer.save_state()</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">****</span>* train metrics <span class="strong">****</span>*</span><br><span class="line">  epoch                    =         2.0</span><br><span class="line">  total<span class="emphasis">_flos               = 149248978GF</span></span><br><span class="line"><span class="emphasis">  train_</span>loss               =       0.201</span><br><span class="line">  train<span class="emphasis">_runtime            =  0:04:42.28</span></span><br><span class="line"><span class="emphasis">  train_</span>samples<span class="emphasis">_per_</span>second =       7.326</span><br><span class="line">  train<span class="emphasis">_steps_</span>per<span class="emphasis">_second   =       0.461</span></span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/ViT/image-20250516214044148.png" alt="image-20250516214044148"></p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">metrics = trainer.evaluate(prepared_ds[<span class="string">'validation'</span>])</span><br><span class="line">trainer.log_metrics(<span class="string">"eval"</span>, metrics)</span><br><span class="line">trainer.save_metrics(<span class="string">"eval"</span>, metrics)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">****</span>* eval metrics <span class="strong">****</span>*</span><br><span class="line">  epoch                   =        2.0</span><br><span class="line">  eval<span class="emphasis">_accuracy           =     0.9925</span></span><br><span class="line"><span class="emphasis">  eval_</span>loss               =     0.0374</span><br><span class="line">  eval<span class="emphasis">_runtime            = 0:00:09.34</span></span><br><span class="line"><span class="emphasis">  eval_</span>samples<span class="emphasis">_per_</span>second =     14.238</span><br><span class="line">  eval<span class="emphasis">_steps_</span>per<span class="emphasis">_second   =       1.82</span></span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="infer"><a href="#infer" class="headerlink" title="infer"></a>infer</h3><p>推理很简单了，直接把某个 image  通过 ImageProcessor 处理下图片为 tensor，接着 forward 到 model 即可，得到 logit 后再 argmax 就得到了预测类别。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ex = ds[<span class="string">'test'</span>][<span class="number">0</span>]</span><br><span class="line">ex</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">{'image<span class="emphasis">_file_</span>path': '/home/albert/.cache/huggingface/datasets/downloads/extracted/807042d188eb9a5d1d9a4179867e5b93eea6ed98d063904065fe40011681df29/test/angular<span class="emphasis">_leaf_</span>spot/angular<span class="emphasis">_leaf_</span>spot<span class="emphasis">_test.0.jpg',</span></span><br><span class="line"><span class="emphasis"> 'image': <span class="language-xml"><span class="tag">&lt;<span class="name">PIL.JpegImagePlugin.JpegImageFile</span> <span class="attr">image</span> <span class="attr">mode</span>=<span class="string">RGB</span> <span class="attr">size</span>=<span class="string">500x500</span>&gt;</span></span>,</span></span><br><span class="line"><span class="emphasis"> 'labels': 0}</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">	pixel_values = processor(ex[<span class="string">'image'</span>], return_tensors=<span class="string">'pt'</span>).pixel_values</span><br><span class="line">	pixel_values = pixel_values.to(model.device)</span><br><span class="line">	outputs = model(pixel_values)</span><br><span class="line">logits = outputs.logits</span><br><span class="line"><span class="built_in">print</span>(logits.shape)</span><br><span class="line"></span><br><span class="line">prediction = logits.argmax(-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Predicted class index:"</span>, prediction.item())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Predicted class:"</span>, model.config.id2label[prediction.item()])</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">torch.Size([1, 3])</span><br><span class="line">Predicted class index: 0</span><br><span class="line">Predicted class: angular<span class="emphasis">_leaf_</span>spot</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">#多模态</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/CV/">#CV</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/11/Multi-modal-series/CLIP/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">CLIP - Contrastive Language-Image Pre-training</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">ViT - vision transformer</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BG"><span class="nav-text">BG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BERT"><span class="nav-text">BERT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViT-model-design"><span class="nav-text">ViT model design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViT-CNN-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="nav-text">ViT CNN 混合模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformers-ViT-%E5%BE%AE%E8%B0%83"><span class="nav-text">Transformers ViT 微调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#loading-dataset-beans"><span class="nav-text">loading dataset - beans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loading-ViT-Image-Processor"><span class="nav-text">loading ViT Image Processor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Processing-the-Dataset"><span class="nav-text">Processing the Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-and-Evaluation"><span class="nav-text">Training and Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#infer"><span class="nav-text">infer</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        33 posts in total
+                    </span>
+                    
+                        <span>
+                            106.7k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

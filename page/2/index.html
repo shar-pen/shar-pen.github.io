@@ -557,15 +557,15 @@ mjx-container[display="true"] + br {
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -636,15 +636,15 @@ mjx-container[display="true"] + br {
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -659,6 +659,90 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/04/langchain-tutorial-series/11.RAG/">
+                            Langchain 入门教程 - 11.检索增强生成 RAG
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Reranker目的:  
+
+对检索到的文档进行重排序，优化其排名，优先展示与查询最相关的结果。
+
+结构:  
+
+接受查询和文档作为单一输入对，进行联合处理。
+
+机制:  
+
+单一输入对：将查询和文档作为组合输入，直接输出相关性评分。
+自注意力机制：使用自注意力机制联合分析查询和文档，有效捕捉它们之间的语义关系。
+
+优势:  
+
+更高的准确性：提供更精确的相似度评分。
+深度语境分析：探索查询...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 04 2025 22:43:57 GMT+0800">
+                
+                    2025-05-04
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Langchain/">Langchain</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/05/04/langchain-tutorial-series/11.RAG/">Read more<span class="seo-reader-text">Langchain 入门教程 - 11.检索增强生成 RAG</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1316,81 +1400,6 @@ CharacterTextSplitter 是...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/04/langchain-tutorial-series/01.Basic/">
-                            Langchain 入门教程 - 1.基础应用
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            初始化大模型接口并调用一般都是用ChatOpenAI这个类，以下两个方式引用都可以:
-
-from langchain_openai.chat_models import ChatOpenAI
-from langchain_openai import ChatOpenAI
-
-这是对话的重要参数,关键的是model.Key init args — completion params:
-
-mode...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 04 2025 22:43:57 GMT+0800">
-                
-                    2025-05-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Langchain/">Langchain</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/04/langchain-tutorial-series/01.Basic/">Read more<span class="seo-reader-text">Langchain 入门教程 - 1.基础应用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1418,11 +1427,11 @@ mode...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        32 posts in total
+                        33 posts in total
                     </span>
                     
                         <span>
-                            103.3k words in total
+                            106.7k words in total
                         </span>
                     
                 </p>
