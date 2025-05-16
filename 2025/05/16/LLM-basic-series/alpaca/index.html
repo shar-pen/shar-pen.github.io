@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/16/llm-basic-series/alpaca/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alpaca 源码分析">
+<meta property="og:url" content="http://example.com/2025/05/16/LLM-basic-series/alpaca/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-16T14:13:58.237Z">
+<meta property="article:modified_time" content="2025-05-16T14:14:39.304Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Alpaca 源码分析 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Alpaca 源码分析</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-16 22:13:58</span>
+        <span class="mobile">2025-05-16 22:13:58</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-16 22:14:39</span>
+            <span class="mobile">2025-05-16 22:14:39</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/LLM-%E5%9F%BA%E7%A1%80/">LLM 基础</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>12 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><img lazyload="" src="/images/loading.svg" data-src="/images/alpaca/image-20250516221011092.png" alt="image-20250516221011092"></p>
+<p>Self-Instruct 过程是一种迭代自举算法，它从一组手动编写的指令种子集开始，并用它们来提示语言模型生成新的指令以及相应的输入 - 输出实例。然后对这些生成结果进行过滤以去除低质量或相似的实例，所得数据被添加回任务池中。这个过程可以重复多次，从而产生大量的指令数据集合，可用于微调语言模型以更有效地遵循指令。</p>
+<p>alpaca 源码地址: <a class="link" target="_blank" rel="noopener" href="https://github.com/tatsu-lab/stanford_alpaca.git">https://github.com/tatsu-lab/stanford_alpaca.git<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="加载模型"><a href="#加载模型" class="headerlink" title="加载模型"></a>加载模型</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">model_name_or_path = <span class="string">'../DataCollection/officials/Qwen2.5-1.5b-Instruct'</span></span><br><span class="line"></span><br><span class="line">model = AutoModelForCausalLM.from_pretrained(</span><br><span class="line">    model_name_or_path,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(</span><br><span class="line">    model_name_or_path,</span><br><span class="line">    padding_side=<span class="string">"right"</span>,</span><br><span class="line">    use_fast=<span class="literal">False</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p>注意需要检查tokenizer.pad_token_id，因为在padding时会用到，其他eos之类的不需要检查。</p>
+<h2 id="加载json数据"><a href="#加载json数据" class="headerlink" title="加载json数据"></a>加载json数据</h2><p>数据原始格式(假设只有两条微调数据)</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line"><span class="code">    {</span></span><br><span class="line"><span class="code">        "instruction": "Give three tips for staying healthy.",</span></span><br><span class="line"><span class="code">        "input": "",</span></span><br><span class="line"><span class="code">        "output": "1.Eat a balanced diet and make sure to include plenty of fruits and vegetables. \n2. Exercise regularly to keep your body active and strong. \n3. Get enough sleep and maintain a consistent sleep schedule."</span></span><br><span class="line"><span class="code">    },</span></span><br><span class="line"><span class="code">    {</span></span><br><span class="line"><span class="code">        "instruction": "What are the three primary colors?",</span></span><br><span class="line"><span class="code">        "input": "",</span></span><br><span class="line"><span class="code">        "output": "The three primary colors are red, blue, and yellow."</span></span><br><span class="line"><span class="code">    },</span></span><br><span class="line"><span class="code">]</span></span><br></pre></td></tr></table></figure></div>
+
+<p>每条都是三元组的形式， 数据字段如下：</p>
+<ul>
+<li><p>instruction（指令）：描述模型应执行的任务。52000 条指令中的每一条都是唯一的。</p>
+</li>
+<li><p>input（输入）：任务的可选上下文或输入。大约 40% 的示例有输入。（可选的，因为可有可无，所以需要有两种拼接格式）</p>
+</li>
+<li><p>output（输出）：由 text-davinci-003 生成的指令答案。</p>
+</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_make_r_io_base</span>(<span class="params">f, mode: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(f, io.IOBase):</span><br><span class="line">        f = <span class="built_in">open</span>(f, mode=mode)</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">jload</span>(<span class="params">f, mode=<span class="string">"r"</span></span>):</span><br><span class="line">    <span class="string">"""Load a .json file into a dictionary."""</span></span><br><span class="line">    f = _make_r_io_base(f, mode)</span><br><span class="line">    jdict = json.load(f)</span><br><span class="line">    f.close()</span><br><span class="line">    <span class="keyword">return</span> jdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载指令微调数据，格式为list[dict]</span></span><br><span class="line">data_path = <span class="string">'./alpaca_data.json'</span></span><br><span class="line"><span class="comment"># data_path = './alpaca_data_100.json'</span></span><br><span class="line">list_data_dict = jload(data_path)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(list_data_dict))</span><br><span class="line">pprint(list_data_dict[<span class="number">0</span>])</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">52002</span><br><span class="line">{'input': '',</span><br><span class="line"> 'instruction': 'Give three tips for staying healthy.',</span><br><span class="line"> 'output': '1.Eat a balanced diet and make sure to include plenty of fruits '</span><br><span class="line"><span class="code">           'and vegetables. \n'</span></span><br><span class="line"><span class="code">           '2. Exercise regularly to keep your body active and strong. \n'</span></span><br><span class="line"><span class="code">           '3. Get enough sleep and maintain a consistent sleep schedule.'}</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="拼接dict数据"><a href="#拼接dict数据" class="headerlink" title="拼接dict数据"></a>拼接dict数据</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PROMPT_DICT = {</span><br><span class="line">    <span class="string">"prompt_input"</span>: (</span><br><span class="line">        <span class="string">"Below is an instruction that describes a task, paired with an input that provides further context. "</span></span><br><span class="line">        <span class="string">"Write a response that appropriately completes the request.\n\n"</span></span><br><span class="line">        <span class="string">"### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:"</span></span><br><span class="line">    ),</span><br><span class="line">    <span class="string">"prompt_no_input"</span>: (</span><br><span class="line">        <span class="string">"Below is an instruction that describes a task. "</span></span><br><span class="line">        <span class="string">"Write a response that appropriately completes the request.\n\n"</span></span><br><span class="line">        <span class="string">"### Instruction:\n{instruction}\n\n### Response:"</span></span><br><span class="line">    ),</span><br><span class="line">}</span><br><span class="line">prompt_input, prompt_no_input = PROMPT_DICT[<span class="string">"prompt_input"</span>], PROMPT_DICT[<span class="string">"prompt_no_input"</span>]</span><br><span class="line">sources = [</span><br><span class="line">    prompt_input.format_map(example) <span class="keyword">if</span> example.get(<span class="string">"input"</span>, <span class="string">""</span>) != <span class="string">""</span> <span class="keyword">else</span> prompt_no_input.format_map(example)</span><br><span class="line">    <span class="keyword">for</span> example <span class="keyword">in</span> list_data_dict</span><br><span class="line">]</span><br><span class="line">targets = [<span class="string">f"<span class="subst">{example[<span class="string">'output'</span>]}</span><span class="subst">{tokenizer.eos_token}</span>"</span> <span class="keyword">for</span> example <span class="keyword">in</span> list_data_dict]</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pprint(list_data_dict[0])</span><br><span class="line">print(10*'-')</span><br><span class="line">print(sources[0])</span><br><span class="line">print(10*'-')</span><br><span class="line">print(targets[0])</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">{'input': '',</span><br><span class="line"> 'instruction': 'Give three tips for staying healthy.',</span><br><span class="line"> 'output': '1.Eat a balanced diet and make sure to include plenty of fruits '</span><br><span class="line"><span class="code">           'and vegetables. \n'</span></span><br><span class="line"><span class="code">           '2. Exercise regularly to keep your body active and strong. \n'</span></span><br><span class="line"><span class="code">           '3. Get enough sleep and maintain a consistent sleep schedule.'}</span></span><br><span class="line"><span class="code">----------</span></span><br><span class="line"><span class="code">Below is an instruction that describes a task. Write a response that appropriately completes the request.</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="section">### Instruction:</span></span><br><span class="line">Give three tips for staying healthy.</span><br><span class="line"></span><br><span class="line"><span class="section">### Response:</span></span><br><span class="line">----------</span><br><span class="line">1.Eat a balanced diet and make sure to include plenty of fruits and vegetables. </span><br><span class="line"><span class="bullet">2.</span> Exercise regularly to keep your body active and strong. </span><br><span class="line"><span class="bullet">3.</span> Get enough sleep and maintain a consistent sleep schedule.&lt;|im<span class="emphasis">_end|&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>注意并不是直接拼接，而是<strong>加入了类似system prompt的前置说明</strong>，和<strong>指令和生成内容的标识符</strong></p>
+<h2 id="预处理数据-tokenize"><a href="#预处理数据-tokenize" class="headerlink" title="预处理数据 tokenize"></a>预处理数据 tokenize</h2><p>这一节将句子转换为input_ids和label。注意label只有output部分内容是有有效的，其他无效（包括prompt）。在指令微调（Instruction Tuning）中，通常我们仅设置输出部分的 label（即目标序列）是有效的，而忽略输入部分的 label，这是因为以下原因：</p>
+<p>在指令微调（Instruction Tuning）中，通常我们仅设置输出部分的 label（即目标序列）是有效的，而忽略输入部分的 label，这是因为以下原因：</p>
+<p>1.输入部分是提示（Prompt），无需计算损失</p>
+<ul>
+<li>指令微调的核心目标是让模型学会在特定提示（Prompt）下生成符合预期的输出。</li>
+<li>输入部分（指令和上下文）作为条件提供给模型，用于引导模型生成合适的输出。它本身并不需要预测，因此不应对输入部分计算损失或更新权重。</li>
+<li>如果对输入部分计算损失，模型可能会尝试“记住”输入，而非专注于学习如何生成正确的输出。</li>
+</ul>
+<p>2.语言模型的自回归性质</p>
+<ul>
+<li>Transformer 模型（如 GPT 或 LLaMA）的自回归训练目标是最大化下一个 token 的概率。</li>
+<li>在微调时，<strong>输入部分（Prompt）已经是已知的条件</strong>，因此模型的主要任务是基于输入生成正确的输出（即目标文本）。对输入部分计算损失没有意义。</li>
+</ul>
+<p>3.对齐训练目标</p>
+<ul>
+<li>微调的训练目标是让模型在给定提示下生成期望的响应。这种训练目标的优化重点是输出部分的预测。</li>
+<li>通过忽略输入部分的 label，只优化输出部分的生成，能够更准确地对齐训练目标与实际使用目标。</li>
+</ul>
+<p>4.对生成任务的意义</p>
+<ul>
+<li>指令微调模型通常应用于生成任务（如回答问题、对话、翻译等），<strong>其重点是生成的内容，而非输入的内容</strong>。</li>
+<li>忽略输入部分的 label 有助于模型专注于如何生成符合上下文和指令的内容，而不是浪费资源在回归输入上。</li>
+</ul>
+<p>5.实际效果</p>
+<ul>
+<li>如果强行对输入部分计算损失，训练后的模型可能会出现以下问题：生成的输出可能更倾向于复制输入内容，而非理解指令后生成有意义的回答。对生成任务的泛化能力较弱，因为输入部分的损失干扰了输出部分的优化。</li>
+</ul>
+<p>6.避免梯度干扰</p>
+<ul>
+<li>如果对输入部分和输出部分同时计算损失，模型可能会受到梯度干扰：输入部分的 token 会被错误地视为目标，导致模型尝试“预测”已知的输入内容。</li>
+<li>这会对生成任务的优化目标造成负面影响，降低模型在输出部分生成正确内容的能力。</li>
+</ul>
+<p>总结：在指令微调时，只对输出部分计算 label 是为了：</p>
+<ul>
+<li>专注于优化生成目标。</li>
+<li>避免梯度干扰。</li>
+<li>提高模型对指令生成任务的泛化能力。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">IGNORE_INDEX = -<span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_tokenize_fn</span>(<span class="params">strings: <span class="type">Sequence</span>[<span class="built_in">str</span>], tokenizer: AutoTokenizer</span>) -&gt; <span class="type">Dict</span>:</span><br><span class="line">    <span class="string">"""Tokenize a list of strings."""</span></span><br><span class="line">    <span class="comment"># 先将每个元素tokenize，按照最大长度padding，但实际每次只输入一个句子，根本不会padding</span></span><br><span class="line">    tokenized_list = [</span><br><span class="line">        tokenizer(</span><br><span class="line">            text,</span><br><span class="line">            return_tensors=<span class="string">"pt"</span>,</span><br><span class="line">            padding=<span class="string">"longest"</span>,</span><br><span class="line">            max_length=tokenizer.model_max_length,</span><br><span class="line">            truncation=<span class="literal">True</span>,</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">for</span> text <span class="keyword">in</span> strings</span><br><span class="line">    ]</span><br><span class="line">    <span class="comment"># 取出input_ids和labels为数组</span></span><br><span class="line">    input_ids = labels = [tokenized.input_ids[<span class="number">0</span>] <span class="keyword">for</span> tokenized <span class="keyword">in</span> tokenized_list]</span><br><span class="line">    <span class="comment"># 统计每个句子的非 padding token 的 token 数量</span></span><br><span class="line">    input_ids_lens = labels_lens = [</span><br><span class="line">        tokenized.input_ids.ne(tokenizer.pad_token_id).<span class="built_in">sum</span>().item() <span class="keyword">for</span> tokenized <span class="keyword">in</span> tokenized_list</span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dict</span>(</span><br><span class="line">        input_ids=input_ids,</span><br><span class="line">        labels=labels,</span><br><span class="line">        input_ids_lens=input_ids_lens,</span><br><span class="line">        labels_lens=labels_lens,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">preprocess</span>(<span class="params"></span></span><br><span class="line"><span class="params">    sources: <span class="type">Sequence</span>[<span class="built_in">str</span>],</span></span><br><span class="line"><span class="params">    targets: <span class="type">Sequence</span>[<span class="built_in">str</span>],</span></span><br><span class="line"><span class="params">    tokenizer: AutoTokenizer,</span></span><br><span class="line"><span class="params"></span>) -&gt; <span class="type">Dict</span>:</span><br><span class="line">    <span class="string">"""Preprocess the data by tokenizing."""</span></span><br><span class="line">    <span class="comment"># 将prompt和预期输出组合</span></span><br><span class="line">    examples = [s + t <span class="keyword">for</span> s, t <span class="keyword">in</span> <span class="built_in">zip</span>(sources, targets)]</span><br><span class="line">    <span class="comment"># 分别对组合字符串和单独prompt进行tokenize</span></span><br><span class="line">    examples_tokenized, sources_tokenized = [_tokenize_fn(strings, tokenizer) <span class="keyword">for</span> strings <span class="keyword">in</span> (examples, sources)]</span><br><span class="line">    input_ids = examples_tokenized[<span class="string">"input_ids"</span>]</span><br><span class="line">    labels = copy.deepcopy(input_ids)</span><br><span class="line">    <span class="comment"># 将 prompt 部分的 label 设置为 -100 (交叉熵的忽略 index)</span></span><br><span class="line">    <span class="keyword">for</span> label, source_len <span class="keyword">in</span> <span class="built_in">zip</span>(labels, sources_tokenized[<span class="string">"input_ids_lens"</span>]):</span><br><span class="line">        label[:source_len] = IGNORE_INDEX</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dict</span>(input_ids=input_ids, labels=labels)</span><br><span class="line"></span><br><span class="line">data_dict = preprocess(sources, targets, tokenizer)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> data_dict.keys():</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">len</span>(data_dict[k]))</span><br><span class="line">    <span class="built_in">print</span>(data_dict[k][<span class="number">0</span>])</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">52002</span><br><span class="line">tensor([ 38214,    374,    458,   7600,    429,  16555,    264,   3383,     13,</span><br><span class="line"><span class="code">          9645,    264,   2033,    429,  34901,  44595,    279,   1681,    382,</span></span><br><span class="line"><span class="code">         14374,  29051,    510,  35127,   2326,  10414,    369,  19429,   9314,</span></span><br><span class="line"><span class="code">           382,  14374,   5949,     25,     16,   5142,    266,    264,  23831,</span></span><br><span class="line"><span class="code">          9968,    323,   1281,   2704,    311,   2924,  11260,    315,  25322,</span></span><br><span class="line"><span class="code">           323,  23880,     13,    715,     17,     13,  32818,  15502,    311,</span></span><br><span class="line"><span class="code">          2506,    697,   2487,   4541,    323,   3746,     13,    715,     18,</span></span><br><span class="line"><span class="code">            13,   2126,   3322,   6084,    323,  10306,    264,  12966,   6084,</span></span><br><span class="line"><span class="code">          9700,     13, 151645])</span></span><br><span class="line"><span class="code">52002</span></span><br><span class="line"><span class="code">tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,</span></span><br><span class="line"><span class="code">          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,</span></span><br><span class="line"><span class="code">          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,</span></span><br><span class="line"><span class="code">          -100,   -100,   -100,   -100,     16,   5142,    266,    264,  23831,</span></span><br><span class="line"><span class="code">          9968,    323,   1281,   2704,    311,   2924,  11260,    315,  25322,</span></span><br><span class="line"><span class="code">           323,  23880,     13,    715,     17,     13,  32818,  15502,    311,</span></span><br><span class="line"><span class="code">          2506,    697,   2487,   4541,    323,   3746,     13,    715,     18,</span></span><br><span class="line"><span class="code">            13,   2126,   3322,   6084,    323,  10306,    264,  12966,   6084,</span></span><br><span class="line"><span class="code">          9700,     13, 151645])</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="封装为dataset"><a href="#封装为dataset" class="headerlink" title="封装为dataset"></a>封装为dataset</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SupervisedDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, input_ids, labels</span>):</span><br><span class="line">        <span class="built_in">super</span>(SupervisedDataset, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.input_ids = input_ids</span><br><span class="line">        <span class="variable language_">self</span>.labels = labels</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.input_ids)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, i</span>) -&gt; <span class="type">Dict</span>[<span class="built_in">str</span>, torch.Tensor]:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dict</span>(input_ids=<span class="variable language_">self</span>.input_ids[i], labels=<span class="variable language_">self</span>.labels[i])</span><br><span class="line">    </span><br><span class="line">ds = SupervisedDataset(**data_dict)</span><br></pre></td></tr></table></figure></div>
+
+<p>这时候每个句子还是单独的tensor，由于transformer中的已有DataCollator一般不会接受label（会报错，一般只接受input_ids和attention_mask），所以需要单独写一个DataCollator</p>
+<h2 id="padding-DataCollator"><a href="#padding-DataCollator" class="headerlink" title="padding DataCollator"></a>padding DataCollator</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DataCollatorForSupervisedDataset</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="string">"""Collate examples for supervised fine-tuning."""</span></span><br><span class="line"></span><br><span class="line">    tokenizer: AutoTokenizer</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, instances: <span class="type">Sequence</span>[<span class="type">Dict</span>]</span>) -&gt; <span class="type">Dict</span>[<span class="built_in">str</span>, torch.Tensor]:</span><br><span class="line">        input_ids, labels = <span class="built_in">tuple</span>([instance[key] <span class="keyword">for</span> instance <span class="keyword">in</span> instances] <span class="keyword">for</span> key <span class="keyword">in</span> (<span class="string">"input_ids"</span>, <span class="string">"labels"</span>))</span><br><span class="line">        <span class="comment"># input_ids 用 pad_token_id 补齐</span></span><br><span class="line">        input_ids = torch.nn.utils.rnn.pad_sequence(</span><br><span class="line">            input_ids, batch_first=<span class="literal">True</span>, padding_value=<span class="variable language_">self</span>.tokenizer.pad_token_id</span><br><span class="line">        )</span><br><span class="line">        <span class="comment"># labels 用 IGNORE_INDEX 补齐</span></span><br><span class="line">        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=<span class="literal">True</span>, padding_value=IGNORE_INDEX)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dict</span>(</span><br><span class="line">            input_ids=input_ids,</span><br><span class="line">            labels=labels,</span><br><span class="line">            attention_mask=input_ids.ne(<span class="variable language_">self</span>.tokenizer.pad_token_id), <span class="comment"># attention_mask 直接基于 input_ids</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">dc = DataCollatorForSupervisedDataset(tokenizer)</span><br><span class="line"><span class="comment"># DataCollator的输入是list[dict[str, tensor]]</span></span><br><span class="line">ret = [ds[index] <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">4</span>)]</span><br><span class="line">ret = dc(ret)</span><br><span class="line"><span class="built_in">print</span>([<span class="built_in">len</span>(input_ids) <span class="keyword">for</span> input_ids <span class="keyword">in</span> ret[<span class="string">'input_ids'</span>]])</span><br></pre></td></tr></table></figure></div>
+
+<p>注意DataCollator的输入是list[dict[str, tensor]]，不要直接把dataset的元素以dataset[a:b]的格式输入给DataCollator。</p>
+<h2 id="train"><a href="#train" class="headerlink" title="train"></a>train</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_dataset = SupervisedDataset(**data_dict)</span><br><span class="line">eval_dataset=<span class="literal">None</span></span><br><span class="line">data_collator = DataCollatorForSupervisedDataset(tokenizer)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(output_dir=<span class="string">'./output'</span>,</span><br><span class="line">                                  num_train_epochs=<span class="number">3</span>,</span><br><span class="line">                                  per_device_train_batch_size=<span class="number">8</span>,</span><br><span class="line">                                  per_device_eval_batch_size=<span class="number">8</span>,</span><br><span class="line">                                  gradient_accumulation_steps=<span class="number">8</span>,</span><br><span class="line">                                  evaluation_strategy=<span class="string">'no'</span>,</span><br><span class="line">                                  save_strategy=<span class="string">'steps'</span>,</span><br><span class="line">                                  save_steps=<span class="number">2000</span>,</span><br><span class="line">                                  save_total_limit=<span class="number">1</span>,</span><br><span class="line">                                  learning_rate=<span class="number">2e-5</span>,</span><br><span class="line">                                  weight_decay=<span class="number">0.</span>,</span><br><span class="line">                                  warmup_ratio=<span class="number">0.03</span>,</span><br><span class="line">                                  lr_scheduler_type=<span class="string">'cosine'</span>,</span><br><span class="line">                                  logging_steps=<span class="number">1</span>,</span><br><span class="line">                                  report_to=[]</span><br><span class="line">                                  )</span><br><span class="line">trainer = Trainer(model=model, </span><br><span class="line">                  tokenizer=tokenizer, </span><br><span class="line">                  args=training_args, </span><br><span class="line">                  train_dataset=train_dataset,</span><br><span class="line">                  eval_dataset=eval_dataset,</span><br><span class="line">                  data_collator=data_collator,</span><br><span class="line">                  )</span><br><span class="line">trainer.train()</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="修改Alpaca源码"><a href="#修改Alpaca源码" class="headerlink" title="修改Alpaca源码"></a>修改Alpaca源码</h1><h2 id="改进文件读取和预处理"><a href="#改进文件读取和预处理" class="headerlink" title="改进文件读取和预处理"></a>改进文件读取和预处理</h2><p>1.huggingface的dataset读取</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line"></span><br><span class="line">dataset = load_dataset(<span class="string">'json'</span>, </span><br><span class="line">                       data_dir=<span class="string">'/data02/hyzhang10/pengxia2/tws/data'</span>, </span><br><span class="line">                       data_files={</span><br><span class="line">                           <span class="string">'train'</span>: <span class="string">'alpaca_data_100.json'</span>, </span><br><span class="line">                        <span class="comment">#    'test': 'alpaca_data_100.json'</span></span><br><span class="line">                           }</span><br><span class="line">                       )</span><br><span class="line"><span class="built_in">print</span>(dataset)</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DatasetDict({</span><br><span class="line"><span class="code">    train: Dataset({</span></span><br><span class="line"><span class="code">        features: ['instruction', 'input', 'output'],</span></span><br><span class="line"><span class="code">        num_rows: 100</span></span><br><span class="line"><span class="code">    })</span></span><br><span class="line"><span class="code">})</span></span><br></pre></td></tr></table></figure></div>
+
+<p>2.dataset的批量预处理</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">IGNORE_INDEX = -<span class="number">100</span></span><br><span class="line">PROMPT_DICT = {</span><br><span class="line">    <span class="string">"prompt_input"</span>: (</span><br><span class="line">        <span class="string">"Below is an instruction that describes a task, paired with an input that provides further context. "</span></span><br><span class="line">        <span class="string">"Write a response that appropriately completes the request.\n\n"</span></span><br><span class="line">        <span class="string">"### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:"</span></span><br><span class="line">    ),</span><br><span class="line">    <span class="string">"prompt_no_input"</span>: (</span><br><span class="line">        <span class="string">"Below is an instruction that describes a task. "</span></span><br><span class="line">        <span class="string">"Write a response that appropriately completes the request.\n\n"</span></span><br><span class="line">        <span class="string">"### Instruction:\n{instruction}\n\n### Response:"</span></span><br><span class="line">    ),</span><br><span class="line">}</span><br><span class="line">prompt_input, prompt_no_input = PROMPT_DICT[<span class="string">"prompt_input"</span>], PROMPT_DICT[<span class="string">"prompt_no_input"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">preprocess_func</span>(<span class="params">example</span>):</span><br><span class="line">    source = prompt_input.format_map(example) <span class="keyword">if</span> example.get(<span class="string">"input"</span>, <span class="string">""</span>) != <span class="string">""</span> <span class="keyword">else</span> prompt_no_input.format_map(example)</span><br><span class="line">    target = <span class="string">f"<span class="subst">{example[<span class="string">'output'</span>]}</span><span class="subst">{tokenizer.eos_token}</span>"</span></span><br><span class="line">    full_example = source + target</span><br><span class="line">    full_example_tokenzied = tokenizer(full_example, return_tensors=<span class="string">"pt"</span>,padding=<span class="string">"longest"</span>, max_length=tokenizer.model_max_length, truncation=<span class="literal">True</span>)</span><br><span class="line">    input_ids = full_example_tokenzied[<span class="string">'input_ids'</span>][<span class="number">0</span>]</span><br><span class="line">    labels = copy.deepcopy(input_ids)</span><br><span class="line">    source_tokenzied = tokenizer(source, return_tensors=<span class="string">"pt"</span>,padding=<span class="string">"longest"</span>, max_length=tokenizer.model_max_length, truncation=<span class="literal">True</span>)</span><br><span class="line">    labels[:<span class="built_in">len</span>(source_tokenzied[<span class="string">'input_ids'</span>][<span class="number">0</span>])] = IGNORE_INDEX</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dict</span>(</span><br><span class="line">        input_ids=input_ids, </span><br><span class="line">        labels=labels</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># preprocess_func(dataset['train'][0])</span></span><br><span class="line">train_ds = dataset[<span class="string">'train'</span>].<span class="built_in">map</span>(preprocess_func, remove_columns=<span class="built_in">list</span>(dataset[<span class="string">'train'</span>].features.keys()))</span><br><span class="line"><span class="built_in">print</span>(train_ds)</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dataset({</span><br><span class="line"><span class="code">    features: ['input_ids', 'labels'],</span></span><br><span class="line"><span class="code">    num_rows: 100</span></span><br><span class="line"><span class="code">})</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="半精度训练"><a href="#半精度训练" class="headerlink" title="半精度训练"></a>半精度训练</h2><p>1.模型加载，加载时设置torch_dtype</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">model_name_or_path = '../DataCollection/officials/Llama-2-7b'</span><br><span class="line"># model_name_or_path = '../DataCollection/officials/Qwen2.5-1.5b-Instruct'</span><br><span class="line"></span><br><span class="line">model = AutoModelForCausalLM.from_pretrained(</span><br><span class="line">    model_name_or_path,</span><br><span class="line">    torch_dtype=torch.bfloat16</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(</span><br><span class="line">    model_name_or_path,</span><br><span class="line">    padding_side="right",</span><br><span class="line">    use_fast=False,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p>必须要在加载前设置，不然训练时还会以默认的fp32加载入cuda，最终还会OOM</p>
+<p>2.训练参数，增加bf16=True</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(output_dir=<span class="string">'./output'</span>,</span><br><span class="line">                                  num_train_epochs=<span class="number">3</span>,</span><br><span class="line">                                  per_device_train_batch_size=<span class="number">2</span>,</span><br><span class="line">                                  per_device_eval_batch_size=<span class="number">8</span>,</span><br><span class="line">                                  gradient_accumulation_steps=<span class="number">8</span>,</span><br><span class="line">                                  evaluation_strategy=<span class="string">'no'</span>,</span><br><span class="line">                                  save_strategy=<span class="string">'steps'</span>,</span><br><span class="line">                                  save_steps=<span class="number">2000</span>,</span><br><span class="line">                                  save_total_limit=<span class="number">1</span>,</span><br><span class="line">                                  learning_rate=<span class="number">2e-5</span>,</span><br><span class="line">                                  weight_decay=<span class="number">0.</span>,</span><br><span class="line">                                  warmup_ratio=<span class="number">0.03</span>,</span><br><span class="line">                                  lr_scheduler_type=<span class="string">'cosine'</span>,</span><br><span class="line">                                  logging_steps=<span class="number">1</span>,</span><br><span class="line">                                  report_to=[],</span><br><span class="line">                                  bf16=<span class="literal">True</span></span><br><span class="line">                                  )</span><br><span class="line">trainer = Trainer(model=model, </span><br><span class="line">                  tokenizer=tokenizer, </span><br><span class="line">                  args=training_args, </span><br><span class="line">                  train_dataset=train_dataset,</span><br><span class="line">                  eval_dataset=eval_dataset,</span><br><span class="line">                  data_collator=data_collator,</span><br><span class="line">                  )</span><br><span class="line">train_output = trainer.train()</span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/16/Multi-modal-series/ViT/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">ViT - vision transformer</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Alpaca 源码分析</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B"><span class="nav-text">加载模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BDjson%E6%95%B0%E6%8D%AE"><span class="nav-text">加载json数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%BC%E6%8E%A5dict%E6%95%B0%E6%8D%AE"><span class="nav-text">拼接dict数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE-tokenize"><span class="nav-text">预处理数据 tokenize</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E4%B8%BAdataset"><span class="nav-text">封装为dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#padding-DataCollator"><span class="nav-text">padding DataCollator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#train"><span class="nav-text">train</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9Alpaca%E6%BA%90%E7%A0%81"><span class="nav-text">修改Alpaca源码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-text">改进文件读取和预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8A%E7%B2%BE%E5%BA%A6%E8%AE%AD%E7%BB%83"><span class="nav-text">半精度训练</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        34 posts in total
+                    </span>
+                    
+                        <span>
+                            109.3k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
