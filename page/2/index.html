@@ -572,7 +572,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -651,7 +651,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -666,6 +666,185 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/04/agent/simple_agent/">
+                            单轮对话-&gt;多轮对话-&gt;简单agent示例
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            单轮对话以下是一个很基础的调用大模型的方式，除了 model, temperature 等参数外，最重要的就是 messages，即对话记录。大模型将基于传入的对话记录生成一个新的 message 。
+123456789101112131415161718192021222324252627import osfrom openai import OpenAIdefault_client = ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 04 2025 22:54:06 GMT+0800">
+                
+                    2025-05-04
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/agent/">agent</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/05/04/agent/simple_agent/">Read more<span class="seo-reader-text">单轮对话-&gt;多轮对话-&gt;简单agent示例</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/04/uncategorized/json_repair/">
+                            利用 json_repair 修复大模型的 json 生成错误
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            有些 LLM 在返回格式正确的 JSON 数据时会有些问题，有时会漏掉括号，有时会在数据中添加一些单词。不至于这种错误每次都要丢弃，再次生成太浪费时间了，因此能修复错误时还是要尽量修复。这就是 json_repair 的主要目的：修复 LLM 在生成 json 数据时的错误。
+
+修复 JSON 中的语法错误
+缺少引号、逗号位置错误、未转义的字符以及不完整的键值对。
+缺少引号、格式不正确的值（...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 04 2025 22:52:20 GMT+0800">
+                
+                    2025-05-04
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%A2%8E%E7%89%87/">碎片</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/05/04/uncategorized/json_repair/">Read more<span class="seo-reader-text">利用 json_repair 修复大模型的 json 生成错误</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/04/uncategorized/wandb/">
+                            wandb 的使用方法和示例
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Weights &amp; Biases (wandb)使用 Weights &amp; Biases (wandb) 可以非常方便地记录训练过程中的 loss、accuracy、模型权重、学习率曲线、超参配置、版本控制、模型可视化 等内容。
+下面是使用 wandb 的完整入门步骤：
+
+1. 安装 wandb1pip install wandb
+
+
+2. 注册账号并登录你需要在 https:...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun May 04 2025 22:52:20 GMT+0800">
+                
+                    2025-05-04
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%A2%8E%E7%89%87/">碎片</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/05/04/uncategorized/wandb/">Read more<span class="seo-reader-text">wandb 的使用方法和示例</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1203,224 +1382,6 @@ RAG系统中的文档搜索和响应生成步骤包括：
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/04/langchain-tutorial-series/05.DocumentLoader/">
-                            Langchain 入门教程 - 5.文档加载
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Document用于存储一段文本及其相关元数据的类。  
-
-page_content （必需）：以字符串形式存储一段文本。  
-metadata （可选）：以字典形式存储与 page_content 相关的元数据。
-
-12345from langchain_core.documents import Documentdocument = Document(page_content="Hell...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 04 2025 22:43:57 GMT+0800">
-                
-                    2025-05-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Langchain/">Langchain</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/04/langchain-tutorial-series/05.DocumentLoader/">Read more<span class="seo-reader-text">Langchain 入门教程 - 5.文档加载</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/04/langchain-tutorial-series/06.TextSplitter/">
-                            Langchain 入门教程 - 6.文档切分
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Character Text SplitterCharacterTextSplitter 提供了高效的文本切分功能，带来了以下几个关键优势：
-
-Token 限制： 克服了 LLM 上下文窗口大小的限制。
-搜索优化： 实现更精确的基于块的检索。
-内存效率： 有效处理大规模文档。
-上下文保持： 通过 chunk_overlap 保持文本的连贯性。
-
-CharacterTextSplitter 是...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 04 2025 22:43:57 GMT+0800">
-                
-                    2025-05-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Langchain/">Langchain</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/04/langchain-tutorial-series/06.TextSplitter/">Read more<span class="seo-reader-text">Langchain 入门教程 - 6.文档切分</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/04/langchain-tutorial-series/02.Prompt/">
-                            Langchain 入门教程 - 2.提示词模板
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Prompt TemplatePrompt 模板对于生成动态且灵活的提示至关重要，可用于各种场景，例如会话历史记录、结构化输出和特定查询。  
-在本教程中，我们将探讨创建 PromptTemplate 对象的方法，应用部分变量，通过 YAML 文件管理模板，并利用 ChatPromptTemplate 和 MessagePlaceholder 等高级工具来增强功能。
-12345678from...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 04 2025 22:43:57 GMT+0800">
-                
-                    2025-05-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Langchain/">Langchain</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/04/langchain-tutorial-series/02.Prompt/">Read more<span class="seo-reader-text">Langchain 入门教程 - 2.提示词模板</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1448,11 +1409,11 @@ CharacterTextSplitter 是...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        34 posts in total
+                        37 posts in total
                     </span>
                     
                         <span>
-                            109.3k words in total
+                            120.1k words in total
                         </span>
                     
                 </p>
