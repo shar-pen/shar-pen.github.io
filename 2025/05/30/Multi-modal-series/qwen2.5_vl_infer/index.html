@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/30/multi-modal-series/qwen2.5_vl_infer/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qwen 2.5 VL 推理">
+<meta property="og:url" content="http://example.com/2025/05/30/Multi-modal-series/qwen2.5_vl_infer/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-29T17:08:18.401Z">
+<meta property="article:modified_time" content="2025-05-29T17:08:56.367Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="多模态">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Qwen 2.5 VL 推理 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Qwen 2.5 VL 推理</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-30 01:08:18</span>
+        <span class="mobile">2025-05-30 01:08:18</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-30 01:08:56</span>
+            <span class="mobile">2025-05-30 01:08:56</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>18 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>QWEN2.5-VL框架展示了视觉编码器和语言模型解码器的集成，以处理多模式输入，包括图像和视频。视觉编码器旨在以其本机分辨率处理输入，并支持动态FPS采样。具有不同FPS速率的不同尺寸和视频帧的图像被动态映射到长度不同的token。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/qwen2.5_vl_infer/image-20250530010106996.png" alt="image-20250530010106996"></p>
+<h3 id="加载模型"><a href="#加载模型" class="headerlink" title="加载模型"></a>加载模型</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> qwen_vl_utils <span class="keyword">import</span> process_vision_info</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor</span><br><span class="line"></span><br><span class="line"><span class="comment"># default: Load the model on the available device(s)</span></span><br><span class="line">model_name_or_path = <span class="string">"../DC/Qwen2.5-VL-3B-Instruct"</span></span><br><span class="line">model = Qwen2_5_VLForConditionalGeneration.from_pretrained(</span><br><span class="line">    model_name_or_path, </span><br><span class="line">    torch_dtype=<span class="string">"auto"</span>, </span><br><span class="line">    device_map=<span class="string">"cuda:5"</span>,</span><br><span class="line">)</span><br><span class="line">processor = Qwen2_5_VLProcessor.from_pretrained(model_name_or_path)</span><br><span class="line"><span class="comment"># model</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="推理完整流程"><a href="#推理完整流程" class="headerlink" title="推理完整流程"></a>推理完整流程</h3><p>接下来会一一讲解推理处理流程。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">messages = [</span><br><span class="line">    {</span><br><span class="line">        <span class="string">"role"</span>: <span class="string">"user"</span>,</span><br><span class="line">        <span class="string">"content"</span>: [</span><br><span class="line">            {</span><br><span class="line">                <span class="string">"type"</span>: <span class="string">"image"</span>,</span><br><span class="line">                <span class="string">"image"</span>: <span class="string">"https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-VL/assets/demo.jpeg"</span>,</span><br><span class="line">            },</span><br><span class="line">            {<span class="string">"type"</span>: <span class="string">"text"</span>, <span class="string">"text"</span>: <span class="string">"Describe this image."</span>},</span><br><span class="line">        ],</span><br><span class="line">    }</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preparation for inference</span></span><br><span class="line">text = processor.apply_chat_template(</span><br><span class="line">    messages, tokenize=<span class="literal">False</span>, add_generation_prompt=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按出现顺序将图像和视频信息提取到列表中</span></span><br><span class="line">image_inputs, video_inputs = process_vision_info(messages)</span><br><span class="line">inputs = processor(</span><br><span class="line">    text=[text],</span><br><span class="line">    images=image_inputs,</span><br><span class="line">    videos=video_inputs,</span><br><span class="line">    padding=<span class="literal">True</span>,</span><br><span class="line">    return_tensors=<span class="string">"pt"</span>,</span><br><span class="line">)</span><br><span class="line">inputs = inputs.to(model.device)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference: Generation of the output</span></span><br><span class="line">generated_ids = model.generate(**inputs, max_new_tokens=<span class="number">128</span>)</span><br><span class="line">generated_ids_trimmed = [</span><br><span class="line">    out_ids[<span class="built_in">len</span>(in_ids) :] <span class="keyword">for</span> in_ids, out_ids <span class="keyword">in</span> <span class="built_in">zip</span>(inputs.input_ids, generated_ids)</span><br><span class="line">]</span><br><span class="line">output_text = processor.batch_decode(</span><br><span class="line">    generated_ids_trimmed, skip_special_tokens=<span class="literal">True</span>, clean_up_tokenization_spaces=<span class="literal">False</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(output_text)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>Qwen2_5_VL 的模型组成如下: Qwen2_5_VisionTransformerPretrainedModel（vision encoder）和 Qwen2_5_VLModel（LM decoder）。vision encoder 还是 ViT, patch embedding 由卷积层实现, 旋转位置编码, 之后就是正常 transformer Block 的叠加, 最后 merger 就是将 vision embedding 投影到 text modal 的 projecter, qwen2.5 vl 用的只是两层 MLP, 注意下 shape, 明显 block 的输出是 1280, merger.mlp 的输入是 5120, 这是因为将相邻的 2*2 个 token 进行融合。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">Qwen2<span class="emphasis">_5_</span>VLForConditionalGeneration(</span><br><span class="line">  (visual): Qwen2<span class="emphasis">_5_</span>VisionTransformerPretrainedModel(</span><br><span class="line"><span class="code">    (patch_embed): Qwen2_5_VisionPatchEmbed(</span></span><br><span class="line"><span class="code">      (proj): Conv3d(3, 1280, kernel_size=(2, 14, 14), stride=(2, 14, 14), bias=False)</span></span><br><span class="line"><span class="code">    )</span></span><br><span class="line"><span class="code">    (rotary_pos_emb): Qwen2_5_VisionRotaryEmbedding()</span></span><br><span class="line"><span class="code">    (blocks): ModuleList(</span></span><br><span class="line"><span class="code">      (0-31): 32 x Qwen2_5_VLVisionBlock(</span></span><br><span class="line"><span class="code">        (norm1): Qwen2RMSNorm((1280,), eps=1e-06)</span></span><br><span class="line"><span class="code">        (norm2): Qwen2RMSNorm((1280,), eps=1e-06)</span></span><br><span class="line"><span class="code">        (attn): Qwen2_5_VLVisionSdpaAttention(</span></span><br><span class="line"><span class="code">          (qkv): Linear(in_features=1280, out_features=3840, bias=True)</span></span><br><span class="line"><span class="code">          (proj): Linear(in_features=1280, out_features=1280, bias=True)</span></span><br><span class="line"><span class="code">        )</span></span><br><span class="line"><span class="code">        (mlp): Qwen2_5_VLMLP(</span></span><br><span class="line"><span class="code">          (gate_proj): Linear(in_features=1280, out_features=3420, bias=True)</span></span><br><span class="line"><span class="code">          (up_proj): Linear(in_features=1280, out_features=3420, bias=True)</span></span><br><span class="line"><span class="code">          (down_proj): Linear(in_features=3420, out_features=1280, bias=True)</span></span><br><span class="line"><span class="code">          (act_fn): SiLU()</span></span><br><span class="line"><span class="code">        )</span></span><br><span class="line"><span class="code">      )</span></span><br><span class="line"><span class="code">    )</span></span><br><span class="line"><span class="code">    (merger): Qwen2_5_VLPatchMerger(</span></span><br><span class="line"><span class="code">      (ln_q): Qwen2RMSNorm((1280,), eps=1e-06)</span></span><br><span class="line"><span class="code">      (mlp): Sequential(</span></span><br><span class="line"><span class="code">        (0): Linear(in_features=5120, out_features=5120, bias=True)</span></span><br><span class="line"><span class="code">        (1): GELU(approximate='none')</span></span><br><span class="line"><span class="code">        (2): Linear(in_features=5120, out_features=2048, bias=True)</span></span><br><span class="line"><span class="code">      )</span></span><br><span class="line"><span class="code">    )</span></span><br><span class="line"><span class="code">  )</span></span><br><span class="line"><span class="code">  (model): Qwen2_5_VLModel(</span></span><br><span class="line"><span class="code">    (embed_tokens): Embedding(151936, 2048)</span></span><br><span class="line"><span class="code">    (layers): ModuleList(</span></span><br><span class="line"><span class="code">      (0-35): 36 x Qwen2_5_VLDecoderLayer(</span></span><br><span class="line"><span class="code">        (self_attn): Qwen2_5_VLSdpaAttention(</span></span><br><span class="line"><span class="code">          (q_proj): Linear(in_features=2048, out_features=2048, bias=True)</span></span><br><span class="line"><span class="code">          (k_proj): Linear(in_features=2048, out_features=256, bias=True)</span></span><br><span class="line"><span class="code">          (v_proj): Linear(in_features=2048, out_features=256, bias=True)</span></span><br><span class="line"><span class="code">          (o_proj): Linear(in_features=2048, out_features=2048, bias=False)</span></span><br><span class="line"><span class="code">          (rotary_emb): Qwen2_5_VLRotaryEmbedding()</span></span><br><span class="line"><span class="code">        )</span></span><br><span class="line"><span class="code">        (mlp): Qwen2MLP(</span></span><br><span class="line"><span class="code">          (gate_proj): Linear(in_features=2048, out_features=11008, bias=False)</span></span><br><span class="line"><span class="code">          (up_proj): Linear(in_features=2048, out_features=11008, bias=False)</span></span><br><span class="line"><span class="code">          (down_proj): Linear(in_features=11008, out_features=2048, bias=False)</span></span><br><span class="line"><span class="code">          (act_fn): SiLU()</span></span><br><span class="line"><span class="code">        )</span></span><br><span class="line"><span class="code">        (input_layernorm): Qwen2RMSNorm((2048,), eps=1e-06)</span></span><br><span class="line"><span class="code">        (post_attention_layernorm): Qwen2RMSNorm((2048,), eps=1e-06)</span></span><br><span class="line"><span class="code">      )</span></span><br><span class="line"><span class="code">    )</span></span><br><span class="line"><span class="code">    (norm): Qwen2RMSNorm((2048,), eps=1e-06)</span></span><br><span class="line"><span class="code">    (rotary_emb): Qwen2_5_VLRotaryEmbedding()</span></span><br><span class="line"><span class="code">  )</span></span><br><span class="line"><span class="code">  (lm_head): Linear(in_features=2048, out_features=151936, bias=False)</span></span><br><span class="line"><span class="code">)</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h3 id="message-文本预处理"><a href="#message-文本预处理" class="headerlink" title="message 文本预处理"></a>message 文本预处理</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">messages = [</span><br><span class="line">    {</span><br><span class="line">        <span class="string">"role"</span>: <span class="string">"user"</span>,</span><br><span class="line">        <span class="string">"content"</span>: [</span><br><span class="line">            {</span><br><span class="line">                <span class="string">"type"</span>: <span class="string">"image"</span>,</span><br><span class="line">                <span class="string">"image"</span>: <span class="string">"https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-VL/assets/demo.jpeg"</span>,</span><br><span class="line">            },</span><br><span class="line">            {<span class="string">"type"</span>: <span class="string">"text"</span>, <span class="string">"text"</span>: <span class="string">"Describe this image."</span>},</span><br><span class="line">        ],</span><br><span class="line">    }</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preparation for inference</span></span><br><span class="line">text = processor.apply_chat_template(</span><br><span class="line">    messages, tokenize=<span class="literal">False</span>, add_generation_prompt=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(text)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;|im<span class="emphasis">_start|&gt;system</span></span><br><span class="line"><span class="emphasis">You are a helpful assistant.&lt;|im_</span>end|&gt;</span><br><span class="line">&lt;|im<span class="emphasis">_start|&gt;user</span></span><br><span class="line"><span class="emphasis">&lt;|vision_</span>start|&gt;&lt;|image<span class="emphasis">_pad|&gt;&lt;|vision_</span>end|&gt;Describe this image.&lt;|im<span class="emphasis">_end|&gt;</span></span><br><span class="line"><span class="emphasis">&lt;|im_</span>start|&gt;assistant</span><br></pre></td></tr></table></figure></div>
+
+<p>输入文本被处理成对话模板的样式，图片或者视频暂时被 &lt;|image_pad|&gt; 这样的占位符替代。</p>
+<h3 id="图片-resize"><a href="#图片-resize" class="headerlink" title="图片 resize"></a>图片 resize</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按出现顺序将图像和视频信息提取到列表中</span></span><br><span class="line">image_inputs, video_inputs = process_vision_info(messages)</span><br><span class="line">image_inputs</span><br></pre></td></tr></table></figure></div>
+
+<p>内部执行 <code>fetch_image()</code> 和 <code>fetch_video()</code> 函数获取图片和视频，期间还会执行 resize</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">resized_height, resized_width = smart_resize(</span><br><span class="line">    height,</span><br><span class="line">    width,</span><br><span class="line">    factor=size_factor,</span><br><span class="line">    min_pixels=min_pixels,</span><br><span class="line">    max_pixels=max_pixels,</span><br><span class="line">)</span><br><span class="line">image = image.resize((resized_width, resized_height))</span><br></pre></td></tr></table></figure></div>
+
+<p><code>smart_resize()</code> 只要获得新的图片 resize 尺寸，使其满足以下条件：</p>
+<ul>
+<li>高度和宽度都能被指定的“factor”整除；</li>
+<li>图像的总像素数处于[min_pixels, max_pixels]的范围内；</li>
+<li>尽可能保持图像的原始宽高比不变。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_FACTOR = <span class="number">28</span></span><br><span class="line">MIN_PIXELS = <span class="number">4</span> * <span class="number">28</span> * <span class="number">28</span></span><br><span class="line">MAX_PIXELS = <span class="number">16384</span> * <span class="number">28</span> * <span class="number">28</span></span><br><span class="line">MAX_RATIO = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">smart_resize</span>(<span class="params"></span></span><br><span class="line"><span class="params">    height: <span class="built_in">int</span>, width: <span class="built_in">int</span>, factor: <span class="built_in">int</span> = IMAGE_FACTOR, min_pixels: <span class="built_in">int</span> = MIN_PIXELS, max_pixels: <span class="built_in">int</span> = MAX_PIXELS</span></span><br><span class="line"><span class="params"></span>) -&gt; <span class="built_in">tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]:</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Rescales the image so that the following conditions are met:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    1. Both dimensions (height and width) are divisible by 'factor'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    2. The total number of pixels is within the range ['min_pixels', 'max_pixels'].</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    3. The aspect ratio of the image is maintained as closely as possible.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">max</span>(height, width) / <span class="built_in">min</span>(height, width) &gt; MAX_RATIO:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(</span><br><span class="line">            <span class="string">f"absolute aspect ratio must be smaller than <span class="subst">{MAX_RATIO}</span>, got <span class="subst">{<span class="built_in">max</span>(height, width) / <span class="built_in">min</span>(height, width)}</span>"</span></span><br><span class="line">        )</span><br><span class="line">    h_bar = <span class="built_in">max</span>(factor, round_by_factor(height, factor))</span><br><span class="line">    w_bar = <span class="built_in">max</span>(factor, round_by_factor(width, factor))</span><br><span class="line">    <span class="keyword">if</span> h_bar * w_bar &gt; max_pixels:</span><br><span class="line">        beta = math.sqrt((height * width) / max_pixels)</span><br><span class="line">        h_bar = floor_by_factor(height / beta, factor)</span><br><span class="line">        w_bar = floor_by_factor(width / beta, factor)</span><br><span class="line">    <span class="keyword">elif</span> h_bar * w_bar &lt; min_pixels:</span><br><span class="line">        beta = math.sqrt(min_pixels / (height * width))</span><br><span class="line">        h_bar = ceil_by_factor(height * beta, factor)</span><br><span class="line">        w_bar = ceil_by_factor(width * beta, factor)</span><br><span class="line">    <span class="keyword">return</span> h_bar, w_bar</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">round_by_factor</span>(<span class="params">number: <span class="built_in">int</span>, factor: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">"""Returns the closest integer to 'number' that is divisible by 'factor'."""</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">round</span>(number / factor) * factor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ceil_by_factor</span>(<span class="params">number: <span class="built_in">int</span>, factor: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">"""Returns the smallest integer greater than or equal to 'number' that is divisible by 'factor'."""</span></span><br><span class="line">    <span class="keyword">return</span> math.ceil(number / factor) * factor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">floor_by_factor</span>(<span class="params">number: <span class="built_in">int</span>, factor: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">"""Returns the largest integer less than or equal to 'number' that is divisible by 'factor'."""</span></span><br><span class="line">    <span class="keyword">return</span> math.floor(number / factor) * factor</span><br></pre></td></tr></table></figure></div>
+
+<p>factor 是 28, 是 patch size (14) 的两倍，由于 qwen-vl 要把相邻 2*2 的 patch 合并。主要的关键操作，就是把图片的尺寸进行调整。</p>
+<blockquote>
+<p>Furthermore, to reduce the visual tokens of each image, a simple MLP layer is employed after the ViT to compress adjacent 2 × 2 tokens into a single token</p>
+</blockquote>
+<p>上面代码返回</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="language-xml"><span class="tag">&lt;<span class="name">PIL.Image.Image</span> <span class="attr">image</span> <span class="attr">mode</span>=<span class="string">RGB</span> <span class="attr">size</span>=<span class="string">2044x1372</span>&gt;</span></span>]</span><br></pre></td></tr></table></figure></div>
+<p>2044 和 1372 都是可以被 28 整除的。</p>
+<h3 id="text-image-模态预处理"><a href="#text-image-模态预处理" class="headerlink" title="text & image 模态预处理"></a>text &amp; image 模态预处理</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">inputs = processor(</span><br><span class="line">    text=[text],</span><br><span class="line">    images=image_inputs,</span><br><span class="line">    videos=video_inputs,</span><br><span class="line">    padding=<span class="literal">True</span>,</span><br><span class="line">    return_tensors=<span class="string">"pt"</span>,</span><br><span class="line">)</span><br><span class="line">inputs = inputs.to(model.device)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> inputs.items():</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, torch.Tensor):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"<span class="subst">{k}</span>: <span class="subst">{v.shape}</span> <span class="subst">{v.dtype}</span>"</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>输出是这样的</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input<span class="emphasis">_ids: torch.Size([1, 3602]) torch.int64</span></span><br><span class="line"><span class="emphasis">attention_</span>mask: torch.Size([1, 3602]) torch.int64</span><br><span class="line">pixel<span class="emphasis">_values: torch.Size([14308, 1176]) torch.float32</span></span><br><span class="line"><span class="emphasis">image_</span>grid<span class="emphasis">_thw: torch.Size([1, 3]) torch.int64</span></span><br></pre></td></tr></table></figure></div>
+
+<p>首先 <code>processor.__call__()</code> 会执行图片的预处理 <code>image_processor.__call__()</code></p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> images <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    image_inputs = <span class="variable language_">self</span>.image_processor(images=images, videos=<span class="literal">None</span>, **output_kwargs[<span class="string">"images_kwargs"</span>])</span><br><span class="line">    image_grid_thw = image_inputs[<span class="string">"image_grid_thw"</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    image_inputs = {}</span><br><span class="line">    image_grid_thw = <span class="literal">None</span></span><br><span class="line">image_processor` 不可跳转，可以打印 `processor.image_processor` 来显示类 `Qwen2VLImageProcessor</span><br><span class="line">Qwen2VLImageProcessor {</span><br><span class="line">  <span class="string">"do_convert_rgb"</span>: true,</span><br><span class="line">  <span class="string">"do_normalize"</span>: true,</span><br><span class="line">  <span class="string">"do_rescale"</span>: true,</span><br><span class="line">  <span class="string">"do_resize"</span>: true,</span><br><span class="line">  <span class="string">"image_mean"</span>: [</span><br><span class="line">    <span class="number">0.48145466</span>,</span><br><span class="line">    <span class="number">0.4578275</span>,</span><br><span class="line">    <span class="number">0.40821073</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"image_processor_type"</span>: <span class="string">"Qwen2VLImageProcessor"</span>,</span><br><span class="line">  <span class="string">"image_std"</span>: [</span><br><span class="line">    <span class="number">0.26862954</span>,</span><br><span class="line">    <span class="number">0.26130258</span>,</span><br><span class="line">    <span class="number">0.27577711</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"max_pixels"</span>: <span class="number">12845056</span>,</span><br><span class="line">  <span class="string">"merge_size"</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="string">"min_pixels"</span>: <span class="number">3136</span>,</span><br><span class="line">  <span class="string">"patch_size"</span>: <span class="number">14</span>,</span><br><span class="line">  <span class="string">"processor_class"</span>: <span class="string">"Qwen2_5_VLProcessor"</span>,</span><br><span class="line">  <span class="string">"resample"</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="string">"rescale_factor"</span>: <span class="number">0.00392156862745098</span>,</span><br><span class="line">  <span class="string">"size"</span>: {</span><br><span class="line">    <span class="string">"longest_edge"</span>: <span class="number">12845056</span>,</span><br><span class="line">    <span class="string">"shortest_edge"</span>: <span class="number">3136</span></span><br><span class="line">  },</span><br><span class="line">  <span class="string">"temporal_patch_size"</span>: <span class="number">2</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<p><code>image_processor.__call__()</code> 内部也是一大堆处理，首先是正常的处理图片。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">images = make_list_of_images(images)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> do_convert_rgb:</span><br><span class="line">    images = [convert_to_rgb(image) <span class="keyword">for</span> image <span class="keyword">in</span> images]</span><br><span class="line"></span><br><span class="line"><span class="comment"># All transformations expect numpy arrays.</span></span><br><span class="line">images = [to_numpy_array(image) <span class="keyword">for</span> image <span class="keyword">in</span> images]</span><br><span class="line"></span><br><span class="line">height, width = get_image_size(images[<span class="number">0</span>], channel_dim=input_data_format)</span><br><span class="line">resized_height, resized_width = height, width</span><br><span class="line">processed_images = []</span><br><span class="line"><span class="keyword">for</span> image <span class="keyword">in</span> images:</span><br><span class="line">    <span class="keyword">if</span> do_resize:</span><br><span class="line">        resized_height, resized_width = smart_resize(</span><br><span class="line">            height,</span><br><span class="line">            width,</span><br><span class="line">            factor=patch_size * merge_size,</span><br><span class="line">            min_pixels=size[<span class="string">"shortest_edge"</span>],</span><br><span class="line">            max_pixels=size[<span class="string">"longest_edge"</span>],</span><br><span class="line">        )</span><br><span class="line">        image = resize(</span><br><span class="line">            image, size=(resized_height, resized_width), resample=resample, input_data_format=input_data_format</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> do_rescale:</span><br><span class="line">        image = <span class="variable language_">self</span>.rescale(image, scale=rescale_factor, input_data_format=input_data_format)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> do_normalize:</span><br><span class="line">        image = <span class="variable language_">self</span>.normalize(</span><br><span class="line">            image=image, mean=image_mean, std=image_std, input_data_format=input_data_format</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    image = to_channel_dimension_format(image, data_format, input_channel_dim=input_data_format)</span><br><span class="line">    processed_images.append(image)</span><br></pre></td></tr></table></figure></div>
+
+<p><code>processed_images</code> 形状是 <code>[(3, 1372, 2044)]</code>, 接下来</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># temporal_patch_size = 2</span></span><br><span class="line">patches = np.array(processed_images)</span><br><span class="line"><span class="keyword">if</span> data_format == ChannelDimension.LAST:</span><br><span class="line">    patches = patches.transpose(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">if</span> patches.shape[<span class="number">0</span>] % temporal_patch_size != <span class="number">0</span>:</span><br><span class="line">    repeats = np.repeat(patches[-<span class="number">1</span>][np.newaxis], temporal_patch_size - <span class="number">1</span>, axis=<span class="number">0</span>)</span><br><span class="line">    patches = np.concatenate([patches, repeats], axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure></div>
+<p>这段代码先将所有图片变成一个numpy array，然后判断第一维是否为 temporal_patch_size 的倍数， 不是的话复制最后一个 patches 元素 patches[-1]， 并拼接回原数组。这是因为Qwen2-VL把视频当作一秒两帧的图片集合，为了统一框架，需要把图片复制成两个相同的帧（相当于图片 —&gt; 一秒钟视频）。</p>
+<blockquote>
+<p>To preserve video information as completely as possible, we sampled each video at two frames per second. Additionally, we integrated 3D convolutions (Carreira and Zisserman, 2017) with a depth of two to process video inputs, allowing the model to handle 3D tubes instead of 2D patches, thus enabling it to process more video frames without increasing the sequence length (Arnab et al., 2021). For consistency, each image is treated as two identical frames.</p>
+</blockquote>
+<p>之后就是 reshape 为真正以上的 patch。每一个patch的大小是(channel * self.temporal_patch_size * self.patch_size * self.patch_size)，temporal_patch_size 默认为 2，channel 也不参与划分，所以相当于对于图片来说，patchify 只在 h 和 w 维度进行。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">grid_t = patches.shape[<span class="number">0</span>] // temporal_patch_size</span><br><span class="line">grid_h, grid_w = resized_height // patch_size, resized_width // patch_size</span><br><span class="line">patches = patches.reshape(</span><br><span class="line">    grid_t,</span><br><span class="line">    temporal_patch_size,</span><br><span class="line">    channel,</span><br><span class="line">    grid_h // merge_size,</span><br><span class="line">    merge_size,</span><br><span class="line">    patch_size,</span><br><span class="line">    grid_w // merge_size,</span><br><span class="line">    merge_size,</span><br><span class="line">    patch_size,</span><br><span class="line">)</span><br><span class="line">patches = patches.transpose(<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">8</span>)</span><br><span class="line">flatten_patches = patches.reshape(</span><br><span class="line">    grid_t * grid_h * grid_w, channel * temporal_patch_size * patch_size * patch_size</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> flatten_patches, (grid_t, grid_h, grid_w)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><code>image_grid_thw = image_inputs["image_grid_thw"]</code> 即 <code>(grid_t, grid_h, grid_w)</code> or <code>[1, 98, 146]</code>，即 patch 在时序、高度、宽度上的数量。1372/14=98, 2044/14=146</p>
+<p>接下来就是用特殊符号 <code>&lt;|placeholder|&gt;</code> 来暂时占位，原先 <code>self.image_token</code> 即 <code>&lt;|image_pad|&gt;</code> 只有一个，需要为实际的 image patch embedding 来预留位置。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> image_grid_thw <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">merge_length = <span class="variable language_">self</span>.image_processor.merge_size**<span class="number">2</span></span><br><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(text)):</span><br><span class="line">    <span class="keyword">while</span> <span class="variable language_">self</span>.image_token <span class="keyword">in</span> text[i]:</span><br><span class="line">        text[i] = text[i].replace(</span><br><span class="line">            <span class="variable language_">self</span>.image_token,</span><br><span class="line">            <span class="string">"&lt;|placeholder|&gt;"</span> * (image_grid_thw[index].prod() // merge_length),</span><br><span class="line">            <span class="number">1</span>,</span><br><span class="line">        )</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">    text[i] = text[i].replace(<span class="string">"&lt;|placeholder|&gt;"</span>, <span class="variable language_">self</span>.image_token)</span><br><span class="line">text_inputs = <span class="variable language_">self</span>.tokenizer(text, **output_kwargs[<span class="string">"text_kwargs"</span>])</span><br></pre></td></tr></table></figure></div>
+<p><code>merge_length</code> 就是根据将相邻 self.image_processor.merge_size * merge_size 的 patch 组合的每组的 patch 数量。这里最后还是类似纯文本模型的 tokenize，结果是 <code>&lt;|im_start|&gt;system\nYou are a helpful assistant.&lt;|im_end|&gt;\n&lt;|im_start|&gt;user\n&lt;|vision_start|&gt;&lt;|image_pad|&gt;...&lt;|image_pad|&gt;&lt;|vision_end|&gt;Describe this image.&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n</code> 我把中间的 <code>&lt;|image_pad|&gt;</code> 省略了。</p>
+<p>输入的 [3, 2044, 1372] 维的图片变成了 [14308, 1176] 的 pixel_value，最终输入语言模型的视觉 token 数是 14308/4=3577, 其实就是原本的大小除以 28x28， 即(1372/14) x (2044/14) = 98x146 = 14308。而 1176 = 3x14x14x2 (channel x temporal_patch_size x patch_size x .patch_size), 是 3D 卷积的处理。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议打断点执行这个代码片段，查看内部数据</span></span><br><span class="line">generated_ids = model.generate(**inputs, max_new_tokens=<span class="number">128</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="image-encoder-前向过程"><a href="#image-encoder-前向过程" class="headerlink" title="image encoder 前向过程"></a>image encoder 前向过程</h2><p>以下是 <code>Qwen2_5_VLForConditionalGeneration.forward()</code> 的的一部分内容:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将 input_ids 转换为 embedding</span></span><br><span class="line">inputs_embeds = <span class="variable language_">self</span>.model.embed_tokens(input_ids)</span><br><span class="line"><span class="keyword">if</span> pixel_values <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 转换 image 的 dtype</span></span><br><span class="line">    pixel_values = pixel_values.<span class="built_in">type</span>(<span class="variable language_">self</span>.visual.dtype)</span><br><span class="line">    <span class="comment"># image encoder 输出 embedding </span></span><br><span class="line">    image_embeds = <span class="variable language_">self</span>.visual(pixel_values, grid_thw=image_grid_thw)</span><br><span class="line">    n_image_tokens = (input_ids == <span class="variable language_">self</span>.config.image_token_id).<span class="built_in">sum</span>().item()</span><br><span class="line">    n_image_features = image_embeds.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> n_image_tokens != n_image_features:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(</span><br><span class="line">            <span class="string">f"Image features and image tokens do not match: tokens: <span class="subst">{n_image_tokens}</span>, features <span class="subst">{n_image_features}</span>"</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    mask = input_ids == <span class="variable language_">self</span>.config.image_token_id</span><br><span class="line">    mask_unsqueezed = mask.unsqueeze(-<span class="number">1</span>)</span><br><span class="line">    mask_expanded = mask_unsqueezed.expand_as(inputs_embeds)</span><br><span class="line">    image_mask = mask_expanded.to(inputs_embeds.device)</span><br><span class="line"></span><br><span class="line">    image_embeds = image_embeds.to(inputs_embeds.device, inputs_embeds.dtype)</span><br><span class="line">    inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)  </span><br></pre></td></tr></table></figure></div>
+<p><code>self.visual</code> 和 <code>self.model</code> 分别为视觉和文本的模型。 <code>self.visual(pixel_values, grid_thw=image_grid_thw)</code> 转入<code>Qwen2_5_VisionTransformerPretrainedModel.forward()</code>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># embedding [14308, 1176] -&gt; [14308, 1280]</span></span><br><span class="line">hidden_states = <span class="variable language_">self</span>.patch_embed(hidden_states)</span><br><span class="line"><span class="comment"># 传入 patch 的三维长度 grid_thw 是为了计算位置编码</span></span><br><span class="line">rotary_pos_emb = <span class="variable language_">self</span>.rot_pos_emb(grid_thw)</span><br><span class="line">window_index, cu_window_seqlens = <span class="variable language_">self</span>.get_window_index(grid_thw)</span><br><span class="line">cu_window_seqlens = torch.tensor(</span><br><span class="line">    cu_window_seqlens,</span><br><span class="line">    device=hidden_states.device,</span><br><span class="line">    dtype=grid_thw.dtype <span class="keyword">if</span> torch.jit.is_tracing() <span class="keyword">else</span> torch.int32,</span><br><span class="line">)</span><br><span class="line">cu_window_seqlens = torch.unique_consecutive(cu_window_seqlens)</span><br><span class="line"></span><br><span class="line">seq_len, _ = hidden_states.size()</span><br><span class="line">hidden_states = hidden_states.reshape(seq_len // <span class="variable language_">self</span>.spatial_merge_unit, <span class="variable language_">self</span>.spatial_merge_unit, -<span class="number">1</span>)</span><br><span class="line">hidden_states = hidden_states[window_index, :, :]</span><br><span class="line">hidden_states = hidden_states.reshape(seq_len, -<span class="number">1</span>)</span><br><span class="line">rotary_pos_emb = rotary_pos_emb.reshape(seq_len // <span class="variable language_">self</span>.spatial_merge_unit, <span class="variable language_">self</span>.spatial_merge_unit, -<span class="number">1</span>)</span><br><span class="line">rotary_pos_emb = rotary_pos_emb[window_index, :, :]</span><br><span class="line">rotary_pos_emb = rotary_pos_emb.reshape(seq_len, -<span class="number">1</span>)</span><br><span class="line">emb = torch.cat((rotary_pos_emb, rotary_pos_emb), dim=-<span class="number">1</span>)</span><br><span class="line">position_embeddings = (emb.cos(), emb.sin())</span><br><span class="line"></span><br><span class="line">cu_seqlens = torch.repeat_interleave(grid_thw[:, <span class="number">1</span>] * grid_thw[:, <span class="number">2</span>], grid_thw[:, <span class="number">0</span>]).cumsum(</span><br><span class="line">    dim=<span class="number">0</span>,</span><br><span class="line">    <span class="comment"># Select dtype based on the following factors:</span></span><br><span class="line">    <span class="comment">#  - FA2 requires that cu_seqlens_q must have dtype int32</span></span><br><span class="line">    <span class="comment">#  - torch.onnx.export requires that cu_seqlens_q must have same dtype as grid_thw</span></span><br><span class="line">    <span class="comment"># See https://github.com/huggingface/transformers/pull/34852 for more information</span></span><br><span class="line">    dtype=grid_thw.dtype <span class="keyword">if</span> torch.jit.is_tracing() <span class="keyword">else</span> torch.int32,</span><br><span class="line">)</span><br><span class="line">cu_seqlens = F.pad(cu_seqlens, (<span class="number">1</span>, <span class="number">0</span>), value=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> layer_num, blk <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="variable language_">self</span>.blocks):</span><br><span class="line">    <span class="keyword">if</span> layer_num <span class="keyword">in</span> <span class="variable language_">self</span>.fullatt_block_indexes:</span><br><span class="line">        cu_seqlens_now = cu_seqlens</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cu_seqlens_now = cu_window_seqlens</span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.gradient_checkpointing <span class="keyword">and</span> <span class="variable language_">self</span>.training:</span><br><span class="line">        hidden_states = <span class="variable language_">self</span>._gradient_checkpointing_func(</span><br><span class="line">            blk.__call__, hidden_states, cu_seqlens_now, <span class="literal">None</span>, position_embeddings</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        hidden_states = blk(hidden_states, cu_seqlens=cu_seqlens_now, position_embeddings=position_embeddings)</span><br><span class="line"></span><br><span class="line">hidden_states = <span class="variable language_">self</span>.merger(hidden_states)</span><br><span class="line">reverse_indices = torch.argsort(window_index)</span><br><span class="line">hidden_states = hidden_states[reverse_indices, :]</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> hidden_states</span><br></pre></td></tr></table></figure></div>
+<p>hidden_states 在正常 transformer block 前向传播后形状为 [14308, 1280], 经过 merger (两层的 MLP), 期间通过 reshape 变成了 [3577, 5120], 经过 MLP 后变成了 [3577, 2048]，embedding 维度就和文本一致了。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Qwen2_5_VLPatchMerger</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim: <span class="built_in">int</span>, context_dim: <span class="built_in">int</span>, spatial_merge_size: <span class="built_in">int</span> = <span class="number">2</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="comment"># 计算 reshape 尺寸，需要将 spatial_merge_size * spatial_merge_size 个维度为 context_dim 的 patch embedding 重新计算为一个 virtual token</span></span><br><span class="line">        <span class="variable language_">self</span>.hidden_size = context_dim * (spatial_merge_size**<span class="number">2</span>) </span><br><span class="line">        <span class="variable language_">self</span>.ln_q = Qwen2RMSNorm(context_dim, eps=<span class="number">1e-6</span>)</span><br><span class="line">        <span class="variable language_">self</span>.mlp = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="variable language_">self</span>.hidden_size, <span class="variable language_">self</span>.hidden_size),</span><br><span class="line">            nn.GELU(),</span><br><span class="line">            nn.Linear(<span class="variable language_">self</span>.hidden_size, dim),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x: torch.Tensor</span>) -&gt; torch.Tensor:</span><br><span class="line">        x = <span class="variable language_">self</span>.mlp(<span class="variable language_">self</span>.ln_q(x).view(-<span class="number">1</span>, <span class="variable language_">self</span>.hidden_size))</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure></div>
+
+<p>接着返回是 <code>Qwen2_5_VLForConditionalGeneration.forward()</code> 的代码:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将 input_ids 转换为 embedding</span></span><br><span class="line">inputs_embeds = <span class="variable language_">self</span>.model.embed_tokens(input_ids)</span><br><span class="line"><span class="keyword">if</span> pixel_values <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 转换 image 的 dtype</span></span><br><span class="line">    pixel_values = pixel_values.<span class="built_in">type</span>(<span class="variable language_">self</span>.visual.dtype)</span><br><span class="line">    <span class="comment"># image encoder 输出 embedding </span></span><br><span class="line">    image_embeds = <span class="variable language_">self</span>.visual(pixel_values, grid_thw=image_grid_thw)</span><br><span class="line">    <span class="comment"># 检查 image token 的数量</span></span><br><span class="line">    n_image_tokens = (input_ids == <span class="variable language_">self</span>.config.image_token_id).<span class="built_in">sum</span>().item()</span><br><span class="line">    <span class="comment"># 判断 image token 数量是否和实际 image embedding 的维度一样</span></span><br><span class="line">    n_image_features = image_embeds.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> n_image_tokens != n_image_features:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(</span><br><span class="line">            <span class="string">f"Image features and image tokens do not match: tokens: <span class="subst">{n_image_tokens}</span>, features <span class="subst">{n_image_features}</span>"</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建 mask，原始 mask 只是在 seq len 维度上和数据对齐，需要分别在 batch 和 embedding 维度上对齐，最后 mask_expanded.shape == inputs_embeds.shape</span></span><br><span class="line">    mask = input_ids == <span class="variable language_">self</span>.config.image_token_id</span><br><span class="line">    mask_unsqueezed = mask.unsqueeze(-<span class="number">1</span>)</span><br><span class="line">    mask_expanded = mask_unsqueezed.expand_as(inputs_embeds)</span><br><span class="line">    image_mask = mask_expanded.to(inputs_embeds.device)</span><br><span class="line"></span><br><span class="line">    image_embeds = image_embeds.to(inputs_embeds.device, inputs_embeds.dtype)</span><br><span class="line">    inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)  </span><br></pre></td></tr></table></figure></div>
+<p>在 image_embeds 计算完后，检查预留的 image token 数量是否和计算的 image_embeds 数量相同 (预处理时根据 image size 预留了 image token)，之后创建一个和 inputs_embeds 形状完全一样的 mask(mask_expanded), 之后就将 image_embeds 赋值到对应位置，这样 text embedding 和 image embedding 正式结合在 unimodal latent space 里，其实就是 text embedding space。之后就是正常的 forward。</p>
+<p>以下时 3D-rope 的计算过程，不是本文重点所以不讲了。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> position_ids <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> (attention_mask <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> attention_mask.ndim == <span class="number">2</span>):</span><br><span class="line">    <span class="comment"># calculate RoPE index once per generation in the pre-fill stage only</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">        (cache_position <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> cache_position[<span class="number">0</span>] == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">or</span> <span class="variable language_">self</span>.rope_deltas <span class="keyword">is</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">or</span> (past_key_values <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> past_key_values.get_seq_length() == <span class="number">0</span>)</span><br><span class="line">    ):</span><br><span class="line">        position_ids, rope_deltas = <span class="variable language_">self</span>.get_rope_index(</span><br><span class="line">            input_ids,</span><br><span class="line">            image_grid_thw,</span><br><span class="line">            video_grid_thw,</span><br><span class="line">            second_per_grid_ts,</span><br><span class="line">            attention_mask,</span><br><span class="line">        )</span><br><span class="line">        <span class="variable language_">self</span>.rope_deltas = rope_deltas</span><br><span class="line">    <span class="comment"># then use the prev pre-calculated rope-deltas to get the correct position ids</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        batch_size, seq_length, _ = inputs_embeds.shape</span><br><span class="line">        delta = (</span><br><span class="line">            (cache_position[<span class="number">0</span>] + <span class="variable language_">self</span>.rope_deltas).to(inputs_embeds.device)</span><br><span class="line">            <span class="keyword">if</span> cache_position <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">            <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        )</span><br><span class="line">        position_ids = torch.arange(seq_length, device=inputs_embeds.device)</span><br><span class="line">        position_ids = position_ids.view(<span class="number">1</span>, -<span class="number">1</span>).expand(batch_size, -<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> cache_position <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  <span class="comment"># otherwise `deltas` is an int `0`</span></span><br><span class="line">            delta = delta.repeat_interleave(batch_size // delta.shape[<span class="number">0</span>], dim=<span class="number">0</span>)</span><br><span class="line">        position_ids = position_ids.add(delta)</span><br><span class="line">        position_ids = position_ids.unsqueeze(<span class="number">0</span>).expand(<span class="number">3</span>, -<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">outputs = <span class="variable language_">self</span>.model(</span><br><span class="line">    input_ids=<span class="literal">None</span>,</span><br><span class="line">    position_ids=position_ids,</span><br><span class="line">    attention_mask=attention_mask,</span><br><span class="line">    past_key_values=past_key_values,</span><br><span class="line">    inputs_embeds=inputs_embeds,</span><br><span class="line">    use_cache=use_cache,</span><br><span class="line">    output_attentions=output_attentions,</span><br><span class="line">    output_hidden_states=output_hidden_states,</span><br><span class="line">    return_dict=return_dict,</span><br><span class="line">    cache_position=cache_position,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p>之后就是经典的 shift label 交叉熵。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">hidden_states = outputs[<span class="number">0</span>]</span><br><span class="line">logits = <span class="variable language_">self</span>.lm_head(hidden_states)</span><br><span class="line"></span><br><span class="line">loss = <span class="literal">None</span></span><br><span class="line"><span class="keyword">if</span> labels <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># Upcast to float if we need to compute the loss to avoid potential precision issues</span></span><br><span class="line">    logits = logits.<span class="built_in">float</span>()</span><br><span class="line">    <span class="comment"># Shift so that tokens &lt; n predict n</span></span><br><span class="line">    shift_logits = logits[..., :-<span class="number">1</span>, :].contiguous()</span><br><span class="line">    shift_labels = labels[..., <span class="number">1</span>:].contiguous()</span><br><span class="line">    <span class="comment"># Flatten the tokens</span></span><br><span class="line">    loss_fct = CrossEntropyLoss()</span><br><span class="line">    shift_logits = shift_logits.view(-<span class="number">1</span>, <span class="variable language_">self</span>.config.vocab_size)</span><br><span class="line">    shift_labels = shift_labels.view(-<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># Enable model parallelism</span></span><br><span class="line">    shift_labels = shift_labels.to(shift_logits.device)</span><br><span class="line">    loss = loss_fct(shift_logits, shift_labels)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> return_dict:</span><br><span class="line">    output = (logits,) + outputs[<span class="number">1</span>:]</span><br><span class="line">    <span class="keyword">return</span> (loss,) + output <span class="keyword">if</span> loss <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> output</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> Qwen2_5_VLCausalLMOutputWithPast(</span><br><span class="line">    loss=loss,</span><br><span class="line">    logits=logits,</span><br><span class="line">    past_key_values=outputs.past_key_values,</span><br><span class="line">    hidden_states=outputs.hidden_states,</span><br><span class="line">    attentions=outputs.attentions,</span><br><span class="line">    rope_deltas=<span class="variable language_">self</span>.rope_deltas,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="后处理-解码-token-id"><a href="#后处理-解码-token-id" class="headerlink" title="后处理 - 解码 token id"></a>后处理 - 解码 token id</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">generated_ids_trimmed = [</span><br><span class="line">    out_ids[<span class="built_in">len</span>(in_ids) :] <span class="keyword">for</span> in_ids, out_ids <span class="keyword">in</span> <span class="built_in">zip</span>(inputs.input_ids, generated_ids)</span><br><span class="line">]</span><br><span class="line">output_text = processor.batch_decode(</span><br><span class="line">    generated_ids_trimmed, skip_special_tokens=<span class="literal">True</span>, clean_up_tokenization_spaces=<span class="literal">False</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(output_text)</span><br></pre></td></tr></table></figure></div>
+
+<p>因为上述代码都是 batch 输入的，generated_ids_trimmed 简而言之就是把 input_ids 截断，保留新产生的 token id。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">['The image depicts a serene beach scene with a person and a dog. The person is sitting on the sandy beach, facing the ocean. They are wearing a plaid shirt and black pants, and they have long hair. The dog, which appears to be a Labrador Retriever, is sitting on the sand and is interacting with the person by placing its paw on their hand. The dog is wearing a harness with a colorful collar. The background shows the ocean with gentle waves, and the sky is clear with a soft light, suggesting it might be early morning or late afternoon. The overall atmosphere of the image is peaceful and joyful.']</span><br></pre></td></tr></table></figure></div>
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">#多模态</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/18/Multi-modal-series/SimCLR_SimCSE_SimVLM/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">对比学习在CV与NLP领域的应用：SimCLR、SimCSE 与 SimVLM</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Qwen 2.5 VL 推理</div>
+		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B"><span class="nav-text">加载模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-text">推理完整流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-text">预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#message-%E6%96%87%E6%9C%AC%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-text">message 文本预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87-resize"><span class="nav-text">图片 resize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-image-%E6%A8%A1%E6%80%81%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-text">text &amp; image 模态预处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image-encoder-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B"><span class="nav-text">image encoder 前向过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%A4%84%E7%90%86-%E8%A7%A3%E7%A0%81-token-id"><span class="nav-text">后处理 - 解码 token id</span></a>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        39 posts in total
+                    </span>
+                    
+                        <span>
+                            127.6k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
