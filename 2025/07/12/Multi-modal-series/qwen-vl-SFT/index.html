@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/07/12/multi-modal-series/qwen-vl-sft/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qwen 2.5 VL 微调处理">
+<meta property="og:url" content="http://example.com/2025/07/12/Multi-modal-series/qwen-vl-SFT/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-07-12T09:17:01.466Z">
+<meta property="article:modified_time" content="2025-07-12T09:17:11.981Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="多模态">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Qwen 2.5 VL 微调处理 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">43</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Qwen 2.5 VL 微调处理</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-07-12 17:17:01</span>
+        <span class="mobile">2025-07-12 17:17:01</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-07-12 17:17:11</span>
+            <span class="mobile">2025-07-12 17:17:11</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>27 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>LVLM 在 transformer 里好像没有统一的训练方法，大概率是因为对模块内部处理方式的不同，不像 LLM 一样都是类似的 GPT 结构，forward 没有 multi-modal，single-modal 的处理比较单调。因此这个 blog 里我参考 <a class="link" target="_blank" rel="noopener" href="https://github.com/QwenLM/Qwen2.5-VL">Qwen 2.5 VL<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 中 qwen-vl-finetune 中的处理方式复现其流程，主要是数据处理流程，之后就是简单的 model forward (简单介绍)。</p>
+<h1 id="单条数据的处理"><a href="#单条数据的处理" class="headerlink" title="单条数据的处理"></a>单条数据的处理</h1><p>这是单挑数据格式，官方支持对话格式是sharegpt的格式，角色和对话字段和名称都和正常用的openai格式不一样，实际代码里还是用openai格式进行判断</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">	<span class="attr">"image"</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">"10149.png"</span><span class="punctuation">,</span> <span class="string">"COCO_train2014_000000580957.jpg"</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">"conversations"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">		<span class="punctuation">{</span></span><br><span class="line">			<span class="attr">"from"</span><span class="punctuation">:</span> <span class="string">"human"</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">"value"</span><span class="punctuation">:</span> <span class="string">"&lt;image&gt;\nIn which year the value was 51?\n&lt;image&gt;"</span></span><br><span class="line">		<span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">		<span class="punctuation">{</span></span><br><span class="line">			<span class="attr">"from"</span><span class="punctuation">:</span> <span class="string">"gpt"</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">"value"</span><span class="punctuation">:</span> <span class="string">"2014"</span></span><br><span class="line">		<span class="punctuation">}</span></span><br><span class="line">	<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">"data_path"</span><span class="punctuation">:</span> <span class="string">"demo/images"</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></table></figure></div>
+<p>为了方便，我接下来直接用 openai 格式的对话模板。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, torch, copy, json</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span>, <span class="type">Dict</span></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoProcessor, AutoTokenizer</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model_id = <span class="string">'../../../DC/qwen2.5vl-3b-ins'</span></span><br><span class="line">processor = AutoProcessor.from_pretrained(model_id, use_fast=<span class="literal">True</span>)</span><br><span class="line">image_processor = processor.image_processor</span><br><span class="line">tokenizer = processor.tokenizer</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">source  = {</span><br><span class="line">	<span class="string">"image"</span>: [<span class="string">"10149.png"</span>, <span class="string">"COCO_train2014_000000580957.jpg"</span>],</span><br><span class="line">	<span class="string">"conversations"</span>: [</span><br><span class="line">		{<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: <span class="string">"You are a helpful assistant."</span>},</span><br><span class="line">		{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"&lt;image&gt;\nIn which year the value was 51?\n&lt;image&gt;"</span>},</span><br><span class="line">		{<span class="string">"role"</span>: <span class="string">"assistant"</span>, <span class="string">"content"</span>: <span class="string">"2014"</span>}</span><br><span class="line">	],</span><br><span class="line">	<span class="string">"data_path"</span>: <span class="string">"demo/images"</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>官方处理韩式是被封装在 qwen2.5-vl/qwen-vl-finetune/qwenvl/data/data_qwen 中的 LazySupervisedDataset 里。<br>lazy dataset 只在需要时读取单个样本或 batch，适合大规模数据（如图片、视频、大文本）。通常具体处理方式放在 <code>__getitem__</code> 函数内部。正常 dataset 在 init 时就会一次性加载到内存或完成预处理，不适合特别大的数据集。</p>
+<p>因此接下里处理方式里都是处理单条数据，实现的 <code>__getitem__</code>的处理方式.</p>
+<h2 id="image-处理"><a href="#image-处理" class="headerlink" title="image 处理"></a>image 处理</h2><p>这里是将 image 做预处理</p>
+<ul>
+<li>图片调整大小</li>
+<li>pixel的归一化 (作为 vit 的输入)</li>
+<li>图片的维度计算 (作为文本处理的参数之一，需要为 image token 预留位置)</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">process_single_image</span>(<span class="params">processor, image_file:<span class="built_in">str</span></span>):</span><br><span class="line">	<span class="comment"># 读取 Image 为 PIL 对象</span></span><br><span class="line">	image = Image.<span class="built_in">open</span>(image_file).convert(<span class="string">"RGB"</span>)</span><br><span class="line">	<span class="comment"># 处理单个图片为tensor</span></span><br><span class="line">	visual_processed = processor.preprocess(image, return_tensors=<span class="string">"pt"</span>)</span><br><span class="line">	image_tensor = visual_processed[<span class="string">"pixel_values"</span>]</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">isinstance</span>(image_tensor, <span class="type">List</span>):</span><br><span class="line">		image_tensor = image_tensor[<span class="number">0</span>]</span><br><span class="line">	grid_thw = visual_processed[<span class="string">"image_grid_thw"</span>][<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">return</span> image_tensor, grid_thw</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">"image"</span> <span class="keyword">in</span> source:</span><br><span class="line">	image_folder = source[<span class="string">"data_path"</span>]</span><br><span class="line">	image_file = source[<span class="string">"image"</span>]</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(image_file, <span class="type">List</span>):</span><br><span class="line">		image_file = [image_file]</span><br><span class="line">	</span><br><span class="line">	image_file = [</span><br><span class="line">		os.path.join(image_folder, file) <span class="keyword">for</span> file <span class="keyword">in</span> image_file</span><br><span class="line">	]</span><br><span class="line">	results = [</span><br><span class="line">		process_single_image(image_processor, file) </span><br><span class="line">		<span class="keyword">for</span> file <span class="keyword">in</span> image_file</span><br><span class="line">	]</span><br><span class="line">	<span class="comment"># grid_thw 是 time height width 的缩写</span></span><br><span class="line">	image_list, grid_thw_list = <span class="built_in">zip</span>(*results)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 计算 grid_thw 的点乘 / merge 数量的2次方，即 image 投影后的占用 token 数量</span></span><br><span class="line">	<span class="comment"># 由于 qwen 2.5vl 是将相邻的 patch 合并成一个 token，所以需要除以 merge_size 的平方，才得到实际的 token 数量</span></span><br><span class="line">	grid_thw_merged = copy.deepcopy(grid_thw_list)</span><br><span class="line">	grid_thw_merged = [</span><br><span class="line">		grid_thw.prod() // image_processor.merge_size ** <span class="number">2</span></span><br><span class="line">		<span class="keyword">for</span> grid_thw <span class="keyword">in</span> grid_thw_merged</span><br><span class="line">	]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"image_list:"</span>, *[item.shape <span class="keyword">for</span> item <span class="keyword">in</span> image_list])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"grid_thw_list:"</span>, *[item.tolist() <span class="keyword">for</span> item <span class="keyword">in</span> grid_thw_list])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"grid_thw_merged:"</span>, grid_thw_merged)</span><br></pre></td></tr></table></figure></div>
+
+<p>预处理结果如下，当然部分值下面需要用到</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">image<span class="emphasis">_list: torch.Size([440, 1176]) torch.Size([1380, 1176])</span></span><br><span class="line"><span class="emphasis">grid_</span>thw<span class="emphasis">_list: [1, 20, 22] [1, 30, 46]</span></span><br><span class="line"><span class="emphasis">grid_</span>thw<span class="emphasis">_merged: [tensor(110), tensor(345)]</span></span><br></pre></td></tr></table></figure></div>
+<p>image_list 是已经处理为 patch 的数据，vit 是以 patch 为输入的，第一维度则是该图片转换为 patch 的数量，但这样却失去了图片的比例信息，而 grid_thw 参数弥补了这个损失。而 grid_thw_merged 作为图片 token 数量，用于为文本处理预留相关的 pad token。</p>
+<h2 id="text-处理"><a href="#text-处理" class="headerlink" title="text 处理"></a>text 处理</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tokenizer 重新指定, 不清楚的看 https://huggingface.co/blog/chat-templates</span></span><br><span class="line">tokenizer_alter = copy.deepcopy(tokenizer)</span><br><span class="line"><span class="comment"># 这个提示</span></span><br><span class="line">chat_template = <span class="string">"{% for message in messages %}{{'&lt;|im_start|&gt;' + message['role'] + '\n' + message['content'] + '&lt;|im_end|&gt;' + '\n'}}{% endfor %}{% if add_generation_prompt %}{{ '&lt;|im_start|&gt;assistant\n' }}{% endif %}"</span></span><br><span class="line">tokenizer_alter.chat_template = chat_template</span><br></pre></td></tr></table></figure></div>
+
+<p>这个格式就是 qwen 语言模型的 chat template格式</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">{% for message in messages %}</span><br><span class="line">	{{'&lt;|im_start|&gt;' + message['role'] + '\n' + message['content'] + '&lt;|im_end|&gt;' + '\n'}}</span><br><span class="line">{% endfor %}</span><br><span class="line">{% if add_generation_prompt %}</span><br><span class="line">	{{ '&lt;|im_start|&gt;assistant\n' }}</span><br><span class="line">{% endif %}</span><br></pre></td></tr></table></figure></div>
+
+<p>原来 qwenvl 的 chat template 格式比较复杂</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">{# 初始化图像和视频计数器 #}</span><br><span class="line">{% set image_count = namespace(value=0) %}</span><br><span class="line">{% set video_count = namespace(value=0) %}</span><br><span class="line"></span><br><span class="line">{# 遍历所有消息 #}</span><br><span class="line">{% for message in messages %}</span><br><span class="line"></span><br><span class="line">    {# 在第一个消息不是 system 时插入默认 system prompt #}</span><br><span class="line">    {% if loop.first and message['role'] != 'system' %}</span><br><span class="line">&lt;|im_start|&gt;system</span><br><span class="line">You are a helpful assistant.</span><br><span class="line">&lt;|im_end|&gt;</span><br><span class="line">    {% endif %}</span><br><span class="line"></span><br><span class="line">&lt;|im_start|&gt;{{ message['role'] }}</span><br><span class="line">    </span><br><span class="line">    {# 如果消息内容是字符串 #}</span><br><span class="line">    {% if message['content'] is string %}</span><br><span class="line">{{ message['content'] }}</span><br><span class="line">&lt;|im_end|&gt;</span><br><span class="line"></span><br><span class="line">    {# 如果消息内容是一个包含多段内容的列表 #}</span><br><span class="line">    {% else %}</span><br><span class="line">        {% for content in message['content'] %}</span><br><span class="line"></span><br><span class="line">            {# 处理图片类型内容 #}</span><br><span class="line">            {% if content['type'] == 'image' or 'image' in content or 'image_url' in content %}</span><br><span class="line">                {% set image_count.value = image_count.value + 1 %}</span><br><span class="line">                {% if add_vision_id %}Picture {{ image_count.value }}: {% endif %}</span><br><span class="line">&lt;|vision_start|&gt;&lt;|image_pad|&gt;&lt;|vision_end|&gt;</span><br><span class="line"></span><br><span class="line">            {# 处理视频类型内容 #}</span><br><span class="line">            {% elif content['type'] == 'video' or 'video' in content %}</span><br><span class="line">                {% set video_count.value = video_count.value + 1 %}</span><br><span class="line">                {% if add_vision_id %}Video {{ video_count.value }}: {% endif %}</span><br><span class="line">&lt;|vision_start|&gt;&lt;|video_pad|&gt;&lt;|vision_end|&gt;</span><br><span class="line"></span><br><span class="line">            {# 处理文本类型内容 #}</span><br><span class="line">            {% elif 'text' in content %}</span><br><span class="line">{{ content['text'] }}</span><br><span class="line">            {% endif %}</span><br><span class="line"></span><br><span class="line">        {% endfor %}</span><br><span class="line">&lt;|im_end|&gt;</span><br><span class="line"></span><br><span class="line">    {% endif %}</span><br><span class="line"></span><br><span class="line">{% endfor %}</span><br><span class="line"></span><br><span class="line">{# 结束时可选性地加入 assistant 的生成提示 #}</span><br><span class="line">{% if add_generation_prompt %}</span><br><span class="line">&lt;|im_start|&gt;assistant</span><br><span class="line">{% endif %}</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>接下来处理对话。首先是确保对话合法：</p>
+<ul>
+<li>用户消息和大模型消息交叉产生，即配对</li>
+<li>用户消息必须是第一个，除非有 system 消息。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">default_system_message = <span class="string">"You are a helpful assistant."</span></span><br><span class="line"></span><br><span class="line">chat_sources = copy.deepcopy(source[<span class="string">"conversations"</span>])</span><br><span class="line"></span><br><span class="line"><span class="string">r"""</span></span><br><span class="line"><span class="string">源码处理，只保证第一个是 human 消息，system消息是没法设置，实际第一个是 system 消息，第二个是 human 消息的情况也行 </span></span><br><span class="line"><span class="string">try:</span></span><br><span class="line"><span class="string">	if roles[source[0]["from"]] != roles["human"]:</span></span><br><span class="line"><span class="string">		source = source[1:]</span></span><br><span class="line"><span class="string">except:</span></span><br><span class="line"><span class="string">	print(chat_sources)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保第一个是 human 消息</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> (</span><br><span class="line">	(chat_sources[<span class="number">0</span>][<span class="string">'role'</span>] == <span class="string">'user'</span>) <span class="keyword">or</span> </span><br><span class="line">	(<span class="built_in">len</span>(chat_sources) &gt;=<span class="number">2</span> <span class="keyword">and</span> chat_sources[<span class="number">0</span>][<span class="string">'role'</span>] == <span class="string">'system'</span> <span class="keyword">and</span> chat_sources[<span class="number">1</span>][<span class="string">'role'</span>] == <span class="string">'user'</span>)</span><br><span class="line">):</span><br><span class="line">	chat_sources = chat_sources[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保用户消息和大模型消息交叉产生，即配对</span></span><br><span class="line"><span class="keyword">if</span> chat_sources[<span class="number">0</span>][<span class="string">'role'</span>] == <span class="string">'system'</span>:</span><br><span class="line">	<span class="keyword">assert</span> <span class="built_in">len</span>(chat_sources) % <span class="number">2</span> == <span class="number">1</span>, <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(chat_sources), <span class="number">2</span>):</span><br><span class="line">		<span class="keyword">assert</span> (chat_sources[i][<span class="string">'role'</span>] == <span class="string">'user'</span> <span class="keyword">and</span> chat_sources[i + <span class="number">1</span>][<span class="string">'role'</span>] == <span class="string">'assistant'</span>), <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="keyword">assert</span> <span class="built_in">len</span>(chat_sources) % <span class="number">2</span> == <span class="number">0</span>, <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(chat_sources), <span class="number">2</span>):</span><br><span class="line">		<span class="keyword">assert</span> (chat_sources[i][<span class="string">'role'</span>] == <span class="string">'user'</span> <span class="keyword">and</span> chat_sources[i + <span class="number">1</span>][<span class="string">'role'</span>] == <span class="string">'assistant'</span>), <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">	chat_sources = [{<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: default_system_message}] + chat_sources <span class="comment"># 添加默认 system 消息</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(json.dumps(chat_sources, indent=<span class="number">2</span>, ensure_ascii=<span class="literal">False</span>))</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"system"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"You are a helpful assistant."</span></span><br><span class="line">  <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"user"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"&lt;image&gt;\nIn which year the value was 51?\n&lt;image&gt;"</span></span><br><span class="line">  <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"assistant"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"2014"</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></div>
+<p>这就是一个合法的消息列表。</p>
+<p>接下来依次处理每条消息。根据对应消息的角色，来处理对应的 label。注意只有 assistant 角色的 content 需要设置对应 label 为原 token id，而其他都是 -100。</p>
+<p>相比于纯文本的处理，主要区别在于需要为 vision 内容预留对应 token 位置，上面 image 处理时已经计算到 每个 image 的 patch 数量，这里就依靠这些数量创建 pad token。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这两个变量是用于记录现在处理的图片的index，每个图片的处理就是塞入图片大小相关的 '&lt;|image_pad|&gt;' token。</span></span><br><span class="line">visual_replicate_index_image = <span class="number">0</span></span><br><span class="line">IGNORE_INDEX = -<span class="number">100</span></span><br><span class="line">input_id, target = [], []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> conv <span class="keyword">in</span> chat_sources:</span><br><span class="line"></span><br><span class="line">	role  = conv[<span class="string">'role'</span>]</span><br><span class="line">	content = conv[<span class="string">'content'</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment"># content 内容只有需要对 user 特殊处理，因为可能有图片和视频相关的内容。</span></span><br><span class="line">	<span class="keyword">if</span> role == <span class="string">'user'</span>:</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> <span class="string">'&lt;image&gt;'</span> <span class="keyword">in</span> content:</span><br><span class="line">			parts = content.split(<span class="string">'&lt;image&gt;'</span>)</span><br><span class="line">			num_parts = <span class="built_in">len</span>(parts)</span><br><span class="line">			new_parts = []</span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_parts):</span><br><span class="line">				<span class="comment"># 加入被 &lt;image&gt; 分割的文本部分</span></span><br><span class="line">				new_parts.append(parts[i])</span><br><span class="line">				<span class="comment"># 加入图片相关的 token，但最后一次不需要</span></span><br><span class="line">				<span class="keyword">if</span> i != num_parts - <span class="number">1</span>:</span><br><span class="line">					image_tokens = (</span><br><span class="line">						<span class="string">"&lt;|vision_start|&gt;"</span></span><br><span class="line">						+ <span class="string">"&lt;|image_pad|&gt;"</span> * grid_thw_merged[visual_replicate_index_image]</span><br><span class="line">						+ <span class="string">"&lt;|vision_end|&gt;"</span></span><br><span class="line">					)</span><br><span class="line">					visual_replicate_index_image += <span class="number">1</span></span><br><span class="line">					new_parts.append(image_tokens)</span><br><span class="line"></span><br><span class="line">			content = <span class="string">""</span>.join(new_parts)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">elif</span> <span class="string">'&lt;video&gt;'</span> <span class="keyword">in</span> content:</span><br><span class="line">			<span class="comment"># 不做视频相关任务，不写了</span></span><br><span class="line">			<span class="keyword">pass</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">	text_conv = [{<span class="string">"role"</span>: role, <span class="string">"content"</span>: content}]</span><br><span class="line">	encode_id = tokenizer_alter.apply_chat_template(text_conv) <span class="comment"># 一定要用 tokenizer_alter，默认 tokenizer 会加入默认系统消息</span></span><br><span class="line">	input_id += encode_id</span><br><span class="line">	<span class="keyword">if</span> role <span class="keyword">in</span> [<span class="string">"user"</span>, <span class="string">"system"</span>]:</span><br><span class="line">		<span class="comment"># user 和 system 消息不需要计算损失</span></span><br><span class="line">		target += [IGNORE_INDEX] * <span class="built_in">len</span>(encode_id) </span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="comment"># assistant 消息需要计算损失，但前缀特殊 token 不需要计算损失</span></span><br><span class="line">		target_mask = encode_id.copy()</span><br><span class="line">		target_mask[:<span class="number">3</span>] = [IGNORE_INDEX] * <span class="number">3</span> <span class="comment"># 忽略开头的 '&lt;|im_start|&gt;system\n'</span></span><br><span class="line">		target += target_mask</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> <span class="built_in">len</span>(input_id) == <span class="built_in">len</span>(target), \</span><br><span class="line">	<span class="string">f"input_id length (<span class="subst">{<span class="built_in">len</span>(input_id)}</span>) != target length (<span class="subst">{<span class="built_in">len</span>(target)}</span>)"</span></span><br><span class="line"><span class="keyword">assert</span> visual_replicate_index_image == <span class="built_in">len</span>(grid_thw_merged), \</span><br><span class="line">	<span class="string">f"visual_replicate_index_image (<span class="subst">{visual_replicate_index_image}</span>) != len(grid_thw_merged) (<span class="subst">{<span class="built_in">len</span>(grid_thw_merged)}</span>)"</span></span><br><span class="line"></span><br><span class="line">input_ids = torch.tensor([input_id], dtype=torch.long)</span><br><span class="line">labels = torch.tensor([target], dtype=torch.long)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">	tokenizer.decode(input_ids[<span class="number">0</span>]),</span><br><span class="line">	tokenizer.decode([i <span class="keyword">for</span> i <span class="keyword">in</span> labels[<span class="number">0</span>] <span class="keyword">if</span> i != IGNORE_INDEX]),</span><br><span class="line">	sep=<span class="string">'\n'</span>+<span class="string">'-'</span>*<span class="number">10</span>+<span class="string">'\n'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p>以下是 input_ids</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">|im_start|&gt;system</span><br><span class="line">You are a helpful assistant.&lt;|im_end|&gt;</span><br><span class="line">&lt;|im_start|&gt;user</span><br><span class="line">&lt;|vision_start|&gt;&lt;|image_pad|&gt;...(共110个&lt;|image_pad|&gt;)&lt;|vision_end|&gt;</span><br><span class="line">In which year the value was 51?</span><br><span class="line">&lt;|vision_start|&gt;&lt;|image_pad|&gt;...(共345个&lt;|image_pad|&gt;)&lt;|vision_end|&gt;&lt;|im_end|&gt;</span><br><span class="line">&lt;|im_start|&gt;assistant</span><br><span class="line">2014&lt;|im_end|&gt;</span><br><span class="line"></span><br><span class="line">----------</span><br><span class="line">2014&lt;|im_end|&gt;</span><br><span class="line">----------</span><br></pre></td></tr></table></figure></div>
+<p>以下是非 -100 的 labels 内容，只有 assistant 的消息和对应的结束 token: ‘2014&lt;|im_end|&gt;’</p>
+<h2 id="位置编码"><a href="#位置编码" class="headerlink" title="位置编码"></a>位置编码</h2><p>qwen 2.5 vl 的 3d rope 建议还是找专门的博客看下，我这里直接用源码中的 rope 算法，其相比正常 rope 的区别在于为图片和视频创建新的序列维度，所以它的第一维度是 3，图片位置的文本序号会不变，而图片序列会正常增长。</p>
+<p>以下 rope2d 来自于 <a class="link" target="_blank" rel="noopener" href="https://github.com/QwenLM/Qwen2.5-VL">qwen 2.5 vl<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 的 Qwen2.5-VL/qwen-vl-finetune/qwenvl/data/rope2d.py 。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rope2d <span class="keyword">import</span> get_rope_index_25</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">position_ids, _ = get_rope_index_25(</span><br><span class="line">	image_processor.merge_size,</span><br><span class="line">	input_ids,</span><br><span class="line">	image_grid_thw=torch.stack(grid_thw_list, dim=<span class="number">0</span>) <span class="keyword">if</span> grid_thw_list <span class="keyword">else</span> <span class="literal">None</span>,</span><br><span class="line">	video_grid_thw=<span class="literal">None</span>,</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>以下的 data_dict 包含以下元素，作为 model.forward 的 inputs</p>
+<ul>
+<li>input_ids: torch.Size([1, 495])</li>
+<li>labels: torch.Size([1, 495])</li>
+<li>position_ids: torch.Size([3, 1, 495])</li>
+<li>attention_mask: torch.Size([1, 495])</li>
+<li>pixel_values: torch.Size([1820, 1176])</li>
+<li>image_grid_thw: torch.Size([2, 3])</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[item.shape <span class="keyword">for</span> item <span class="keyword">in</span> image_list]</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">data_dict = {</span><br><span class="line">	<span class="string">"input_ids"</span>: input_ids,</span><br><span class="line">	<span class="string">"labels"</span>: labels,</span><br><span class="line">	<span class="string">"position_ids"</span>: position_ids,</span><br><span class="line">	<span class="string">"attention_mask"</span>: torch.ones_like(input_ids, dtype=torch.<span class="built_in">int</span>),</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">"image"</span> <span class="keyword">in</span> source:</span><br><span class="line">	<span class="comment"># image_list 即大小为 [torch.Size([440, 1176]), torch.Size([1380, 1176])] 的 patch 化图片</span></span><br><span class="line">	<span class="comment"># 因为都是 patch level 的数据，所以需要将其拼接成一个大的 tensor</span></span><br><span class="line">	data_dict[<span class="string">"pixel_values"</span>] = torch.cat(image_list, dim=<span class="number">0</span>)</span><br><span class="line">	<span class="comment"># 每个图片的 grid_thw 都是一个 tensor 为 [time, height, width]，大小一样时 [1,3]，将其拼接成一个大的 tensor</span></span><br><span class="line">	data_dict[<span class="string">"image_grid_thw"</span>] = torch.cat(</span><br><span class="line">		[thw.unsqueeze(<span class="number">0</span>) <span class="keyword">for</span> thw <span class="keyword">in</span> grid_thw_list], dim=<span class="number">0</span></span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> data_dict.items():</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"<span class="subst">{k}</span>: <span class="subst">{v.shape <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, torch.Tensor) <span class="keyword">else</span> v}</span>"</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="VL-模型前向传播"><a href="#VL-模型前向传播" class="headerlink" title="VL 模型前向传播"></a>VL 模型前向传播</h2><p>Qwen2_5_VLForConditionalGeneration 包含两部分:</p>
+<ul>
+<li>backbone: Qwen2_5_VLModel<ul>
+<li>visual: Qwen2_5_VisionTransformerPretrainedModel</li>
+<li>language_model: Qwen2_5_VLTextModel</li>
+</ul>
+</li>
+<li>head: nn.Linear</li>
+</ul>
+<p>Qwen2_5_VLModel 的 forward 流程如下:</p>
+<ol>
+<li>text token embedding</li>
+</ol>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 出自 Qwen2_5_VLTextModel</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_input_embeddings</span>(<span class="params">self</span>):</span><br><span class="line">	<span class="keyword">return</span> <span class="variable language_">self</span>.embed_tokens</span><br><span class="line"><span class="comment"># 出自 Qwen2_5_VLModel</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_input_embeddings</span>(<span class="params">self</span>):</span><br><span class="line">	<span class="keyword">return</span> <span class="variable language_">self</span>.language_model.get_input_embeddings()</span><br><span class="line"></span><br><span class="line">inputs_embeds = <span class="variable language_">self</span>.get_input_embeddings()(input_ids)</span><br></pre></td></tr></table></figure></div>
+<ol start="2">
+<li>vision token 填充</li>
+</ol>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 出自 Qwen2_5_VisionTransformerPretrainedModel</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, hidden_states: torch.Tensor, grid_thw: torch.Tensor, **kwargs</span>) -&gt; torch.Tensor:</span><br><span class="line">	<span class="comment"># hidden_states = pixel_values </span></span><br><span class="line">	hidden_states = <span class="variable language_">self</span>.patch_embed(hidden_states)</span><br><span class="line">	rotary_pos_emb = <span class="variable language_">self</span>.rot_pos_emb(grid_thw)</span><br><span class="line">	window_index, cu_window_seqlens = <span class="variable language_">self</span>.get_window_index(grid_thw)</span><br><span class="line">	cu_window_seqlens = torch.tensor(</span><br><span class="line">		cu_window_seqlens,</span><br><span class="line">		device=hidden_states.device,</span><br><span class="line">		dtype=grid_thw.dtype <span class="keyword">if</span> torch.jit.is_tracing() <span class="keyword">else</span> torch.int32,</span><br><span class="line">	)</span><br><span class="line">	cu_window_seqlens = torch.unique_consecutive(cu_window_seqlens)</span><br><span class="line"></span><br><span class="line">	seq_len, _ = hidden_states.size()</span><br><span class="line">	hidden_states = hidden_states.reshape(seq_len // <span class="variable language_">self</span>.spatial_merge_unit, <span class="variable language_">self</span>.spatial_merge_unit, -<span class="number">1</span>)</span><br><span class="line">	hidden_states = hidden_states[window_index, :, :]</span><br><span class="line">	hidden_states = hidden_states.reshape(seq_len, -<span class="number">1</span>)</span><br><span class="line">	rotary_pos_emb = rotary_pos_emb.reshape(seq_len // <span class="variable language_">self</span>.spatial_merge_unit, <span class="variable language_">self</span>.spatial_merge_unit, -<span class="number">1</span>)</span><br><span class="line">	rotary_pos_emb = rotary_pos_emb[window_index, :, :]</span><br><span class="line">	rotary_pos_emb = rotary_pos_emb.reshape(seq_len, -<span class="number">1</span>)</span><br><span class="line">	emb = torch.cat((rotary_pos_emb, rotary_pos_emb), dim=-<span class="number">1</span>)</span><br><span class="line">	position_embeddings = (emb.cos(), emb.sin())</span><br><span class="line"></span><br><span class="line">	cu_seqlens = torch.repeat_interleave(grid_thw[:, <span class="number">1</span>] * grid_thw[:, <span class="number">2</span>], grid_thw[:, <span class="number">0</span>]).cumsum(</span><br><span class="line">		dim=<span class="number">0</span>,</span><br><span class="line">		<span class="comment"># Select dtype based on the following factors:</span></span><br><span class="line">		<span class="comment">#  - FA2 requires that cu_seqlens_q must have dtype int32</span></span><br><span class="line">		<span class="comment">#  - torch.onnx.export requires that cu_seqlens_q must have same dtype as grid_thw</span></span><br><span class="line">		<span class="comment"># See https://github.com/huggingface/transformers/pull/34852 for more information</span></span><br><span class="line">		dtype=grid_thw.dtype <span class="keyword">if</span> torch.jit.is_tracing() <span class="keyword">else</span> torch.int32,</span><br><span class="line">	)</span><br><span class="line">	cu_seqlens = F.pad(cu_seqlens, (<span class="number">1</span>, <span class="number">0</span>), value=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> layer_num, blk <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="variable language_">self</span>.blocks):</span><br><span class="line">		<span class="keyword">if</span> layer_num <span class="keyword">in</span> <span class="variable language_">self</span>.fullatt_block_indexes:</span><br><span class="line">			cu_seqlens_now = cu_seqlens</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			cu_seqlens_now = cu_window_seqlens</span><br><span class="line">		hidden_states = blk(</span><br><span class="line">			hidden_states, cu_seqlens=cu_seqlens_now, position_embeddings=position_embeddings, **kwargs</span><br><span class="line">		)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 2*2 的 patch hidden states 合并</span></span><br><span class="line">	hidden_states = <span class="variable language_">self</span>.merger(hidden_states)</span><br><span class="line">	reverse_indices = torch.argsort(window_index)</span><br><span class="line">	hidden_states = hidden_states[reverse_indices, :]</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> hidden_states</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出自 Qwen2_5_VLModel</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_image_features</span>(<span class="params">self, pixel_values: torch.FloatTensor, image_grid_thw: <span class="type">Optional</span>[torch.LongTensor] = <span class="literal">None</span></span>):</span><br><span class="line">	<span class="comment"># 统一数据类型</span></span><br><span class="line">	pixel_values = pixel_values.<span class="built_in">type</span>(<span class="variable language_">self</span>.visual.dtype)</span><br><span class="line">	<span class="comment"># 获取 patch 的 hidden states，并合并为 image token</span></span><br><span class="line">	image_embeds = <span class="variable language_">self</span>.visual(pixel_values, grid_thw=image_grid_thw)</span><br><span class="line">	<span class="comment"># 根据 image_grid_thw 计算每个图片的 token 数量</span></span><br><span class="line">	split_sizes = (image_grid_thw.prod(-<span class="number">1</span>) // <span class="variable language_">self</span>.visual.spatial_merge_size**<span class="number">2</span>).tolist()</span><br><span class="line">	<span class="comment"># 根据 image_grid_thw 将 image token 切分为每个图片的 image token</span></span><br><span class="line">	image_embeds = torch.split(image_embeds, split_sizes)</span><br><span class="line">	<span class="keyword">return</span> image_embeds</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 image token (按图片切分)</span></span><br><span class="line">image_embeds = <span class="variable language_">self</span>.get_image_features(pixel_values, image_grid_thw)</span><br><span class="line"><span class="comment"># 不知道啥又合并回去了</span></span><br><span class="line">image_embeds = torch.cat(image_embeds, dim=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># self.config.image_token_id 就是 &lt;|image_pad|&gt;，即获取 image padding token 数量</span></span><br><span class="line">n_image_tokens = (input_ids == <span class="variable language_">self</span>.config.image_token_id).<span class="built_in">sum</span>()</span><br><span class="line"><span class="comment"># 获取 image token 的数据</span></span><br><span class="line">n_image_features = image_embeds.shape[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 检查实际计算的 image token 与文本中的 padding token 数量是否一致</span></span><br><span class="line"><span class="keyword">if</span> n_image_tokens != n_image_features:</span><br><span class="line">	<span class="keyword">raise</span> ValueError(</span><br><span class="line">		<span class="string">f"Image features and image tokens do not match: tokens: <span class="subst">{n_image_tokens}</span>, features <span class="subst">{n_image_features}</span>"</span></span><br><span class="line">	)</span><br></pre></td></tr></table></figure></div>
+<ol start="3">
+<li>token embedding 合并</li>
+</ol>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 image padding token 位置的掩码</span></span><br><span class="line">mask = input_ids == <span class="variable language_">self</span>.config.image_token_id</span><br><span class="line"><span class="comment"># 扩展维度，获得 text token embedding 同大小的掩码矩阵</span></span><br><span class="line">mask_unsqueezed = mask.unsqueeze(-<span class="number">1</span>)</span><br><span class="line">mask_expanded = mask_unsqueezed.expand_as(inputs_embeds)</span><br><span class="line">image_mask = mask_expanded.to(inputs_embeds.device)</span><br><span class="line"><span class="comment"># 将 image_embeds 基于掩码 image_mask 映射到 token embedding 上，这样 vision 和 text 的 token embedding 汇合</span></span><br><span class="line">image_embeds = image_embeds.to(inputs_embeds.device, inputs_embeds.dtype)</span><br><span class="line">inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)</span><br></pre></td></tr></table></figure></div>
+
+<ol start="4">
+<li>language model 的 forward</li>
+</ol>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 内部 forward 和 LLM 几乎一致了</span></span><br><span class="line">outputs = <span class="variable language_">self</span>.language_model(</span><br><span class="line">	input_ids=<span class="literal">None</span>,</span><br><span class="line">	position_ids=position_ids,</span><br><span class="line">	attention_mask=attention_mask,</span><br><span class="line">	past_key_values=past_key_values,</span><br><span class="line">	inputs_embeds=inputs_embeds,</span><br><span class="line">	use_cache=use_cache,</span><br><span class="line">	output_attentions=output_attentions,</span><br><span class="line">	output_hidden_states=output_hidden_states,</span><br><span class="line">	return_dict=<span class="literal">True</span>,</span><br><span class="line">	cache_position=cache_position,</span><br><span class="line">	**kwargs,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">output = Qwen2_5_VLModelOutputWithPast(</span><br><span class="line">	last_hidden_state=outputs.last_hidden_state,</span><br><span class="line">	past_key_values=outputs.past_key_values,</span><br><span class="line">	hidden_states=outputs.hidden_states,</span><br><span class="line">	attentions=outputs.attentions,</span><br><span class="line">	rope_deltas=<span class="variable language_">self</span>.rope_deltas,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = Qwen2_5_VLForConditionalGeneration.from_pretrained(</span><br><span class="line">    model_id, </span><br><span class="line">    torch_dtype=<span class="string">"auto"</span>, </span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output = model(**data_dict)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> output.items():</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">isinstance</span>(v, torch.Tensor):</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">f"<span class="subst">{k}</span>: <span class="subst">{v.shape}</span>"</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">f"<span class="subst">{k}</span>: <span class="subst">{v}</span>"</span>)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">loss: torch.Size([])</span><br><span class="line">logits: torch.Size([1, 495, 151936])</span><br><span class="line">past<span class="emphasis">_key_</span>values: <span class="language-xml"><span class="tag">&lt;<span class="name">transformers.cache_utils.DynamicCache</span> <span class="attr">object</span> <span class="attr">at</span> <span class="attr">0x7f668976e1d0</span>&gt;</span></span></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="Lazy-Dataset-整合上述处理方式"><a href="#Lazy-Dataset-整合上述处理方式" class="headerlink" title="Lazy Dataset (整合上述处理方式)"></a>Lazy Dataset (整合上述处理方式)</h1><h2 id="数据集预处理"><a href="#数据集预处理" class="headerlink" title="数据集预处理"></a>数据集预处理</h2><p>支持多个数据集合并和采样</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re, random, os, torch, copy, json</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> torch.nn.utils.rnn <span class="keyword">import</span> pad_sequence</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoProcessor, PreTrainedTokenizer</span><br><span class="line"><span class="keyword">from</span> rope2d <span class="keyword">import</span> get_rope_index_25</span><br><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span>, <span class="type">Sequence</span>, <span class="type">List</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">demo = {</span><br><span class="line">	<span class="string">"annotation_path"</span>: <span class="string">"./demo/single_images.json"</span>,</span><br><span class="line">	<span class="string">"data_path"</span>: <span class="string">"./demo/images"</span>,</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">data_dict = {</span><br><span class="line">	<span class="string">"demo"</span>: demo,</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parse_sampling_rate</span>(<span class="params">dataset_name</span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	解析数据集名称中的采样率。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	该函数从数据集名称字符串中提取以百分号（%）结尾的数字，并将其转换为采样率（小数形式）。</span></span><br><span class="line"><span class="string">	如果数据集名称不包含采样率，则默认返回1.0。</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	<span class="keyword">match</span> = re.search(<span class="string">r"%(\d+)$"</span>, dataset_name)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(<span class="keyword">match</span>.group(<span class="number">1</span>)) / <span class="number">100.0</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dataset_config_list</span>(<span class="params">dataset_names</span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	根据提供的数据集名称列表，生成对应的数据集配置字典列表。</span></span><br><span class="line"><span class="string">	测试用例 1</span></span><br><span class="line"><span class="string">	dataset_names = ["demo"]</span></span><br><span class="line"><span class="string">	输出结果为</span></span><br><span class="line"><span class="string">	[{'annotation_path': './demo/single_images.json', 'data_path': './demo/images', 'sampling_rate': 1.0}]</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	config_list = []</span><br><span class="line">	<span class="keyword">for</span> dataset_name <span class="keyword">in</span> dataset_names:</span><br><span class="line">		sampling_rate = parse_sampling_rate(dataset_name)</span><br><span class="line">		dataset_name = re.sub(<span class="string">r"%(\d+)$"</span>, <span class="string">""</span>, dataset_name)</span><br><span class="line">		<span class="keyword">if</span> dataset_name <span class="keyword">in</span> data_dict.keys():</span><br><span class="line">			config = data_dict[dataset_name].copy()</span><br><span class="line">			config[<span class="string">"sampling_rate"</span>] = sampling_rate</span><br><span class="line">			config_list.append(config)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="keyword">raise</span> ValueError(<span class="string">f"do not find <span class="subst">{dataset_name}</span>"</span>)</span><br><span class="line">	<span class="keyword">return</span> config_list</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_jsonl</span>(<span class="params">path</span>):</span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">		<span class="keyword">return</span> [json.loads(line) <span class="keyword">for</span> line <span class="keyword">in</span> f]</span><br><span class="line">	</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_datasets</span>(<span class="params">dataset_config_list</span>):</span><br><span class="line">	list_data_dict = []</span><br><span class="line">	<span class="keyword">for</span> config <span class="keyword">in</span> dataset_config_list:</span><br><span class="line">		</span><br><span class="line">		annotation_path = config[<span class="string">'annotation_path'</span>]</span><br><span class="line">		data_path = config[<span class="string">'data_path'</span>]</span><br><span class="line">		sampling_rate = config.get(<span class="string">'sampling_rate'</span>, <span class="number">1.0</span>)</span><br><span class="line">		file_format = annotation_path.split(<span class="string">"."</span>)[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> file_format == <span class="string">"jsonl"</span>:</span><br><span class="line">			annotations = read_jsonl(annotation_path)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			annotations = json.load(<span class="built_in">open</span>(annotation_path, <span class="string">"r"</span>))</span><br><span class="line">		<span class="keyword">if</span> sampling_rate &lt; <span class="number">1.0</span>:</span><br><span class="line">			annotations = random.sample(</span><br><span class="line">				annotations, <span class="built_in">int</span>(<span class="built_in">len</span>(annotations) * sampling_rate)</span><br><span class="line">			)</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">f"sampling <span class="subst">{<span class="built_in">len</span>(annotations)}</span> examples from dataset <span class="subst">{config}</span>"</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">f"full loading dataset: <span class="subst">{config}</span>"</span>)</span><br><span class="line">		<span class="keyword">for</span> ann <span class="keyword">in</span> annotations:</span><br><span class="line">			ann[<span class="string">"data_path"</span>] = data_path</span><br><span class="line">		list_data_dict += annotations</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f"Total training samples: <span class="subst">{<span class="built_in">len</span>(list_data_dict)}</span>"</span>)</span><br><span class="line">	random.shuffle(list_data_dict)</span><br><span class="line">	<span class="keyword">return</span> list_data_dict</span><br><span class="line"></span><br><span class="line">dataset_names = [<span class="string">"demo"</span>, <span class="string">"demo%80"</span>, <span class="string">"demo%50"</span>]</span><br><span class="line">configs = get_dataset_config_list(dataset_names)</span><br><span class="line"><span class="built_in">print</span>(configs)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>[{'annotation_path': './demo/single_images.json', 'data_path': './demo/images', 'sampling_rate': 1.0}, {'annotation_path': './demo/single_images.json', 'data_path': './demo/images', 'sampling_rate': 0.8}, {'annotation_path': './demo/single_images.json', 'data_path': './demo/images', 'sampling_rate': 0.5}]
+</code></pre>
+<h2 id="dataset-和-data-collator-定义"><a href="#dataset-和-data-collator-定义" class="headerlink" title="dataset 和 data collator 定义"></a>dataset 和 data collator 定义</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LazySupervisedDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">	<span class="string">"""Dataset for supervised fine-tuning."""</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dataset_use, image_processor, tokenizer, chat_template, default_system_message</span>):</span><br><span class="line">		<span class="built_in">super</span>(LazySupervisedDataset, <span class="variable language_">self</span>).__init__()</span><br><span class="line">		dataset_names = dataset_use.split(<span class="string">","</span>)</span><br><span class="line">		dataset_config_list = get_dataset_config_list(dataset_names)</span><br><span class="line">		list_data_dict = load_datasets(dataset_config_list)</span><br><span class="line"></span><br><span class="line">		<span class="variable language_">self</span>.list_data_dict = list_data_dict</span><br><span class="line">		<span class="variable language_">self</span>.image_processor = image_processor</span><br><span class="line">		<span class="variable language_">self</span>.tokenizer = copy.deepcopy(tokenizer)</span><br><span class="line">		<span class="variable language_">self</span>.tokenizer.chat_template = chat_template</span><br><span class="line">		<span class="variable language_">self</span>.default_system_message = default_system_message</span><br><span class="line">		<span class="variable language_">self</span>.get_rope_index = get_rope_index_25</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.list_data_dict)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 包装的 __getitem__ 方法</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">		num_base_retries = <span class="number">3</span></span><br><span class="line">		<span class="comment"># 首先尝试获取指定索引的样本，如果失败则重试</span></span><br><span class="line">		<span class="keyword">for</span> attempt_idx <span class="keyword">in</span> <span class="built_in">range</span>(num_base_retries):</span><br><span class="line">			<span class="keyword">try</span>:</span><br><span class="line">				sample = <span class="variable language_">self</span>._get_item(idx)</span><br><span class="line">				<span class="keyword">return</span> sample</span><br><span class="line">			<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">				<span class="comment"># sleep 1s in case it is a cloud disk issue</span></span><br><span class="line">				<span class="built_in">print</span>(<span class="string">f"[Try #<span class="subst">{attempt_idx}</span>] Failed to fetch sample <span class="subst">{idx}</span>. Exception:"</span>, e)</span><br><span class="line">		<span class="comment"># 如果获取指定索引的样本失败，则尝试获取下一个样本</span></span><br><span class="line">		<span class="keyword">for</span> attempt_idx <span class="keyword">in</span> <span class="built_in">range</span>(num_base_retries):</span><br><span class="line">			<span class="keyword">try</span>:</span><br><span class="line">				next_index = (idx + <span class="number">1</span>) % <span class="built_in">len</span>(<span class="variable language_">self</span>.list_data_dict)</span><br><span class="line">				<span class="comment"># sample_idx = random.choice(range(len(self)))</span></span><br><span class="line">				sample = <span class="variable language_">self</span>._get_item(next_index)</span><br><span class="line">				<span class="keyword">return</span> sample</span><br><span class="line">			<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">				<span class="built_in">print</span>(<span class="string">f"[Try other #<span class="subst">{attempt_idx}</span>] Failed to fetch sample <span class="subst">{next_index}</span>. Exception:"</span>, e,)</span><br><span class="line">		<span class="comment"># 最后尝试获取第一个样本，不行就抛出异常</span></span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			sample = <span class="variable language_">self</span>._get_item(idx)</span><br><span class="line">			<span class="keyword">return</span> sample</span><br><span class="line">		<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">			<span class="keyword">raise</span> e	</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">process_single_image</span>(<span class="params">self, image_file:<span class="built_in">str</span></span>):</span><br><span class="line">		<span class="comment"># 读取 Image 为 PIL 对象</span></span><br><span class="line">		image = Image.<span class="built_in">open</span>(image_file).convert(<span class="string">"RGB"</span>)</span><br><span class="line">		<span class="comment"># 处理单个图片为tensor</span></span><br><span class="line">		visual_processed = <span class="variable language_">self</span>.image_processor.preprocess(image, return_tensors=<span class="string">"pt"</span>)</span><br><span class="line">		image_tensor = visual_processed[<span class="string">"pixel_values"</span>]</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">isinstance</span>(image_tensor, <span class="type">List</span>):</span><br><span class="line">			image_tensor = image_tensor[<span class="number">0</span>]</span><br><span class="line">		grid_thw = visual_processed[<span class="string">"image_grid_thw"</span>][<span class="number">0</span>]</span><br><span class="line">		<span class="keyword">return</span> image_tensor, grid_thw</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">preprocess_qwen_2_visual</span>(<span class="params">self, chat_sources, image_grid_thw_merged:<span class="type">List</span> = [], video_grid_thw_merged:<span class="type">List</span> = []</span>):</span><br><span class="line">		<span class="comment"># 确保第一个是 human 消息</span></span><br><span class="line">		<span class="keyword">while</span> <span class="keyword">not</span> (</span><br><span class="line">			(chat_sources[<span class="number">0</span>][<span class="string">'role'</span>] == <span class="string">'user'</span>) <span class="keyword">or</span> </span><br><span class="line">			(<span class="built_in">len</span>(chat_sources) &gt;=<span class="number">2</span> <span class="keyword">and</span> chat_sources[<span class="number">0</span>][<span class="string">'role'</span>] == <span class="string">'system'</span> <span class="keyword">and</span> chat_sources[<span class="number">1</span>][<span class="string">'role'</span>] == <span class="string">'user'</span>)</span><br><span class="line">		):</span><br><span class="line">			chat_sources = chat_sources[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		<span class="comment"># 确保用户消息和大模型消息交叉产生，即配对</span></span><br><span class="line">		<span class="keyword">if</span> chat_sources[<span class="number">0</span>][<span class="string">'role'</span>] == <span class="string">'system'</span>:</span><br><span class="line">			<span class="keyword">assert</span> <span class="built_in">len</span>(chat_sources) % <span class="number">2</span> == <span class="number">1</span>, <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(chat_sources), <span class="number">2</span>):</span><br><span class="line">				<span class="keyword">assert</span> (chat_sources[i][<span class="string">'role'</span>] == <span class="string">'user'</span> <span class="keyword">and</span> chat_sources[i + <span class="number">1</span>][<span class="string">'role'</span>] == <span class="string">'assistant'</span>), <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="keyword">assert</span> <span class="built_in">len</span>(chat_sources) % <span class="number">2</span> == <span class="number">0</span>, <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">			<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(chat_sources), <span class="number">2</span>):</span><br><span class="line">				<span class="keyword">assert</span> (chat_sources[i][<span class="string">'role'</span>] == <span class="string">'user'</span> <span class="keyword">and</span> chat_sources[i + <span class="number">1</span>][<span class="string">'role'</span>] == <span class="string">'assistant'</span>), <span class="string">"user messages and assistant messages must be paired."</span></span><br><span class="line">			chat_sources = [{<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: <span class="variable language_">self</span>.default_system_message}] + chat_sources <span class="comment"># 添加默认 system 消息</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment"># 这两个变量是用于记录现在处理的图片的index，每个图片的处理就是塞入图片大小相关的 '&lt;|image_pad|&gt;' token。</span></span><br><span class="line">		visual_replicate_index_image = <span class="number">0</span></span><br><span class="line">		IGNORE_INDEX = -<span class="number">100</span></span><br><span class="line">		input_id, target = [], []</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> conv <span class="keyword">in</span> chat_sources:</span><br><span class="line"></span><br><span class="line">			role  = conv[<span class="string">'role'</span>]</span><br><span class="line">			content = conv[<span class="string">'content'</span>]</span><br><span class="line"></span><br><span class="line">			<span class="comment"># content 内容只有需要对 user 特殊处理，因为可能有图片和视频相关的内容。</span></span><br><span class="line">			<span class="keyword">if</span> role == <span class="string">'user'</span>:</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> <span class="string">'&lt;image&gt;'</span> <span class="keyword">in</span> content:</span><br><span class="line">					parts = content.split(<span class="string">'&lt;image&gt;'</span>)</span><br><span class="line">					num_parts = <span class="built_in">len</span>(parts)</span><br><span class="line">					new_parts = []</span><br><span class="line">					<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_parts):</span><br><span class="line">						<span class="comment"># 加入被 &lt;image&gt; 分割的文本部分</span></span><br><span class="line">						new_parts.append(parts[i])</span><br><span class="line">						<span class="comment"># 加入图片相关的 token，但最后一次不需要</span></span><br><span class="line">						<span class="keyword">if</span> i != num_parts - <span class="number">1</span>:</span><br><span class="line">							image_tokens = (</span><br><span class="line">								<span class="string">"&lt;|vision_start|&gt;"</span></span><br><span class="line">								+ <span class="string">"&lt;|image_pad|&gt;"</span> * image_grid_thw_merged[visual_replicate_index_image]</span><br><span class="line">								+ <span class="string">"&lt;|vision_end|&gt;"</span></span><br><span class="line">							)</span><br><span class="line">							visual_replicate_index_image += <span class="number">1</span></span><br><span class="line">							new_parts.append(image_tokens)</span><br><span class="line"></span><br><span class="line">					content = <span class="string">""</span>.join(new_parts)</span><br><span class="line"></span><br><span class="line">				<span class="keyword">elif</span> <span class="string">'&lt;video&gt;'</span> <span class="keyword">in</span> content:</span><br><span class="line">					<span class="comment"># 不做视频相关任务，不写了</span></span><br><span class="line">					<span class="keyword">pass</span></span><br><span class="line">				<span class="keyword">else</span>:</span><br><span class="line">					<span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">			text_conv = [{<span class="string">"role"</span>: role, <span class="string">"content"</span>: content}]</span><br><span class="line">			encode_id = <span class="variable language_">self</span>.tokenizer.apply_chat_template(text_conv)</span><br><span class="line">			input_id += encode_id</span><br><span class="line">			<span class="keyword">if</span> role <span class="keyword">in</span> [<span class="string">"user"</span>, <span class="string">"system"</span>]:</span><br><span class="line">				<span class="comment"># user 和 system 消息不需要计算损失</span></span><br><span class="line">				target += [IGNORE_INDEX] * <span class="built_in">len</span>(encode_id) </span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="comment"># assistant 消息需要计算损失，但前缀特殊 token 不需要计算损失</span></span><br><span class="line">				target_mask = encode_id.copy()</span><br><span class="line">				target_mask[:<span class="number">3</span>] = [IGNORE_INDEX] * <span class="number">3</span> <span class="comment"># 忽略开头的 '&lt;|im_start|&gt;system\n'</span></span><br><span class="line">				target += target_mask</span><br><span class="line"></span><br><span class="line">		<span class="keyword">assert</span> <span class="built_in">len</span>(input_id) == <span class="built_in">len</span>(target), \</span><br><span class="line">			<span class="string">f"input_id length (<span class="subst">{<span class="built_in">len</span>(input_id)}</span>) != target length (<span class="subst">{<span class="built_in">len</span>(target)}</span>)"</span></span><br><span class="line">		<span class="keyword">assert</span> visual_replicate_index_image == <span class="built_in">len</span>(image_grid_thw_merged), \</span><br><span class="line">			<span class="string">f"visual_replicate_index_image (<span class="subst">{visual_replicate_index_image}</span>) != len(image_grid_thw_merged) (<span class="subst">{<span class="built_in">len</span>(image_grid_thw_merged)}</span>)"</span></span><br><span class="line"></span><br><span class="line">		input_ids = torch.tensor([input_id], dtype=torch.long)</span><br><span class="line">		labels = torch.tensor([target], dtype=torch.long)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">dict</span>(</span><br><span class="line">			input_ids=input_ids,</span><br><span class="line">			labels=labels,</span><br><span class="line">		)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">_get_item</span>(<span class="params">self, idx</span>):</span><br><span class="line"></span><br><span class="line">		source = <span class="variable language_">self</span>.list_data_dict[idx]</span><br><span class="line"></span><br><span class="line">		image_grid_thw_merged = []</span><br><span class="line">		image_grid_thw_list = []</span><br><span class="line">		video_grid_thw_merged = []</span><br><span class="line">		video_grid_thw_list = []</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> <span class="string">"image"</span> <span class="keyword">in</span> source:</span><br><span class="line">			image_folder = source[<span class="string">"data_path"</span>]</span><br><span class="line">			image_file = source[<span class="string">"image"</span>]</span><br><span class="line">			<span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(image_file, <span class="type">List</span>):</span><br><span class="line">				image_file = [image_file]</span><br><span class="line">			</span><br><span class="line">			image_file = [</span><br><span class="line">				os.path.join(image_folder, file) <span class="keyword">for</span> file <span class="keyword">in</span> image_file</span><br><span class="line">			]</span><br><span class="line">			results = [</span><br><span class="line">				<span class="variable language_">self</span>.process_single_image(file) </span><br><span class="line">				<span class="keyword">for</span> file <span class="keyword">in</span> image_file</span><br><span class="line">			]</span><br><span class="line">			<span class="comment"># grid_thw 是 time height width 的缩写</span></span><br><span class="line">			image_list, image_grid_thw_list = <span class="built_in">zip</span>(*results)</span><br><span class="line"></span><br><span class="line">			<span class="comment"># 计算 grid_thw 的点乘 / merge 数量的2次方，即 image 投影后的占用 token 数量</span></span><br><span class="line">			<span class="comment"># 由于 qwen 2.5vl 是将相邻的 patch 合并成一个 token，所以需要除以 merge_size 的平方，才得到实际的 token 数量</span></span><br><span class="line">			image_grid_thw_merged = copy.deepcopy(image_grid_thw_list)</span><br><span class="line">			image_grid_thw_merged = [</span><br><span class="line">				grid_thw.prod() // image_processor.merge_size ** <span class="number">2</span></span><br><span class="line">				<span class="keyword">for</span> grid_thw <span class="keyword">in</span> image_grid_thw_merged</span><br><span class="line">			]</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> <span class="string">"video"</span> <span class="keyword">in</span> source:</span><br><span class="line">			<span class="keyword">raise</span> NotImplementedError(<span class="string">"video is not supported yet"</span>)</span><br><span class="line">		</span><br><span class="line">		chat_sources = copy.deepcopy(source[<span class="string">"conversations"</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> <span class="string">"image"</span> <span class="keyword">not</span> <span class="keyword">in</span> source <span class="keyword">and</span> <span class="string">"video"</span> <span class="keyword">not</span> <span class="keyword">in</span> source:</span><br><span class="line"></span><br><span class="line">			data_dict = <span class="variable language_">self</span>.preprocess_qwen_2_visual(</span><br><span class="line">				chat_sources, image_grid_thw_merged=[]</span><br><span class="line">			)</span><br><span class="line">			position_ids = (</span><br><span class="line">				torch.arange(<span class="number">0</span>, data_dict[<span class="string">"input_ids"</span>].size(<span class="number">1</span>))</span><br><span class="line">				.view(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">				.unsqueeze(<span class="number">0</span>)</span><br><span class="line">				.expand(<span class="number">3</span>, -<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">			)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			</span><br><span class="line">			data_dict = <span class="variable language_">self</span>.preprocess_qwen_2_visual(</span><br><span class="line">				chat_sources, </span><br><span class="line">				image_grid_thw_merged=image_grid_thw_merged <span class="keyword">if</span> <span class="string">"image"</span> <span class="keyword">in</span> source <span class="keyword">else</span> [],</span><br><span class="line">				video_grid_thw_merged=video_grid_thw_merged <span class="keyword">if</span> <span class="string">"video"</span> <span class="keyword">in</span> source <span class="keyword">else</span> []</span><br><span class="line">			)</span><br><span class="line"></span><br><span class="line">			position_ids, _ = <span class="variable language_">self</span>.get_rope_index(</span><br><span class="line">				image_processor.merge_size,</span><br><span class="line">				data_dict[<span class="string">"input_ids"</span>],</span><br><span class="line">				image_grid_thw=torch.stack(image_grid_thw_list, dim=<span class="number">0</span>) <span class="keyword">if</span> image_grid_thw_list <span class="keyword">else</span> <span class="literal">None</span>,</span><br><span class="line">				video_grid_thw=<span class="literal">None</span>,</span><br><span class="line">			)</span><br><span class="line"></span><br><span class="line">		data_dict[<span class="string">"position_ids"</span>] = position_ids</span><br><span class="line">		data_dict[<span class="string">"attention_mask"</span>] = torch.ones_like(data_dict[<span class="string">"input_ids"</span>], dtype=torch.<span class="built_in">int</span>)</span><br><span class="line">		<span class="keyword">if</span> <span class="string">"image"</span> <span class="keyword">in</span> source:</span><br><span class="line">			<span class="comment"># image_list 即大小为 [torch.Size([440, 1176]), torch.Size([1380, 1176])] 的 patch 化图片</span></span><br><span class="line">			<span class="comment"># 因为都是 patch level 的数据，所以需要将其拼接成一个大的 tensor</span></span><br><span class="line">			data_dict[<span class="string">"pixel_values"</span>] = torch.cat(image_list, dim=<span class="number">0</span>)</span><br><span class="line">			<span class="comment"># 每个图片的 grid_thw 都是一个 tensor 为 [time, height, width]，大小一样时 [1,3]，将其拼接成一个大的 tensor</span></span><br><span class="line">			data_dict[<span class="string">"image_grid_thw"</span>] = torch.cat(</span><br><span class="line">				[thw.unsqueeze(<span class="number">0</span>) <span class="keyword">for</span> thw <span class="keyword">in</span> image_grid_thw_list], dim=<span class="number">0</span></span><br><span class="line">			)</span><br><span class="line">		<span class="keyword">elif</span> <span class="string">"video"</span> <span class="keyword">in</span> <span class="variable language_">self</span>.list_data_dict[i]:</span><br><span class="line">			<span class="keyword">raise</span> NotImplementedError(<span class="string">"video is not supported yet"</span>)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> data_dict</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pad_and_cat</span>(<span class="params">tensor_list</span>):</span><br><span class="line">	max_length = <span class="built_in">max</span>(tensor.shape[<span class="number">2</span>] <span class="keyword">for</span> tensor <span class="keyword">in</span> tensor_list)</span><br><span class="line"></span><br><span class="line">	padded_tensors = []</span><br><span class="line">	<span class="keyword">for</span> tensor <span class="keyword">in</span> tensor_list:</span><br><span class="line">		pad_length = max_length - tensor.shape[<span class="number">2</span>]</span><br><span class="line">		<span class="comment"># 在原 tensor 后面填充 pad_length 个 1</span></span><br><span class="line">		padded_tensor = torch.nn.functional.pad(tensor, (<span class="number">0</span>, pad_length), <span class="string">"constant"</span>, <span class="number">1</span>)</span><br><span class="line">		padded_tensors.append(padded_tensor)</span><br><span class="line"></span><br><span class="line">	stacked_tensor = torch.cat(padded_tensors, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> stacked_tensor</span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DataCollatorForSupervisedDataset</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">	tokenizer: PreTrainedTokenizer</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, instances: <span class="type">Sequence</span>[<span class="type">Dict</span>]</span>) -&gt; <span class="type">Dict</span>[<span class="built_in">str</span>, torch.Tensor]:</span><br><span class="line"></span><br><span class="line">		<span class="comment"># input_ids, labels, position_ids, attention_masks 的 padding 处理</span></span><br><span class="line">		input_ids, labels, position_ids, attention_masks = <span class="built_in">tuple</span>(</span><br><span class="line">			[instance[key] <span class="keyword">for</span> instance <span class="keyword">in</span> instances]</span><br><span class="line">			<span class="keyword">for</span> key <span class="keyword">in</span> (<span class="string">"input_ids"</span>, <span class="string">"labels"</span>, <span class="string">"position_ids"</span>, <span class="string">"attention_mask"</span>)</span><br><span class="line">		)</span><br><span class="line">		input_ids = [ids.squeeze(<span class="number">0</span>) <span class="keyword">for</span> ids <span class="keyword">in</span> input_ids]</span><br><span class="line">		labels = [ids.squeeze(<span class="number">0</span>) <span class="keyword">for</span> ids <span class="keyword">in</span> labels]</span><br><span class="line">		attention_masks = [ids.squeeze(<span class="number">0</span>) <span class="keyword">for</span> ids <span class="keyword">in</span> attention_masks]</span><br><span class="line">		<span class="comment"># input_ids 和 labels 分别用 padding token 和 ignore index 填充</span></span><br><span class="line">		input_ids = pad_sequence(</span><br><span class="line">			input_ids, batch_first=<span class="literal">True</span>, padding_value=<span class="variable language_">self</span>.tokenizer.pad_token_id</span><br><span class="line">		)</span><br><span class="line">		labels = pad_sequence(</span><br><span class="line">			labels, batch_first=<span class="literal">True</span>, padding_value=-<span class="number">100</span></span><br><span class="line">		)</span><br><span class="line">		attention_masks = pad_sequence(</span><br><span class="line">			attention_masks, batch_first=<span class="literal">True</span>, padding_value=<span class="number">0</span></span><br><span class="line">		)</span><br><span class="line">		position_ids = pad_and_cat(position_ids)</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 长度截断</span></span><br><span class="line">		input_ids = input_ids[:, : <span class="variable language_">self</span>.tokenizer.model_max_length]</span><br><span class="line">		labels = labels[:, : <span class="variable language_">self</span>.tokenizer.model_max_length]</span><br><span class="line">		position_ids = position_ids[:, : <span class="variable language_">self</span>.tokenizer.model_max_length]</span><br><span class="line">		attention_masks = attention_masks[:, : <span class="variable language_">self</span>.tokenizer.model_max_length]</span><br><span class="line">		batch = <span class="built_in">dict</span>(</span><br><span class="line">			input_ids=input_ids,</span><br><span class="line">			labels=labels,</span><br><span class="line">			position_ids=position_ids,</span><br><span class="line">			attention_mask=attention_masks,</span><br><span class="line">		)</span><br><span class="line"></span><br><span class="line">		<span class="comment"># images 不存在长度上的不一致，只是 batch of patch 上会不同，所以在 batch 维度上拼接</span></span><br><span class="line">		images = <span class="built_in">list</span>(</span><br><span class="line">			instance[<span class="string">"pixel_values"</span>]</span><br><span class="line">			<span class="keyword">for</span> instance <span class="keyword">in</span> instances</span><br><span class="line">			<span class="keyword">if</span> <span class="string">"pixel_values"</span> <span class="keyword">in</span> instance</span><br><span class="line">		)</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(images) != <span class="number">0</span>:</span><br><span class="line">			concat_images = torch.cat([image <span class="keyword">for</span> image <span class="keyword">in</span> images], dim=<span class="number">0</span>)</span><br><span class="line">			grid_thw = [</span><br><span class="line">				instance[<span class="string">"image_grid_thw"</span>]</span><br><span class="line">				<span class="keyword">for</span> instance <span class="keyword">in</span> instances</span><br><span class="line">				<span class="keyword">if</span> <span class="string">"image_grid_thw"</span> <span class="keyword">in</span> instance</span><br><span class="line">			]</span><br><span class="line">			grid_thw = torch.cat(grid_thw, dim=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			concat_images = <span class="literal">None</span></span><br><span class="line">			grid_thw = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">		videos = <span class="built_in">list</span>(</span><br><span class="line">			instance[<span class="string">"pixel_values_videos"</span>]</span><br><span class="line">			<span class="keyword">for</span> instance <span class="keyword">in</span> instances</span><br><span class="line">			<span class="keyword">if</span> <span class="string">"pixel_values_videos"</span> <span class="keyword">in</span> instance</span><br><span class="line">		)</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(videos) != <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">raise</span> NotImplementedError(<span class="string">"video is not supported yet"</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			concat_videos = <span class="literal">None</span></span><br><span class="line">			video_grid_thw = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">		batch[<span class="string">"pixel_values"</span>] = concat_images</span><br><span class="line">		batch[<span class="string">"image_grid_thw"</span>] = grid_thw</span><br><span class="line">		batch[<span class="string">"pixel_values_videos"</span>] = concat_videos</span><br><span class="line">		batch[<span class="string">"video_grid_thw"</span>] = video_grid_thw</span><br><span class="line">		<span class="keyword">return</span> batch</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="dummy-data-测试"><a href="#dummy-data-测试" class="headerlink" title="dummy data 测试"></a>dummy data 测试</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">model_id = <span class="string">'../../../DC/qwen2.5vl-3b-ins'</span></span><br><span class="line">processor = AutoProcessor.from_pretrained(model_id, use_fast=<span class="literal">True</span>)</span><br><span class="line">image_processor = processor.image_processor</span><br><span class="line">tokenizer = processor.tokenizer</span><br><span class="line"></span><br><span class="line">config = <span class="built_in">dict</span>(</span><br><span class="line">	dataset_use = <span class="string">"demo"</span>,</span><br><span class="line">	image_processor = image_processor,</span><br><span class="line">	tokenizer = tokenizer,</span><br><span class="line">	chat_template = <span class="string">"{% for message in messages %}{{'&lt;|im_start|&gt;' + message['role'] + '\n' + message['content'] + '&lt;|im_end|&gt;' + '\n'}}{% endfor %}{% if add_generation_prompt %}{{ '&lt;|im_start|&gt;assistant\n' }}{% endif %}"</span>,</span><br><span class="line">	default_system_message = <span class="string">"You are a helpful assistant."</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">dataset = LazySupervisedDataset(**config)</span><br><span class="line"></span><br><span class="line">data_collator = DataCollatorForSupervisedDataset(</span><br><span class="line">	tokenizer=tokenizer</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+
+
+full loading dataset: {'annotation_path': './demo/single_images.json', 'data_path': './demo/images', 'sampling_rate': 1.0}
+Total training samples: 2
+</code></pre>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_data_dict</span>(<span class="params">data_dict</span>):</span><br><span class="line">	<span class="keyword">for</span> k, v <span class="keyword">in</span> data_dict.items():</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">f"<span class="subst">{k}</span>: <span class="subst">{v.shape <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, torch.Tensor) <span class="keyword">else</span> v}</span>"</span>)</span><br><span class="line"></span><br><span class="line">item_1 = dataset[<span class="number">0</span>]</span><br><span class="line">item_2 = dataset[<span class="number">1</span>]</span><br><span class="line">print_data_dict(item_1)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="number">20</span>*<span class="string">'='</span>)</span><br><span class="line"></span><br><span class="line">item_batch = data_collator([item_1, item_2])</span><br><span class="line">print_data_dict(item_batch)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>input_ids: torch.Size([1, 495])
+labels: torch.Size([1, 495])
+position_ids: torch.Size([3, 1, 495])
+attention_mask: torch.Size([1, 495])
+pixel_values: torch.Size([1820, 1176])
+image_grid_thw: torch.Size([2, 3])
+====================
+input_ids: torch.Size([2, 495])
+labels: torch.Size([2, 495])
+position_ids: torch.Size([3, 2, 495])
+attention_mask: torch.Size([2, 495])
+pixel_values: torch.Size([2600, 1176])
+image_grid_thw: torch.Size([3, 3])
+pixel_values_videos: None
+video_grid_thw: None
+</code></pre>
+<h1 id="main-train-loop"><a href="#main-train-loop" class="headerlink" title="main train loop"></a>main train loop</h1><p>VLM 微调和 LLM 微调的另外一个不同之处在于 VLM 是散装的由各个模块组合而成的，因此每个模块都可以独立或者联合训练。一般按照</p>
+<ul>
+<li>merger: Cross-modal Fusion</li>
+<li>merger + vit: vision </li>
+<li>merger + vit + LLM / just LLM: LM</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> Trainer, TrainingArguments</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置模型的参数，冻结/解冻视觉模型、merger 和 LLM 模型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_model</span>(<span class="params">model_args, model</span>):</span><br><span class="line">    <span class="keyword">if</span> model_args.tune_mm_vision:</span><br><span class="line">        <span class="keyword">for</span> n, p <span class="keyword">in</span> model.visual.named_parameters():</span><br><span class="line">            p.requires_grad = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> n, p <span class="keyword">in</span> model.visual.named_parameters():</span><br><span class="line">            p.requires_grad = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> model_args.tune_mm_mlp:</span><br><span class="line">        <span class="keyword">for</span> n, p <span class="keyword">in</span> model.visual.merger.named_parameters():</span><br><span class="line">            p.requires_grad = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> n, p <span class="keyword">in</span> model.visual.merger.named_parameters():</span><br><span class="line">            p.requires_grad = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># head 是和 LM 搭配的，需要同时训练/冻结</span></span><br><span class="line">    <span class="keyword">if</span> model_args.tune_mm_llm:</span><br><span class="line">        <span class="keyword">for</span> n, p <span class="keyword">in</span> model.model.named_parameters():</span><br><span class="line">            p.requires_grad = <span class="literal">True</span></span><br><span class="line">        model.lm_head.requires_grad = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> n, p <span class="keyword">in</span> model.model.named_parameters():</span><br><span class="line">            p.requires_grad = <span class="literal">False</span></span><br><span class="line">        model.lm_head.requires_grad = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">model = Qwen2_5_VLForConditionalGeneration.from_pretrained(</span><br><span class="line">	model_id,</span><br><span class="line">	cache_dir=<span class="string">"qwenvl-train-test"</span>,</span><br><span class="line">	torch_dtype=torch.bfloat16,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">data_module = <span class="built_in">dict</span>(</span><br><span class="line">	train_dataset = dataset,</span><br><span class="line">	data_collator = data_collator,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">model_args = <span class="built_in">dict</span>(</span><br><span class="line">	<span class="comment"># 分别时训练 语言模型、VL merger、视觉模型 的 flag</span></span><br><span class="line">	tune_mm_llm = <span class="literal">True</span>,</span><br><span class="line">	tune_mm_mlp = <span class="literal">True</span>,</span><br><span class="line">	tune_mm_vision = <span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">training_args = TrainingArguments(</span><br><span class="line">    learning_rate = <span class="number">5e-5</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">trainer = Trainer(</span><br><span class="line">	model=model, processing_class=tokenizer, args=training_args, **data_module</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="数据集样例"><a href="#数据集样例" class="headerlink" title="数据集样例"></a>数据集样例</h1><p>这是我测试时用的 demo 的文件夹</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── images</span><br><span class="line">│   ├── 10095.png</span><br><span class="line">│   ├── 10149.png</span><br><span class="line">│   └── COCO<span class="emphasis">_train2014_</span>000000580957.jpg</span><br><span class="line">└── single<span class="emphasis">_images.json</span></span><br></pre></td></tr></table></figure></div>
+<p>分别是图片文件夹和文本文件。single_images.json 内部信息如下</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"image"</span><span class="punctuation">:</span> <span class="string">"10095.png"</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">"conversations"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">          <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"user"</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"Is the value of Favorable 38 in 2015?\n&lt;image&gt;"</span></span><br><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">          <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"assistant"</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"Yes"</span></span><br><span class="line">        <span class="punctuation">}</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"image"</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">"10149.png"</span><span class="punctuation">,</span> <span class="string">"COCO_train2014_000000580957.jpg"</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">"conversations"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">          <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"user"</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"&lt;image&gt;\nIn which year the value was 51?\n&lt;image&gt;"</span></span><br><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">          <span class="attr">"role"</span><span class="punctuation">:</span> <span class="string">"assistant"</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">"content"</span><span class="punctuation">:</span> <span class="string">"2014"</span></span><br><span class="line">        <span class="punctuation">}</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">#多模态</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/06/30/LLM-basic-series/decode+speculative_sampling/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">LLM 推理 &amp; speculative sampling</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Qwen 2.5 VL 微调处理</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E6%9D%A1%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-text">单条数据的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#image-%E5%A4%84%E7%90%86"><span class="nav-text">image 处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-%E5%A4%84%E7%90%86"><span class="nav-text">text 处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VL-%E6%A8%A1%E5%9E%8B%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-text">VL 模型前向传播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lazy-Dataset-%E6%95%B4%E5%90%88%E4%B8%8A%E8%BF%B0%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-text">Lazy Dataset (整合上述处理方式)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-text">数据集预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dataset-%E5%92%8C-data-collator-%E5%AE%9A%E4%B9%89"><span class="nav-text">dataset 和 data collator 定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dummy-data-%E6%B5%8B%E8%AF%95"><span class="nav-text">dummy data 测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#main-train-loop"><span class="nav-text">main train loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%A0%B7%E4%BE%8B"><span class="nav-text">数据集样例</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        43 posts in total
+                    </span>
+                    
+                        <span>
+                            146k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
