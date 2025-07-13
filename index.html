@@ -596,7 +596,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">43</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">44</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -675,7 +675,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">43</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">44</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -690,6 +690,73 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/07/13/LLM-basic-series/memory_optimization/">
+                            cuda 显存占用优化
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            记录下 transformers 模型简单的减少显存的方式
+
+半精度加载
+混合精度训练
+激活 checkpoint
+lora
+flash attention
+
+但不包含例如 FSDP 和 deepspeed 之类的相关代码，因为我是在 jupyter notebook 里实验代码的。
+显存中分为两部分:
+
+allocated: 当前正在使用中的显存（张量等活跃对象），例如模型参数、梯度、优化...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Jul 13 2025 20:03:05 GMT+0800">
+                
+                    2025-07-13
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/LLM-%E5%9F%BA%E7%A1%80/">LLM 基础</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/07/13/LLM-basic-series/memory_optimization/">Read more<span class="seo-reader-text">cuda 显存占用优化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1254,64 +1321,6 @@ SimCSE: Simp...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/16/LLM-basic-series/alpaca/">
-                            Alpaca 源码分析
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            
-Self-Instruct 过程是一种迭代自举算法，它从一组手动编写的指令种子集开始，并用它们来提示语言模型生成新的指令以及相应的输入 - 输出实例。然后对这些生成结果进行过滤以去除低质量或相似的实例，所得数据被添加回任务池中。这个过程可以重复多次，从而产生大量的指令数据集合，可用于微调语言模型以更有效地遵循指令。
-alpaca 源码地址: https://github.com/tatsu...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri May 16 2025 22:13:58 GMT+0800">
-                
-                    2025-05-16
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/LLM-%E5%9F%BA%E7%A1%80/">LLM 基础</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/05/16/LLM-basic-series/alpaca/">Read more<span class="seo-reader-text">Alpaca 源码分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1339,11 +1348,11 @@ alpaca 源码地址: https://github.com/tatsu...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        43 posts in total
+                        44 posts in total
                     </span>
                     
                         <span>
-                            146k words in total
+                            147.6k words in total
                         </span>
                     
                 </p>
