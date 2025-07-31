@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/categories/agent/"/>
+    <link rel="canonical" href="http://example.com/2025/07/31/reinforcement_learning/grpo_length_reward/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -22,13 +22,15 @@
     
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/categories/agent/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GRPO-trainer-HF 长度奖励的文本压缩任务">
+<meta property="og:url" content="http://example.com/2025/07/31/Reinforcement_learning/GRPO_length_reward/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-07-31T00:00:15.911Z">
+<meta property="article:modified_time" content="2025-07-31T00:00:36.054Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
@@ -43,7 +45,7 @@
     
     <title>
         
-            Category: agent | Sharpen&#39;s Blogs
+            GRPO-trainer-HF 长度奖励的文本压缩任务 | Sharpen&#39;s Blogs
         
     </title>
 
@@ -104,7 +106,119 @@
     
     
     
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 
@@ -185,7 +299,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active"
+                                <a class=""
                                    href="/categories"
                                         >
                                     <i class="fa-solid fa-folder fa-fw"></i>
@@ -322,7 +436,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/categories"
                         >
                             <span>
@@ -442,78 +556,201 @@
 			
 
 			<div class="main-content">
-				<div class="page-template-container">
-	
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-	
-	<div class="category-name">
-    <i class="fa-solid fa-folder"></i>&nbsp;agent
-</div>
-<div class="category-post-list">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">GRPO-trainer-HF 长度奖励的文本压缩任务</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-07-31 08:15</span>
+        <span class="mobile">2025-07-31 08:15</span>
+        <span class="hover-info">Created</span>
+    </span>
     
-<div class="archive-list-container">
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-07-31 08:36</span>
+            <span class="mobile">2025-07-31 08:36</span>
+            <span class="hover-info">Updated</span>
+        </span>
     
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2025</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">3</span>
-            </div>
-            
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
                 
-                    
-                    
-                         <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='05-17'>
-                    
-                    <a href="/2025/05/17/agent/function_calling_agent/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">function calling agent</span>
-                    </a>
-                    
                 
-                    
-                    
-                    <a href="/2025/05/17/agent/agent_concept/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">Agent 概念</span>
-                    </a>
-                    
-                
-                    
                     
                         
-                            </li>
-                         <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='05-04'>
+                        <li>
+                            <a href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>&nbsp;
+                        </li>
                     
-                    <a href="/2025/05/04/agent/simple_agent/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">单轮对话-&gt;多轮对话-&gt;简单agent示例</span>
-                    </a>
                     
                 
-                </li> <!-- Ensure the last item is properly closed -->
             </ul>
-        </section>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>987 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>以下是出于<a class="link" target="_blank" rel="noopener" href="https://huggingface.co/docs/trl/main/en/grpo_trainer"> huggingface trl GRPO trainer<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 的教程的代码</p>
+<h2 id="数据和代码"><a href="#数据和代码" class="headerlink" title="数据和代码"></a>数据和代码</h2><p>使用的是 <a class="link" target="_blank" rel="noopener" href="https://huggingface.co/datasets/trl-lib/tldr">TLDR dataset<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> ， TLDR 指的是 Too Long Didn’t Read，代表太长了不想看，这个数据就是提供压缩前后的数据。以下是一组示例数据。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># prompt</span></span><br><span class="line"></span><br><span class="line">SUBREDDIT: r/relationships</span><br><span class="line"></span><br><span class="line">TITLE: I (f/22) have to figure out if I want to still know these girls or not and would hate to sound insulting</span><br><span class="line"></span><br><span class="line">POST: Not sure if this belongs here but it's worth a try.</span><br><span class="line"></span><br><span class="line">Backstory:</span><br><span class="line">When I (f/22) went through my first real breakup 2 years ago because he needed space after a year of dating roand it effected me more than I thought. It was a horrible time in my life due to living with my mother and finally having the chance to cut her out of my life. I can admit because of it was an emotional wreck and this guy was stable and didn't know how to deal with me. We ended by him avoiding for a month or so after going to a festival with my friends. When I think back I wish he just ended. So after he ended it added my depression I suffered but my friends helped me through it and I got rid of everything from him along with cutting contact.</span><br><span class="line"></span><br><span class="line">Now: Its been almost 3 years now and I've gotten better after counselling and mild anti depressants. My mother has been out of my life since then so there's been alot of progress. Being stronger after learning some lessons there been more insight about that time of my life but when I see him or a picture everything comes back. The emotions and memories bring me back down.</span><br><span class="line"></span><br><span class="line">His friends (both girls) are on my facebook because we get along well which is hard to find and I know they'll always have his back. But seeing him in a picture or talking to him at a convention having a conversation is tough. Crying confront of my current boyfriend is something I want to avoid.</span><br><span class="line"></span><br><span class="line">So I've been thinking that I have to cut contact with these girls because it's time to move on because it's healthier. It's best to avoid him as well. But will they be insulted? Will they accept it? Is there going to be awkwardness? I'm not sure if it's the right to do and could use some outside opinions.</span><br><span class="line"></span><br><span class="line">TL;DR:</span><br><span class="line">  </span><br><span class="line"><span class="section"># completion</span></span><br><span class="line">I still have contact with an old ex's friends but can't stand to see or talk to him. His friends are really nice ,so how do I tell them I possibly want to unfriend them on Facebook because of him?</span><br></pre></td></tr></table></figure></div>
+
+<p>代码如下:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train_grpo.py</span></span><br><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line"><span class="keyword">from</span> trl <span class="keyword">import</span> GRPOConfig, GRPOTrainer</span><br><span class="line"></span><br><span class="line">dataset = load_dataset(<span class="string">"trl-lib/tldr"</span>, split=<span class="string">"train"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the reward function, which rewards completions that are close to 20 characters</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reward_len</span>(<span class="params">completions, **kwargs</span>):</span><br><span class="line">    <span class="keyword">return</span> [-<span class="built_in">abs</span>(<span class="number">20</span> - <span class="built_in">len</span>(completion)) <span class="keyword">for</span> completion <span class="keyword">in</span> completions]</span><br><span class="line"></span><br><span class="line">training_args = GRPOConfig(output_dir=<span class="string">"Qwen2-0.5B-GRPO"</span>)</span><br><span class="line">trainer = GRPOTrainer(</span><br><span class="line">    model=<span class="string">"Qwen/Qwen2-0.5B-Instruct"</span>,</span><br><span class="line">    reward_funcs=reward_len,</span><br><span class="line">    args=training_args,</span><br><span class="line">    train_dataset=dataset,</span><br><span class="line">)</span><br><span class="line">trainer.train()</span><br></pre></td></tr></table></figure></div>
+
+<p>其中 reward 可以根据想要的压缩长度去调整，这个函数是计算输出长度与20间的差距的负值，reward最好的情况就是当输出长度为20，reward为0。这个reward是(-inf, 0]，没有下限。</p>
+<p>脚本如下:</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> WANDB_MODE=offline  <span class="comment"># Disable Weights &amp; Biases logging</span></span><br><span class="line"><span class="built_in">export</span> CUDA_VISIBLE_DEVICES=6  <span class="comment"># Set the GPUs to use</span></span><br><span class="line"><span class="built_in">export</span> WANDB_PROJECT=trl-grpo-length-reward  <span class="comment"># Set the Weights &amp; Biases project name</span></span><br><span class="line"><span class="built_in">export</span> NCCL_P2P_DISABLE=1</span><br><span class="line"><span class="built_in">export</span> NCCL_IB_DISABLE=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python grpo.py </span><br></pre></td></tr></table></figure></div>
+
+<p>我是单卡4090训练的，4-5行是4090不支持某些行为而额外设置的，WANDB_MODE根据服务器是否能联网设置。</p>
+<p>我实际调正了压缩长度的效果会很差，接下来看实验。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="target-length-20"><a href="#target-length-20" class="headerlink" title="target length=20"></a>target length=20</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_length_reward/image-20250730161539488.png" alt="image-20250730161539488"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_length_reward/image-20250730161627229.png" alt="image-20250730161627229"></p>
+<p>从图中可以看出来completion平均长度是在20附近的，大概多一点。</p>
+<h3 id="target-length-40"><a href="#target-length-40" class="headerlink" title="target length=40"></a>target length=40</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_length_reward/image-20250730162858656.png" alt="image-20250730162858656"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_length_reward/image-20250730162948445.png" alt="image-20250730162948445"></p>
+<p>平均长度最后在10左右，解释是这个 completions 只指的 tokenized 的长度，而不是reward中untokenized的长度。</p>
+<p>此外这个数据集的提示词也有点问题</p>
+<p>这是某次生成结果，整体上有太多杂乱的内容。所以不改了。</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Ok, so I appreciate you Persona has everyone on the planet! I appreciate you trying to empathise and understand this situation, but it's just too damn frustrating!! Please help me work through this??</span><br><span class="line"></span><br><span class="line">LINK: https://subreddits.stackoverflow.com/subredirects</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  0</span><br><span class="line">  1</span><br><span class="line">—</span><br><span class="line"></span><br><span class="line">Hey M31 with ninfolake. At 28, mate, the recent crisis can no longer be withstood.</span><br><span class="line">  0</span><br><span class="line">  1</span><br><span class="line">—</span><br><span class="line">^<span class="emphasis">_^^</span></span><br><span class="line"><span class="emphasis">Sometime away.</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">If you're committed to turning in your original_</span>username and the arguably useful @M31withNinfeyes, please do so! Thanks!</span><br><span class="line"></span><br><span class="line">PS: Let me know if there's a way for me to communicate my frustration through redirect or subs sub.</span><br><span class="line"></span><br><span class="line">Edit: As requested! Thanks for spreading the love. This is the second part of a series where some people on the AoPS just took on some of my issues and mediation with them. This one is a mix tutorial redux and what might happen when you split up to group a team in Minecraft vs Minecraft. I'm happy to learn more about the Minecraft dungeon wording.</span><br><span class="line">  0</span><br><span class="line">  1</span><br><span class="line">—</span><br><span class="line">^<span class="emphasis">_^^</span></span><br><span class="line"><span class="emphasis">What your using them struggle on: the minecraft</span></span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/07/16/Reinforcement_learning/DPO_trainer_exp/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">DPO trainer - by trl</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
 </div>
+
+		</div>
+		
+	</div>
 
 	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">GRPO-trainer-HF 长度奖励的文本压缩任务</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%92%8C%E4%BB%A3%E7%A0%81"><span class="nav-text">数据和代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#target-length-20"><span class="nav-text">target length&#x3D;20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#target-length-40"><span class="nav-text">target length&#x3D;40</span></a></li></ol></li></ol>
 
-	<div class="page-template-content markdown-body">
-		
-
-		
-	</div>
-
-	<div class="page-template-comments">
-		
 	</div>
 </div>
-
-<div class="paginator">
-	<span class="page-number current">1</span>
+	</div>
+	
 </div>
-  
 			</div>
 
 			
@@ -572,6 +809,26 @@
 		</div>
 	</div>
 
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
 	
 
 	<div class="right-side-tools-container">
@@ -675,6 +932,7 @@
         containers: ["#swup"],
     });
 </script>
+
 
 
 
