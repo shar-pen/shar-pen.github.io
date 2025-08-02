@@ -596,7 +596,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -675,7 +675,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -690,6 +690,124 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/02/Reinforcement_learning/GRPO_trainer_reasoning_model/">
+                            GRPO trainer 训练推理模型
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Qwen 模型在 GSM8K 数据集上的 GRPO 训练脚本
+本脚本使用 GRPO（Group Relative Policy Optimization） 方法，在 GSM8K（Grade School Math 8K）数据集上对 Qwen 模型进行训练。
+
+数据集：加载 GSM8K 并应用 one shot 提示。
+奖励函数：定义xml tag reward 、format reward、...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Aug 02 2025 22:57:46 GMT+0800">
+                
+                    2025-08-02
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/08/02/Reinforcement_learning/GRPO_trainer_reasoning_model/">Read more<span class="seo-reader-text">GRPO trainer 训练推理模型</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/02/Reinforcement_learning/GRPO_implementation_from_scratch/">
+                            GRPO 实现讲解
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            这是我的 github 项目的讲解，在看之前，最好看下之前发的 GRPO&amp;DAPO 的论文讲解。
+数据准备 src/prepare_data.py将推理任务和答案准备好，在  openai/gsm8k 数据集中 answer 字段的答案是长答案 + ### 后的短答案。在判断是否模型答对问题时，不会中间过程进行评估，而是对结果评估，因此实际只需要将短答案提取。
+以下是 openai/...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Aug 02 2025 22:57:46 GMT+0800">
+                
+                    2025-08-02
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/08/02/Reinforcement_learning/GRPO_implementation_from_scratch/">Read more<span class="seo-reader-text">GRPO 实现讲解</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1169,156 +1287,6 @@ preliminariesKL ...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/30/Multi-modal-series/qwen2.5_vl_infer/">
-                            Qwen 2.5 VL 推理
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            QWEN2.5-VL框架展示了视觉编码器和语言模型解码器的集成，以处理多模式输入，包括图像和视频。视觉编码器旨在以其本机分辨率处理输入，并支持动态FPS采样。具有不同FPS速率的不同尺寸和视频帧的图像被动态映射到长度不同的token。
-
-加载模型12345678910111213import torchfrom qwen_vl_utils import process_vision_info...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri May 30 2025 01:08:18 GMT+0800">
-                
-                    2025-05-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/30/Multi-modal-series/qwen2.5_vl_infer/">Read more<span class="seo-reader-text">Qwen 2.5 VL 推理</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/18/Multi-modal-series/SimCLR_SimCSE_SimVLM/">
-                            对比学习在CV与NLP领域的应用：SimCLR、SimCSE 与 SimVLM
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            对比学习作为一种重要的自监督预训练范式，已在计算机视觉（CV）与自然语言处理（NLP）等多个领域展现出强大能力。本文将聚焦三种经典代表方法：SimCLR、SimCSE 及 SimVLM，探讨其核心思想与技术实现。
-SimCLR: A Simple Framework for Contrastive Learning of Visual Representations
-SimCSE: Simp...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 18 2025 22:33:34 GMT+0800">
-                
-                    2025-05-18
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/CV/">CV</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/18/Multi-modal-series/SimCLR_SimCSE_SimVLM/">Read more<span class="seo-reader-text">对比学习在CV与NLP领域的应用：SimCLR、SimCSE 与 SimVLM</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1346,11 +1314,11 @@ SimCSE: Simp...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        47 posts in total
+                        49 posts in total
                     </span>
                     
                         <span>
-                            154k words in total
+                            157.4k words in total
                         </span>
                     
                 </p>

@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Peng Xia">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/08/02/reinforcement_learning/grpo_implementation_from_scratch/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GRPO 实现讲解">
+<meta property="og:url" content="http://example.com/2025/08/02/Reinforcement_learning/GRPO_implementation_from_scratch/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-08-02T14:57:46.590Z">
+<meta property="article:modified_time" content="2025-08-02T14:59:26.276Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/github-color-svgrepo-com.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/github-color-svgrepo-com.svg">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="shortcut icon" href="/images/github-color-svgrepo-com.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            GRPO 实现讲解 | Sharpen&#39;s Blogs
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lora" rel="stylesheet">
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#FFD700","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dune.jpg","dark":"/images/dune.jpg"},"title":"Sharpen's Blogs","subtitle":{"text":["Just regularly appending some blogs here, to keep my memory fresh and mind straight.","Here I am. ","Do not go gentle into that good night. "],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"Lora","url":"https://fonts.googleapis.com/css2?family=Lora"},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/shar-pen","instagram":null,"zhihu":null,"twitter":null,"email":"xiapeng21011@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"icon":"fa-regular fa-link","submenus":{"Github":"https://github.com/shar-pen","Blog":"https://github.com/shar-pen.github.io","CSDN":"https://blog.csdn.net/the_3rd_bomb"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":":)","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":null};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/github-color-svgrepo-com.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Sharpen&#39;s Blogs
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">
+                                                    CSDN
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/shar-pen.github.io">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.csdn.net/the_3rd_bomb">CSDN</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">GRPO 实现讲解</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Peng Xia</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-02 22:57:46</span>
+        <span class="mobile">2025-08-02 22:57:46</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-02 22:59:26</span>
+            <span class="mobile">2025-08-02 22:59:26</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>这是我的 github 项目的讲解，在看之前，最好看下之前发的 GRPO&amp;DAPO 的论文讲解。</p>
+<h3 id="数据准备-src-prepare-data-py"><a href="#数据准备-src-prepare-data-py" class="headerlink" title="数据准备 src/prepare_data.py"></a>数据准备 src/prepare_data.py</h3><p>将推理任务和答案准备好，在  <code>openai/gsm8k</code> 数据集中 answer 字段的答案是长答案 + ### 后的短答案。在判断是否模型答对问题时，不会中间过程进行评估，而是对结果评估，因此实际只需要将短答案提取。</p>
+<p>以下是 <code>openai/gsm8k</code> 的数据对示例:</p>
+<div class="code-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Question:</span><br><span class="line">Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">Natalia sold 48/2 = &lt;&lt;48/2=24&gt;&gt;24 clips in May.</span><br><span class="line">Natalia sold 48+24 = &lt;&lt;48+24=72&gt;&gt;72 clips altogether in April and May.</span><br><span class="line"><span class="section">#### 72</span></span><br></pre></td></tr></table></figure></div>
+
+<p>以下是代码中的处理代码，我们将格式要求作为 system prompt，与问题构成对话。部分实现里会加入one shot QA 示例。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">efault_system_prompt = <span class="string">"""A conversation between User and Assistant. The user asks a question, and the Assistant solves it.</span></span><br><span class="line"><span class="string">The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within &lt;think&gt; &lt;/think&gt; and &lt;answer&gt; &lt;/answer&gt; tags, respectively, i.e., &lt;think&gt;\n reasoning process here \n&lt;/think&gt;\n&lt;answer&gt;\n answer here \n&lt;/answer&gt;.</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract_final_answer</span>(<span class="params">text</span>):</span><br><span class="line">	<span class="keyword">if</span> <span class="string">"####"</span> <span class="keyword">not</span> <span class="keyword">in</span> text:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	<span class="keyword">return</span> text.split(<span class="string">"####"</span>)[<span class="number">1</span>].strip()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_conversation</span>(<span class="params">example, system_prompt=<span class="literal">None</span></span>):</span><br><span class="line">	prompt = []</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> system_prompt <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">		prompt.append({<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: system_prompt})</span><br><span class="line">	</span><br><span class="line">	prompt.append({<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: example[<span class="string">'question'</span>]})</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> {<span class="string">"prompt"</span>: prompt, <span class="string">"solution"</span>: extract_final_answer(example[<span class="string">'answer'</span>])}</span><br><span class="line"></span><br><span class="line">dataset = load_dataset(<span class="string">'openai/gsm8k'</span>, <span class="string">'main'</span>, split=<span class="string">'train'</span>)</span><br><span class="line"></span><br><span class="line">dataset_formatted = dataset.<span class="built_in">map</span>(</span><br><span class="line">    partial(</span><br><span class="line">        make_conversation, </span><br><span class="line">        system_prompt=system_prompt,</span><br><span class="line">    ),</span><br><span class="line">)</span><br><span class="line">dataset_formatted = dataset_formatted.<span class="built_in">map</span>(</span><br><span class="line">    partial(add_len, tokenizer=tokenizer),</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p>由于本项目是最低的实现，我对问题和答案长度进行了限制，希望模型不会遇到太复杂的问题而产生很长的 response。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_len</span>(<span class="params">example, tokenizer</span>):</span><br><span class="line">    <span class="comment"># 计算 token 数；去掉 special tokens 保持一致性</span></span><br><span class="line">    prompt_ids  = tokenizer.apply_chat_template(example[<span class="string">"prompt"</span>], tokenize=<span class="literal">True</span>, add_generation_prompt=<span class="literal">True</span>)</span><br><span class="line">    answer_ids  = tokenizer.encode(example[<span class="string">"answer"</span>],  add_special_tokens=<span class="literal">False</span>)</span><br><span class="line">    example[<span class="string">"prompt_len"</span>]  = <span class="built_in">len</span>(prompt_ids)</span><br><span class="line">    example[<span class="string">"answer_len"</span>]  = <span class="built_in">len</span>(answer_ids)</span><br><span class="line">    <span class="keyword">return</span> example</span><br><span class="line"></span><br><span class="line">dataset_formatted = dataset_formatted.<span class="built_in">filter</span>(</span><br><span class="line">    <span class="keyword">lambda</span> x: x[<span class="string">"prompt_len"</span>] &lt;= <span class="number">300</span> <span class="keyword">and</span> x[<span class="string">"answer_len"</span>] &lt;= <span class="number">200</span>,</span><br><span class="line">)</span><br><span class="line">dataset_formatted = dataset_formatted.select(<span class="built_in">range</span>(<span class="number">1024</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="模型处理-src-model-utils-py"><a href="#模型处理-src-model-utils-py" class="headerlink" title="模型处理 src/model_utils.py"></a>模型处理 src/model_utils.py</h3><p>很短，仅有两个函数</p>
+<ul>
+<li>优化模型设置: 修改设置，使显存占用降低</li>
+<li>冻结模型: 参考模型需要冻结，以用于计算KL散度</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">optimize_model_settings</span>(<span class="params">model</span>):</span><br><span class="line">	model.config.use_cache = <span class="literal">False</span></span><br><span class="line">	model.gradient_checkpointing_enable()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">freeze_model</span>(<span class="params">model</span>):</span><br><span class="line">	model.<span class="built_in">eval</span>()</span><br><span class="line">	<span class="keyword">for</span> param <span class="keyword">in</span> model.parameters():</span><br><span class="line">		param.requires_grad = <span class="literal">False</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="grpo相关util-src-grpo-utils-py"><a href="#grpo相关util-src-grpo-utils-py" class="headerlink" title="grpo相关util src/grpo_utils.py"></a>grpo相关util src/grpo_utils.py</h3><p>有3个封装的函数，每个函数都有每个步骤的注释。</p>
+<ul>
+<li>log prob 的计算函数</li>
+<li>completion 的掩码</li>
+<li>rollout 生成</li>
+<li>grpo loss 计算</li>
+</ul>
+<p>log prob 的计算就是正常 label shift 后，获取对应 label 的 log prob，注意不需要 sum，因为后面还需要加上 KL 散度。transformers 有这个函数，但我还是重写了。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_per_token_log_probs</span>(<span class="params"></span></span><br><span class="line"><span class="params">	model: AutoModelForCausalLM,</span></span><br><span class="line"><span class="params">	input_ids: torch.Tensor,</span></span><br><span class="line"><span class="params">	attention_mask: torch.Tensor,</span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	计算每个 token 的 log-probability</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	<span class="comment"># label shift</span></span><br><span class="line">	target_ids = input_ids[:, <span class="number">1</span>:]</span><br><span class="line">	logits = model(input_ids=input_ids, attention_mask=attention_mask).logits[:, :-<span class="number">1</span>, :]</span><br><span class="line">	<span class="comment"># 计算 per token 的 log-probability</span></span><br><span class="line">	<span class="comment"># 根据 `input_ids` 这个索引(vocab id)，从 `log_probs` 里取出对应位置的 log-probability</span></span><br><span class="line">	log_probs = torch.nn.functional.log_softmax(logits, dim=-<span class="number">1</span>)</span><br><span class="line">	per_token_log_probs = log_probs.gather(dim=-<span class="number">1</span>, index=target_ids.unsqueeze(-<span class="number">1</span>)).squeeze(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> per_token_log_probs</span><br></pre></td></tr></table></figure></div>
+
+<p>completion 的掩码，根据 eos_token_id 来获取 completion 的位置。这个函数参考了 grpo trainer 中同名函数的实现。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_completion_mask</span>(<span class="params">completion_ids, eos_token_id</span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	根据 completion_ids 创建 completion_mask，将 eos_token_id 之后置为 false</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	<span class="comment">#  用 mask 排除掉 eos token 之后的部分，保留 prompt 和 completion 的有效部分，计算 completion_mask 的目的是计算 completion 对应的 log prob</span></span><br><span class="line">	is_eos = completion_ids == eos_token_id</span><br><span class="line">	eos_idx = torch.full((is_eos.size(<span class="number">0</span>),), is_eos.size(<span class="number">1</span>), dtype=torch.long, device=completion_ids.device)</span><br><span class="line">	<span class="comment"># 检查每一行是否有 eos token</span></span><br><span class="line">	mask_exists = is_eos.<span class="built_in">any</span>(dim=<span class="number">1</span>) </span><br><span class="line">	<span class="comment"># 将有 eos 的行的 eos_idx 设置为对应的 eos token 的位置，其他行保持 eos_idx.size(1) 的值， 即最大值	</span></span><br><span class="line">	eos_idx[mask_exists] = is_eos.<span class="built_in">int</span>().argmax(dim=<span class="number">1</span>)[mask_exists]  </span><br><span class="line">	<span class="comment"># 每行就是 [0, 1, 2, ..., max_completion_length-1] 的序列</span></span><br><span class="line">	sequence_indices = torch.arange(is_eos.size(<span class="number">1</span>), device=completion_ids.device).expand(is_eos.size(<span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">	<span class="comment"># 生成的 completion_mask，1 表示有效部分，0 表示无效部分 </span></span><br><span class="line">	completion_mask = (sequence_indices &lt;= eos_idx.unsqueeze(<span class="number">1</span>)).to(torch.int64)</span><br><span class="line">	<span class="keyword">return</span> completion_mask</span><br></pre></td></tr></table></figure></div>
+
+<p>rollout 生成，虽然 transformers 的 model.generate 函数不是很高效，grpo trainer 中也采用 vllm 来生成 rollout，但为了简易型我还是用了 model.generate，其实还跟 vllm 不支持 jupyter notebook 相关。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@torch.no_grad()</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_rollouts</span>(<span class="params"></span></span><br><span class="line"><span class="params">	model: AutoModelForCausalLM, </span></span><br><span class="line"><span class="params">	tokenizer: AutoTokenizer, </span></span><br><span class="line"><span class="params">	prompts: <span class="built_in">list</span>[<span class="built_in">list</span>[<span class="built_in">dict</span>[<span class="built_in">str</span>, <span class="built_in">str</span>]]] | <span class="built_in">list</span>[<span class="built_in">str</span>], <span class="comment"># prompts maybe a list of list or list of str</span></span></span><br><span class="line"><span class="params">	num_of_roullout:<span class="built_in">int</span>=<span class="number">8</span>,</span></span><br><span class="line"><span class="params">	max_length: <span class="built_in">int</span> = <span class="number">1024</span>,</span></span><br><span class="line"><span class="params">	temperature: <span class="built_in">float</span> = <span class="number">1.0</span>,</span></span><br><span class="line"><span class="params">	top_p: <span class="built_in">float</span> = <span class="number">1.0</span>,</span></span><br><span class="line"><span class="params">	top_k: <span class="built_in">int</span> = <span class="number">50</span>,</span></span><br><span class="line"><span class="params">	</span>):</span><br><span class="line">	</span><br><span class="line">	model.<span class="built_in">eval</span>()</span><br><span class="line">	device = model.device</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 1. 准备 model inputs</span></span><br><span class="line">	<span class="comment"># 1.1 tokenize prompt</span></span><br><span class="line">	<span class="keyword">if</span> tokenizer.pad_token_id <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">		tokenizer.pad_token_id = tokenizer.eos_token_id</span><br><span class="line"></span><br><span class="line">	prompts = [</span><br><span class="line">		maybe_apply_chat_template(a_prompt, tokenizer)</span><br><span class="line">		<span class="keyword">for</span> a_prompt <span class="keyword">in</span> prompts</span><br><span class="line">	]</span><br><span class="line">	model_inputs = tokenizer(</span><br><span class="line">		prompts,</span><br><span class="line">		return_tensors=<span class="string">"pt"</span>,</span><br><span class="line">		padding=<span class="literal">True</span>,</span><br><span class="line">		padding_side=<span class="string">"left"</span>,</span><br><span class="line">		return_attention_mask=<span class="literal">True</span>,</span><br><span class="line">	).to(device)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 1.2 duplicate prompt num_rollouts times</span></span><br><span class="line">	<span class="comment"># input_ids 和 attention_mask 都是 bs(1) x sl 的, 需要在 batch 维度上重复 num_rollouts 次</span></span><br><span class="line">	model_inputs[<span class="string">"input_ids"</span>] = model_inputs[<span class="string">"input_ids"</span>].repeat_interleave(num_of_roullout, dim=<span class="number">0</span>)</span><br><span class="line">	model_inputs[<span class="string">"attention_mask"</span>] = model_inputs[<span class="string">"attention_mask"</span>].repeat_interleave(num_of_roullout, dim=<span class="number">0</span>)</span><br><span class="line">	<span class="comment"># 取 sl 维度为 prompt 长度</span></span><br><span class="line">	prompt_length = model_inputs[<span class="string">"input_ids"</span>].shape[<span class="number">1</span>] </span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 2. sample completions / rollouts</span></span><br><span class="line">	generation_config = GenerationConfig(</span><br><span class="line">		do_sample=<span class="literal">True</span>,</span><br><span class="line">		top_p=top_p,</span><br><span class="line">		top_k=top_k,</span><br><span class="line">		temperature=temperature,</span><br><span class="line">		max_length=max_length,</span><br><span class="line">		pad_token_id=tokenizer.pad_token_id,</span><br><span class="line">	)</span><br><span class="line">	sequence_ids = model.generate(</span><br><span class="line">		**model_inputs, </span><br><span class="line">		generation_config=generation_config</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 3. prepare return</span></span><br><span class="line">	completions = tokenizer.batch_decode(</span><br><span class="line">		sequence_ids[:, prompt_length:], skip_special_tokens=<span class="literal">True</span></span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># completion mask 是指 completion id 对应的 mask</span></span><br><span class="line">	<span class="comment"># prompt 部分全是 0， completion 部分需要根据 eos_token 来区分 completion 的有效部分和无效部分</span></span><br><span class="line">	completion_mask = torch.zeros_like(sequence_ids, dtype=torch.int64)</span><br><span class="line">	partial_completion_mask = create_completion_mask(sequence_ids[:, prompt_length:], tokenizer.eos_token_id)</span><br><span class="line">	completion_mask[:, prompt_length:] = partial_completion_mask</span><br><span class="line"></span><br><span class="line">	sequence_mask = torch.cat([model_inputs[<span class="string">"attention_mask"</span>], partial_completion_mask], dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> sequence_ids, sequence_mask, completion_mask, completions</span><br></pre></td></tr></table></figure></div>
+
+<p>grpo loss 计算，涉及 log prob ratio 的 clip，KL 散度的计算， completion mask 掩码计算 loss，和先样本内平均后样本间平均。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_grpo_loss</span>(<span class="params"></span></span><br><span class="line"><span class="params">	model: AutoModelForCausalLM,</span></span><br><span class="line"><span class="params">	sequence_ids: torch.Tensor,</span></span><br><span class="line"><span class="params">	sequence_mask: torch.Tensor,</span></span><br><span class="line"><span class="params">	completion_mask: torch.Tensor,</span></span><br><span class="line"><span class="params">	advantage_per_sample: torch.Tensor,</span></span><br><span class="line"><span class="params">	prob_per_token_old: torch.Tensor,</span></span><br><span class="line"><span class="params">	prob_per_token_reference: torch.Tensor,</span></span><br><span class="line"><span class="params">	epsilon: <span class="built_in">float</span>,</span></span><br><span class="line"><span class="params">	beta: <span class="built_in">float</span> = <span class="number">0.04</span>,</span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 计算 policy 的 log prob</span></span><br><span class="line">	prob_per_token_policy = get_per_token_log_probs(</span><br><span class="line">		model,</span><br><span class="line">		input_ids=sequence_ids,</span><br><span class="line">		attention_mask=sequence_mask,</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 计算每个 token 的 loss</span></span><br><span class="line">	coef_1 = (prob_per_token_policy - prob_per_token_old).exp()</span><br><span class="line">	coef_2 = torch.clamp(coef_1, <span class="number">1</span> - epsilon, <span class="number">1</span> + epsilon)</span><br><span class="line">	loss_per_token_1 = coef_1 * advantage_per_sample.unsqueeze(<span class="number">1</span>)</span><br><span class="line">	loss_per_token_2 = coef_2 * advantage_per_sample.unsqueeze(<span class="number">1</span>)</span><br><span class="line">	loss_per_token = -torch.<span class="built_in">min</span>(loss_per_token_1, loss_per_token_2)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># per token 的 KL 散度</span></span><br><span class="line">	kl_divergence_per_token = (prob_per_token_policy - prob_per_token_reference).exp() - (prob_per_token_policy - prob_per_token_reference) - <span class="number">1</span></span><br><span class="line">	loss_per_token += beta * kl_divergence_per_token</span><br><span class="line"></span><br><span class="line">	<span class="comment"># label shift completion_mask to match per_token_loss</span></span><br><span class="line">	loss_per_completion = (loss_per_token * completion_mask[:, <span class="number">1</span>:]).<span class="built_in">sum</span>(dim=<span class="number">1</span>)</span><br><span class="line">	length_per_completion = completion_mask[:, <span class="number">1</span>:].<span class="built_in">sum</span>(dim=<span class="number">1</span>).clamp(<span class="built_in">min</span>=<span class="number">1</span>)</span><br><span class="line">	loss = (loss_per_completion / length_per_completion).mean()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> loss</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="规则奖励函数-src-reward-py"><a href="#规则奖励函数-src-reward-py" class="headerlink" title="规则奖励函数 src/reward.py"></a>规则奖励函数 src/reward.py</h3><p>包含若干规则和 grpo 的最内 advantage 计算函数</p>
+<p>我使用了 format 奖励、xml tag奖励、准确率奖励</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">extract_answer</span>(<span class="params">text</span>):</span><br><span class="line">	<span class="keyword">match</span> = re.search(<span class="string">r'&lt;answer&gt;\n(.*?)\n&lt;/answer&gt;'</span>, text, re.DOTALL)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">match</span>.group(<span class="number">1</span>).strip()</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">format_reward</span>(<span class="params">completion, **kwargs</span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	检查预测文本是否符合特定格式要求。e.g., &lt;think&gt;\n...\n&lt;/think&gt;\n&lt;answer&gt;\n...\n&lt;/answer&gt;</span></span><br><span class="line"><span class="string">	kwargs 参数可以用于传递额外的配置，但在此函数中未使用。</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	pattern = <span class="string">r"^&lt;think&gt;\n.*?\n&lt;/think&gt;\n&lt;answer&gt;\n.*?\n&lt;/answer&gt;$"</span></span><br><span class="line">	<span class="keyword">if</span> re.<span class="keyword">match</span>(pattern, completion, re.DOTALL | re.MULTILINE):</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1.0</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0.0</span></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tag_count_reward</span>(<span class="params">completion, **kwargs</span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	检查文本中 &lt;think&gt; 和 &lt;answer&gt; 标签的数量。</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	score = <span class="number">0.0</span></span><br><span class="line">	<span class="keyword">if</span> completion.count(<span class="string">"&lt;think&gt;\n"</span>) == <span class="number">1</span>:</span><br><span class="line">		score += <span class="number">0.25</span></span><br><span class="line">	<span class="keyword">if</span> completion.count(<span class="string">"\n&lt;/think&gt;\n"</span>) == <span class="number">1</span>:</span><br><span class="line">		score += <span class="number">0.25</span></span><br><span class="line">	<span class="keyword">if</span> completion.count(<span class="string">"\n&lt;answer&gt;\n"</span>) == <span class="number">1</span>:</span><br><span class="line">		score += <span class="number">0.25</span></span><br><span class="line">	<span class="keyword">if</span> completion.count(<span class="string">"\n&lt;/answer&gt;"</span>) == <span class="number">1</span>:</span><br><span class="line">		score += <span class="number">0.25</span></span><br><span class="line">	<span class="keyword">return</span> score</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reasoning_steps_reward</span>(<span class="params">completion, **kwargs</span>):</span><br><span class="line"></span><br><span class="line">	pattern = <span class="string">r"(Step \d+:|^\d+\.|\n-|\n\*|First,|Second,|Next,|Finally,)"</span></span><br><span class="line">	matches = re.findall(pattern, completion)</span><br><span class="line">	score = <span class="built_in">min</span>(<span class="number">1.0</span>, <span class="built_in">len</span>(matches) / <span class="number">3</span>)  <span class="comment"># 奖励 3 次以上</span></span><br><span class="line">	<span class="keyword">return</span> score</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">accuracy_reward</span>(<span class="params">completion, solution, **kwargs</span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	计算预测文本与真实答案之间的准确度奖励。</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	full_answer_content = extract_answer(completion)</span><br><span class="line">	<span class="keyword">if</span> full_answer_content <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">	gold_parsed = parse(solution)</span><br><span class="line">	answer_parsed = parse(full_answer_content)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		score = <span class="built_in">float</span>(verify(gold_parsed, answer_parsed))</span><br><span class="line">	<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">f"verify failed: <span class="subst">{e}</span>, answer: <span class="subst">{answer_parsed}</span>, gold: <span class="subst">{gold_parsed}</span>"</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> score</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_grpo_reward</span>(<span class="params">completions, solutions, reward_funcs, reward_weights=<span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> reward_weights <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">		reward_weights = [<span class="number">1.0</span>/<span class="built_in">len</span>(reward_funcs)] * <span class="built_in">len</span>(reward_funcs)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">assert</span> <span class="built_in">len</span>(reward_weights) == <span class="built_in">len</span>(reward_funcs), <span class="string">"reward_weight and reward_funcs must have the same length"</span></span><br><span class="line"></span><br><span class="line">	rewards_per_sample_per_func = torch.zeros(<span class="built_in">len</span>(completions), <span class="built_in">len</span>(reward_funcs))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i, (a_completion, a_solution) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(completions, solutions)):</span><br><span class="line">		<span class="keyword">for</span> j, reward_func <span class="keyword">in</span> <span class="built_in">enumerate</span>(reward_funcs):</span><br><span class="line">			rewards_per_sample_per_func[i, j] = reward_func(a_completion, solution=a_solution)</span><br><span class="line"></span><br><span class="line">	reward_weight_tensor = torch.tensor(reward_weights)</span><br><span class="line">	reward_per_completion = (rewards_per_sample_per_func * reward_weight_tensor).<span class="built_in">sum</span>(dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># return avergaed score of different reward functions</span></span><br><span class="line">	reward_per_reward_func = rewards_per_sample_per_func.mean(dim=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> reward_per_completion, reward_per_reward_func</span><br></pre></td></tr></table></figure></div>
+
+<p>grpo 组内 advantage 计算，注意组是指同一个问题内部计算 mean 和 std。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">compute_group_advantage</span>(<span class="params">reward_per_sample: torch.Tensor, num_generations: <span class="built_in">int</span>=<span class="literal">None</span>, eps: <span class="built_in">float</span> = <span class="number">1e-8</span>, scale_rewards: <span class="built_in">bool</span> = <span class="literal">True</span></span>):</span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	基于 reward 计算 advantage</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	<span class="keyword">if</span> num_generations <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">		num_generations = reward_per_sample.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 计算同一个prompt的多次生成的平均奖励和标准差</span></span><br><span class="line">	mean_grouped_rewards = reward_per_sample.view(-<span class="number">1</span>, num_generations).mean(dim=<span class="number">1</span>)</span><br><span class="line">	std_grouped_rewards = reward_per_sample.view(-<span class="number">1</span>, num_generations).std(dim=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 将 mean 和 std 重复 num_generations 次，以便与 rewards 的形状匹配</span></span><br><span class="line">	mean_grouped_rewards = mean_grouped_rewards.repeat_interleave(num_generations, dim=<span class="number">0</span>)</span><br><span class="line">	std_grouped_rewards = std_grouped_rewards.repeat_interleave(num_generations, dim=<span class="number">0</span>)</span><br><span class="line">	group_advantage = reward_per_sample - mean_grouped_rewards</span><br><span class="line">	<span class="keyword">if</span> scale_rewards:</span><br><span class="line">		group_advantage /= (std_grouped_rewards + eps)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> group_advantage</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="grpo-主函数-src-main-minibatch-py"><a href="#grpo-主函数-src-main-minibatch-py" class="headerlink" title="grpo 主函数 src/main_minibatch.py"></a>grpo 主函数 src/main_minibatch.py</h3><p>grpo 的主要流程分为:</p>
+<ul>
+<li>rollout 生成</li>
+<li>reward 计算</li>
+<li>旧 policy model (当前 policy model)和参考 model 的 log prob 计算</li>
+<li>grpo loss 计算并反向传播</li>
+</ul>
+<h4 id="rollout-生成"><a href="#rollout-生成" class="headerlink" title="rollout 生成"></a>rollout 生成</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">prompts = [example[<span class="string">'prompt'</span>] <span class="keyword">for</span> example <span class="keyword">in</span> batch]</span><br><span class="line">solutions = [example[<span class="string">'solution'</span>] <span class="keyword">for</span> example <span class="keyword">in</span> batch]</span><br><span class="line"></span><br><span class="line">sequence_ids, sequence_mask, completion_mask, completions = generate_rollouts(</span><br><span class="line">    model_policy, </span><br><span class="line">    tokenizer, </span><br><span class="line">    prompts, </span><br><span class="line">    num_of_roullout=n_roullout, </span><br><span class="line">    max_length=max_length, </span><br><span class="line">    temperature=<span class="number">1.0</span>, </span><br><span class="line">    top_p=<span class="number">0.9</span>, </span><br><span class="line">    top_k=<span class="number">50</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="reward-计算"><a href="#reward-计算" class="headerlink" title="reward 计算"></a>reward 计算</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">reward_funcs = [format_reward, tag_count_reward, accuracy_reward]</span><br><span class="line">reward_weights = [<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">1.0</span>]</span><br><span class="line"></span><br><span class="line">solutions = [s <span class="keyword">for</span> s <span class="keyword">in</span> solutions <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n_roullout)]</span><br><span class="line"></span><br><span class="line">reward_per_completion, reward_per_reward_func = compute_grpo_reward(</span><br><span class="line">    completions, </span><br><span class="line">    solutions, </span><br><span class="line">    reward_funcs,</span><br><span class="line">    reward_weights,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">group_advantage_per_sample = compute_group_advantage(</span><br><span class="line">    reward_per_completion</span><br><span class="line">).to(device)</span><br></pre></td></tr></table></figure></div>
+
+<p>reward weight 最好倾向 accuracy_reward，其他格式相对好学习到。</p>
+<h4 id="旧-policy-model-和参考-model-的-log-prob-计算"><a href="#旧-policy-model-和参考-model-的-log-prob-计算" class="headerlink" title="旧 policy model 和参考 model 的 log prob 计算"></a>旧 policy model 和参考 model 的 log prob 计算</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    prob_per_token_old = []</span><br><span class="line">    prob_per_token_reference = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(sequence_ids), batch_size_micro_for_no_grad):</span><br><span class="line">        sequence_ids_batch = sequence_ids[i:i + batch_size_micro_for_no_grad]</span><br><span class="line">        sequence_mask_batch = sequence_mask[i:i + batch_size_micro_for_no_grad]</span><br><span class="line"></span><br><span class="line">        prob_old_batch = get_per_token_log_probs(</span><br><span class="line">            model_policy,  <span class="comment"># 使用当前policy作为old policy</span></span><br><span class="line">            input_ids=sequence_ids_batch,</span><br><span class="line">            attention_mask=sequence_mask_batch,</span><br><span class="line">        )</span><br><span class="line">        prob_ref_batch = get_per_token_log_probs(</span><br><span class="line">            model_reference,</span><br><span class="line">            input_ids=sequence_ids_batch,</span><br><span class="line">            attention_mask=sequence_mask_batch,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        prob_per_token_old.append(prob_old_batch)</span><br><span class="line">        prob_per_token_reference.append(prob_ref_batch)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将mini batch结果拼接</span></span><br><span class="line">    prob_per_token_old = torch.cat(prob_per_token_old, dim=<span class="number">0</span>)</span><br><span class="line">    prob_per_token_reference = torch.cat(prob_per_token_reference, dim=<span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>计算这里用了 torch.no_grad()，但 rollout 太多了还是会超显存，因此这里还是采用 mini batch</p>
+<h4 id="grpo-loss-计算并反向传播"><a href="#grpo-loss-计算并反向传播" class="headerlink" title="grpo loss 计算并反向传播"></a>grpo loss 计算并反向传播</h4><p>这里 FWD 和 BWD 都采用了 mini batch</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(mu):</span><br><span class="line"></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(sequence_ids), batch_size_micro):</span><br><span class="line"></span><br><span class="line">        sequence_ids_batch = sequence_ids[i:i + batch_size_micro]</span><br><span class="line">        sequence_mask_batch = sequence_mask[i:i + batch_size_micro]</span><br><span class="line">        completion_mask_batch = completion_mask[i:i + batch_size_micro]</span><br><span class="line">        group_advantage_per_sample_batch = group_advantage_per_sample[i:i + batch_size_micro]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用预先计算的固定old_policy_prob和reference_prob</span></span><br><span class="line">        prob_per_token_old_batch = prob_per_token_old[i:i + batch_size_micro]</span><br><span class="line">        prob_per_token_reference_batch = prob_per_token_reference[i:i + batch_size_micro]</span><br><span class="line"></span><br><span class="line">        loss = get_grpo_loss(</span><br><span class="line">            model_policy,</span><br><span class="line">            sequence_ids_batch,</span><br><span class="line">            sequence_mask_batch,</span><br><span class="line">            completion_mask_batch,</span><br><span class="line">            group_advantage_per_sample_batch,</span><br><span class="line">            prob_per_token_old_batch,</span><br><span class="line">            prob_per_token_reference_batch,</span><br><span class="line">            epsilon,</span><br><span class="line">            beta</span><br><span class="line">        )</span><br><span class="line">        loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="GRPO-结果"><a href="#GRPO-结果" class="headerlink" title="GRPO 结果"></a>GRPO 结果</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_implementation_from_scratch/format_reward.png" alt="format_reward"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_implementation_from_scratch/tag_count_reward.png" alt="tag_count_reward"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_implementation_from_scratch/accuracy_reward.png" alt="accuracy_reward"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/GRPO_implementation_from_scratch/mean_reward.png" alt="mean_reward"></p>
+<p>整体 reward 曲线算正常。tag 和 format 很快学习到，accuracy 比较难学，且波动也很大。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/02/Reinforcement_learning/GRPO_trainer_reasoning_model/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">GRPO trainer 训练推理模型</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/07/31/Reinforcement_learning/GRPO&amp;DAPO_paper/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">GRPO &amp; DAPO 论文解读</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">GRPO 实现讲解</div>
+		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87-src-prepare-data-py"><span class="nav-text">数据准备 src&#x2F;prepare_data.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86-src-model-utils-py"><span class="nav-text">模型处理 src&#x2F;model_utils.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grpo%E7%9B%B8%E5%85%B3util-src-grpo-utils-py"><span class="nav-text">grpo相关util src&#x2F;grpo_utils.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0-src-reward-py"><span class="nav-text">规则奖励函数 src&#x2F;reward.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grpo-%E4%B8%BB%E5%87%BD%E6%95%B0-src-main-minibatch-py"><span class="nav-text">grpo 主函数 src&#x2F;main_minibatch.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRPO-%E7%BB%93%E6%9E%9C"><span class="nav-text">GRPO 结果</span></a>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Peng Xia</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        49 posts in total
+                    </span>
+                    
+                        <span>
+                            157.4k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
