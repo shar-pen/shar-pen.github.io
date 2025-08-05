@@ -568,11 +568,11 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -647,11 +647,11 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -666,6 +666,76 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/05/09/torch-distributed-series/FSDP/">
+                            FSDP - Fully Sharded Data Parallel
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            FSDP 是 DDP 的一种改进，它晚于 deepspeed 出现，它其实就是 zero-3: 把权重、梯度、优化器全部 sharding 存储。理解起来不难，结合下 NCCL 通信就可以知道他干什么和怎么实现的。记住，FSDP的两个关键点，sharding 和 data parallel。
+sharding
+在深度学习中，shard（分片）指的是把一个整体的数据结构或模型参数拆成多个部分，...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri May 09 2025 22:37:23 GMT+0800">
+                
+                    2025-05-09
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/05/09/torch-distributed-series/FSDP/">Read more<span class="seo-reader-text">FSDP - Fully Sharded Data Parallel</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -864,7 +934,7 @@ reduce scatter
                     
                         
                         <li>
-                            <a href="/categories/agent/">agent</a>&nbsp;
+                            <a href="/categories/Agent/">Agent</a>&nbsp;
                         </li>
                     
                     
@@ -1317,83 +1387,6 @@ LangChain 提供了易于使用的内置工具，并且还允许用户轻松构�
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/05/04/langchain-tutorial-series/08.VectorStore/">
-                            Langchain 入门教程 - 8.向量数据库
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            向量存储的概念指南向量存储是专门设计的数据库，用于通过向量表示（嵌入）来索引和检索信息。
-它们通常用于通过识别语义相似的内容而非依赖精确的关键词匹配，来搜索非结构化数据，如文本、图像和音频。
-为什么向量存储至关重要
-快速高效的搜索
-
-通过正确存储和索引嵌入向量，向量存储能够快速检索相关信息，即使在处理海量数据集时也能高效工作。
-
-应对数据增长的可扩展性
-
-随着数据不断扩展，向量存储必须能够高...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 04 2025 22:43:57 GMT+0800">
-                
-                    2025-05-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Langchain-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">Langchain 入门教程</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Langchain/">Langchain</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/05/04/langchain-tutorial-series/08.VectorStore/">Read more<span class="seo-reader-text">Langchain 入门教程 - 8.向量数据库</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1421,11 +1414,11 @@ LangChain 提供了易于使用的内置工具，并且还允许用户轻松构�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        49 posts in total
+                        50 posts in total
                     </span>
                     
                         <span>
-                            157.4k words in total
+                            162.9k words in total
                         </span>
                     
                 </p>
